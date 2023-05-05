@@ -10,6 +10,15 @@ module.exports = {
             return res.status(400).json({ error: error });
         }
     },
+    // Create Process
+    async createDirect(content) {
+        try {
+            const createProcess = await Process.create(content);
+            return
+        } catch (error) {
+            return
+        }
+    },
 
     // Delete Process
     async deleteProcess(req, res) {
