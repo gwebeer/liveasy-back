@@ -11,7 +11,7 @@ routes.put('/user/:id', userController.updateUser)
 routes.get('/user/:id', userController.getUser)
 
 // Verifica se o e-mail do usuário já está registrado
-routes.get('/user/register/:email', userController.validEmail)
+routes.get('/auth/email/:email', userController.validEmail)
 // Registra um novo usuário
 routes.post('/register/create', userController.registerUser)
 // Autenticação do usuário

@@ -90,11 +90,11 @@ module.exports = {
         try {
             const userInfo = await Users.findOne({ email: req.params.email })
             if (!userInfo) {
-                return res.status(203).json({ msg: 'O e-mail não está cadastrado' })
+                return res.status(203).json({ msg: 'O e-mail informado não está cadastrado.' })
             } else {
                 const checkPassword = await bcrypt.compare(req.params.password, userInfo.password)
                 if (!checkPassword) {
-                    return res.status(203).json({ msg: "A senha não corresponde" })
+                    return res.status(203).json({ msg: "A senha informada está inválida." })
                 }
 
                 try {
