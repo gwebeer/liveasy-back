@@ -1,11 +1,11 @@
-const Process = require('../models/userModel');
+const Process = require('../models/processModel');
 
 module.exports = {
     // Create Process
     async createProcess(req, res) {
         try {
             const createProcess = await Process.create(req.body);
-            return res.json({ processCreate });
+            return res.json({ createProcess });
         } catch (error) {
             return res.status(400).json({ error: error });
         }

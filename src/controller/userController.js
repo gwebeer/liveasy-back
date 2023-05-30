@@ -62,7 +62,6 @@ module.exports = {
     async registerUser(req, res) {
         try {
             req.body.password = await bcrypt.hash(req.body.password, 10)
-
             const userPost = await Users.create(req.body);
             return res.status(201).json({ userPost });
         } catch (error) {
