@@ -1,6 +1,7 @@
 const Users = require('../models/userModel');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer');
 
 module.exports = {
     // Post User
@@ -116,4 +117,68 @@ module.exports = {
             return res.status(400).json({ error });
         }
     },
+
+    async sentEmail(req, res) {
+        try {
+          const validEmail = await Users.findOne({ email: req.params.email });
+          if (validEmail == null) {
+            return res.status(203).json({ msg: 'O e-mail não está cadastrado.' });
+          } else {
+            let mailtransporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                    user: "bochoskifelipe@gmail.com",
+                    pass: "hcllrfvkxbzophcy",
+                }
+            })
+
+            let details = {
+                from: "bochoskifelipe@gmail.com",
+                to: validEmail.email,
+                subject: "Redefinicao de senha",
+                html: `<p>Olá, você solicitou a redefinição de senha.</p>
+                <p>Clique <a href="http://localhost:3000/resetPassword">aqui</a> para redefinir sua senha.</p>`,
+            }
+
+            mailtransporter.sendMail(details, (err) =>{
+                if(err){
+                    console.log("Ocorreu um erro ao enviar o e-mail de redefinição de senha.", err)
+                } else {
+                    console.log("E-mail de redefinição de senha enviado com sucesso.")
+                }
+            })
+          }
+        } catch (error) {
+          console.log('Erro ao pesquisar o e-mail:', error);
+          return res.status(400).json({ error });
+        }
+      },
+      
+      async resetPassword(req, res) {
+        try {
+          const { email, password } = req.body;
+      
+          // Validar entrada
+          if (!email || !password) {
+            return res.status(400).json({ error: "O email e a senha são obrigatórios." });
+          }
+      
+          // Verificar se o email está cadastrado e atualizar a senha
+          const passUpdate = await Users.findOneAndUpdate(
+            { email },
+            { $set: { password: await bcrypt.hash(password, 10) } },
+            { new: true }
+          );
+      
+          if (!passUpdate) {
+            return res.status(404).json({ error: "Usuário não encontrado." });
+          }
+      
+          return res.json(passUpdate);
+        } catch (error) {
+          console.log("Erro ao atualizar a senha", error);
+          return res.status(500).json({ error: "Erro ao atualizar a senha." });
+        }
+      }
+       
 }
