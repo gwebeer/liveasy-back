@@ -16,7 +16,10 @@ routes.get('/auth/email/:email', userController.validEmail)
 routes.post('/register/create', userController.registerUser)
 // Autenticação do usuário
 routes.get('/user/auth/:email/:password', userController.auth)
-
+// Envio de Redefinição de Senha
+routes.get('/user/forgotPassword/:email', userController.sentEmail)
+// Criação de nova senha
+routes.get('/user/resetPassword/:email/:senha' + userController.resetPassword)
 
 // Process CRUD --------------------------------------------------
 routes.post('/process/create', processController.createProcess)
