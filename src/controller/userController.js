@@ -27,13 +27,36 @@ module.exports = {
 
     // Update User
     async updateUser(req, res) {
-        try {
-            const userUpdate = await Users.findOneAndUpdate({ _id: req.params.id }, req.body);
-            return res.json(userUpdate);
-        } catch (error) {
-            console.log("Erro ao atualizar item da coleção Rooms", error)
-            return res.status(400).json({ error });
+        if (req.params.key === "id") {
+            try {
+                const userUpdate = await Users.findOneAndUpdate({ _id: req.params.value }, req.body);
+                return res.json(userUpdate);
+            } catch (error) {
+                console.log("Erro ao atualizar item da coleção Rooms", error)
+                return res.status(400).json({ error });
+            }
         }
+
+        if (req.params.key === "email") {
+            try {
+                const userUpdate = await Users.findOneAndUpdate({ email: req.params.value }, req.body);
+                return res.json(userUpdate);
+            } catch (error) {
+                console.log("Erro ao atualizar item da coleção Rooms", error)
+                return res.status(400).json({ error });
+            }
+        }
+
+
+
+
+        // try {
+        //     const userUpdate = await Users.findOneAndUpdate({ _id: req.params.id }, req.body);
+        //     return res.json(userUpdate);
+        // } catch (error) {
+        //     console.log("Erro ao atualizar item da coleção Rooms", error)
+        //     return res.status(400).json({ error });
+        // }
     },
 
     // Get User(s)
@@ -104,13 +127,13 @@ module.exports = {
                         type: userInfo.type
                     }, secret)
 
-                    return res.status(200).json({ msg: 'Login aprovado', token: token })    
+                    return res.status(200).json({ msg: 'Login aprovado', token: token })
                 } catch (error) {
                     console.log("Erro ao gerar o token", error)
                     return res.status(400).json({ error });
                 }
 
-                
+
             }
         } catch (error) {
             console.log("Email não registrado", error)
@@ -120,65 +143,107 @@ module.exports = {
 
     async sentEmail(req, res) {
         try {
-          const validEmail = await Users.findOne({ email: req.params.email });
-          if (validEmail == null) {
-            return res.status(203).json({ msg: 'O e-mail não está cadastrado.' });
-          } else {
-            let mailtransporter = nodemailer.createTransport({
-                service: "gmail",
-                auth: {
-                    user: "bochoskifelipe@gmail.com",
-                    pass: "hcllrfvkxbzophcy",
-                }
-            })
+            const validEmail = await Users.findOne({ email: req.params.email });
+            if (validEmail == null) {
+                return res.status(203).json({ msg: 'O e-mail não está cadastrado.' });
+            } else {
+                let mailtransporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                        user: "bochoskifelipe@gmail.com",
+                        pass: "hcllrfvkxbzophcy",
+                    }
+                })
 
-            let details = {
-                from: "bochoskifelipe@gmail.com",
-                to: validEmail.email,
-                subject: "Redefinicao de senha",
-                html: `<p>Olá, você solicitou a redefinição de senha.</p>
+                let details = {
+                    from: "bochoskifelipe@gmail.com",
+                    to: validEmail.email,
+                    subject: "Redefinicao de senha",
+                    html: `<p>Olá, você solicitou a redefinição de senha.</p>
                 <p>Clique <a href="http://localhost:3000/resetPassword">aqui</a> para redefinir sua senha.</p>`,
-            }
-
-            mailtransporter.sendMail(details, (err) =>{
-                if(err){
-                    console.log("Ocorreu um erro ao enviar o e-mail de redefinição de senha.", err)
-                } else {
-                    console.log("E-mail de redefinição de senha enviado com sucesso.")
                 }
-            })
-          }
+
+                mailtransporter.sendMail(details, (err) => {
+                    if (err) {
+                        console.log("Ocorreu um erro ao enviar o e-mail de redefinição de senha.", err)
+                    } else {
+                        console.log("E-mail de redefinição de senha enviado com sucesso.")
+                    }
+                })
+            }
         } catch (error) {
-          console.log('Erro ao pesquisar o e-mail:', error);
-          return res.status(400).json({ error });
+            console.log('Erro ao pesquisar o e-mail:', error);
+            return res.status(400).json({ error });
         }
-      },
-      
-      async resetPassword(req, res) {
+    },
+
+    async resetPassword(req, res) {
+        if (req.params.key === "id") {
+            try {
+                const userUpdate = await Users.findOneAndUpdate({ _id: req.params.value }, req.body);
+                return res.json(userUpdate);
+            } catch (error) {
+                console.log("Erro ao atualizar item da coleção Rooms", error)
+                return res.status(400).json({ error });
+            }
+        }
+
+        if (req.params.key === "email") {
+            try {
+                const userUpdate = await Users.findOneAndUpdate({ email: req.params.value }, req.body);
+                return res.json(userUpdate);
+            } catch (error) {
+                console.log("Erro ao atualizar item da coleção Rooms", error)
+                return res.status(400).json({ error });
+            }
+        }
+
+
         try {
-          const { email, password } = req.body;
-      
-          // Validar entrada
-          if (!email || !password) {
-            return res.status(400).json({ error: "O email e a senha são obrigatórios." });
-          }
-      
-          // Verificar se o email está cadastrado e atualizar a senha
-          const passUpdate = await Users.findOneAndUpdate(
-            { email },
-            { $set: { password: await bcrypt.hash(password, 10) } },
-            { new: true }
-          );
-      
-          if (!passUpdate) {
-            return res.status(404).json({ error: "Usuário não encontrado." });
-          }
-      
-          return res.json(passUpdate);
+            const userUpdate = await Users.findOneAndUpdate({ _id: req.params.email }, req.body);
+            return res.json(userUpdate);
         } catch (error) {
-          console.log("Erro ao atualizar a senha", error);
-          return res.status(500).json({ error: "Erro ao atualizar a senha." });
+            console.log("Erro ao atualizar item da coleção Rooms", error)
+            return res.status(400).json({ error });
         }
-      }
-       
+    },
+
+    //   async resetPassword(req, res) {
+    // try {
+    //     const userUpdate = await Users.findOneAndUpdate({ _id: req.params.email }, req.body);
+    //     return res.json(userUpdate);
+    // } catch (error) {
+    //     console.log("Erro ao atualizar item da coleção Rooms", error)
+    //     return res.status(400).json({ error });
+    // }
+
+
+
+    // try {
+    //   const email = req.params.email;
+    //   const password = req.params.senha;
+
+    //   // Validar entrada
+    //   if (!email || !password) {
+    //     return res.status(400).json({ error: "O email e a senha são obrigatórios." });
+    //   }
+
+    //   // Verificar se o email está cadastrado e atualizar a senha
+    //   const passUpdate = await Users.findOneAndUpdate(
+    //     { email },
+    //     { $set: { password: await bcrypt.hash(password, 10) } },
+    //     { new: true }
+    //   );
+
+    //   if (!passUpdate) {
+    //     return res.status(404).json({ error: "Usuário não encontrado." });
+    //   }
+
+    //   return res.json(passUpdate);
+    // } catch (error) {
+    //   console.log("Erro ao atualizar a senha", error);
+    //   return res.status(500).json({ error: "Erro ao atualizar a senha." });
+    // }
+    //   }
+
 }
