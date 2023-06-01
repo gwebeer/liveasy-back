@@ -45,7 +45,7 @@ module.exports = {
             }
         } else {
             try {
-                const getItem = await PersonalList.findOne({ _id: req.params.id })
+                const getItem = await PersonalList.find({ proccess: req.params.id })
                 return res.json(getItem);
             } catch (error) {
                 console.log("Erro ao obter o item requisitado", error)

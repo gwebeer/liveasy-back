@@ -26,8 +26,9 @@ routes.get('/user/forgotPassword/:email', userController.sentEmail)
 // Process CRUD --------------------------------------------------
 routes.post('/process/create', processController.createProcess)
 routes.delete('/process/:id', processController.deleteProcess)
-routes.put('/process/:id', processController.updateProcess)
+routes.put('/process/:key/:value', processController.updateProcess)
 routes.get('/process/:id', processController.getProcess)
+routes.get('/process/user/:id', processController.getUserProcess)
 
 
 

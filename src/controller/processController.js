@@ -33,6 +33,28 @@ module.exports = {
 
     // Update Process
     async updateProcess(req, res) {
+        if (req.params.key === "user") {
+            try {
+                const proccessUpdate = await Process.findOneAndUpdate({ user: req.params.value }, req.body);
+                return res.json(proccessUpdate);
+            } catch (error) {
+                console.log("Erro ao atualizar item da coleção Rooms", error)
+                return res.status(400).json({ error });
+            }
+        }
+
+        if (req.params.key === "id") {
+            try {
+                const proccessUpdate = await Process.findOneAndUpdate({ _id: req.params.value }, req.body);
+                return res.json(proccessUpdate);
+            } catch (error) {
+                console.log("Erro ao atualizar item da coleção Rooms", error)
+                return res.status(400).json({ error });
+            }
+        }
+
+
+
         try {
             const updateProcess = await Process.findOneAndUpdate({ _id: req.params.id }, req.body);
             return res.json(updateProcess);
@@ -62,5 +84,16 @@ module.exports = {
             }
         }
 
+    },
+
+    async getUserProcess(req, res) {
+        try {
+            const getProcess = await Process.findOne({ user: req.params.id })
+            return res.json(getProcess);
+        } catch (error) {
+            console.log("Erro ao obter o detalhe do processo", error)
+            return res.status(400).json({ error });
+        }
     }
+
 }

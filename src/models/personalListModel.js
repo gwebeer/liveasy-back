@@ -7,8 +7,7 @@ const PersonalListSchema = new mongoose.Schema({
     category: { type: String, required: true },
     value: { type: String, required: true },
     bought: { type: Boolean, required: true },
-    
-        
+    proccess: { type: mongoose.Schema.Types.ObjectId, ref: "moves", required: true },
 }, { timestamps: {} });
 
 module.exports = mongoose.model('personal-item', PersonalListSchema);
