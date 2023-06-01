@@ -29,6 +29,7 @@ module.exports = {
     async updateUser(req, res) {
         if (req.params.key === "id") {
             try {
+                req.body.password = await bcrypt.hash(req.body.password, 10)
                 const userUpdate = await Users.findOneAndUpdate({ _id: req.params.value }, req.body);
                 return res.json(userUpdate);
             } catch (error) {
@@ -39,6 +40,7 @@ module.exports = {
 
         if (req.params.key === "email") {
             try {
+                req.body.password = await bcrypt.hash(req.body.password, 10)
                 const userUpdate = await Users.findOneAndUpdate({ email: req.params.value }, req.body);
                 return res.json(userUpdate);
             } catch (error) {
