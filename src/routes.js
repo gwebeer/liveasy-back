@@ -3,8 +3,8 @@ const routes = express.Router();
 
 const userController = require('./controller/userController');
 const processController = require('./controller/processController');
-const DefaultListController = require('./controller/defaultListController');
 const defaultListController = require('./controller/defaultListController');
+const personalListController = require('./controller/personalListController');
 
 // User CRUD --------------------------------------------------
 routes.post('/user/create', userController.postUser)
@@ -34,8 +34,14 @@ routes.get('/process/:id', processController.getProcess)
 // Default List CRUD --------------------------------------------------
 routes.post('/default-item/create', defaultListController.createItem)
 routes.delete('/default-item/:id', defaultListController.deleteItem)
-routes.put('/default-item/:key/:value', defaultListController.updateItem)
+routes.put('/default-item/:id', defaultListController.updateItem)
 routes.get('/default-item/:id', defaultListController.getItem)
+
+// Personal List CRUD --------------------------------------------------
+routes.post('/list/create', personalListController.createItem)
+routes.delete('/list/:id', personalListController.deleteItem)
+routes.put('/list/:id', personalListController.updateItem)
+routes.get('/list/:id', personalListController.getItem)
 
 
 module.exports = routes;
