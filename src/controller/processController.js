@@ -5,7 +5,7 @@ module.exports = {
     async createProcess(req, res) {
         try {
             const createProcess = await Process.create(req.body);
-            return res.json({ createProcess });
+            return res.status(201).json({ createProcess });
         } catch (error) {
             return res.status(400).json({ error: error });
         }
