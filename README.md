@@ -1,35 +1,38 @@
-# Running Back-End
+# Como rodar Back-End
 
-## How to Activate
+Para poder rodar o _back-end_ é necessário criar um arquivo <code>.env</code> no diretório principal do projeto.
 
-In the project directory, you can run:
+Ex.:
 
-### `npm start`
+```
+- liveasy-back/
+    - src/
+    - .env
+    - ...
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:4000](http://localhost:4000) to view it in your browser.
+## Configurando <code>.env</code>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Abra o arquivo <code>.env</code> e insira os seguintes dados:
 
-### `npm test`
+```
+DB_CONNECTION_STRING = <db_connection>
+PORT = <port>
+SECRET_TOKEN = <token>
+```
 
-Launches the test runner in the interactive watch mode.
+Altere os valores <code>db_connection</code>, <code>port</code> e <code>token</code>. 
 
-### `npm run build`
+## Ativando o Back-End
 
-Builds the app for production to the `build` folder.
+No diretório principal do projeto, abra um terminal e rode os seguintes comandos:
 
-### `npm run eject`
+Esse comando irá baixar todas as dependências do programa:
+-  `npm install`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Após instaladas as dependências e configurado o <code>.env</code>, execute o esse comando: 
+- `npm start`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Ativando o Front-End
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Activate Front-end
-
-Access this link and follow the instructions: [LivEasy: Front-End](https://github.com/gwebeer/liveasy-front#readme)
+Acesse o [repositório](https://github.com/gwebeer/liveasy-front) do Front-End e siga as [instruções](https://github.com/gwebeer/liveasy-front#readme) para ativá-lo.
