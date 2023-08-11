@@ -4,122 +4,112 @@ const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer');
 
 module.exports = {
-    // Post User
-    async postUser(req, res) {
+    
+    async createUser(request, response) {
         try {
-            const userPost = await Users.create(req.body);
-            return res.json({ userPost });
+            const createUser = await Users.create(request.body);
+            return response.json({ createUser });
         } catch (error) {
-            return res.status(400).json({ error: error });
+            return response.status(400).json({ error: error });
         }
     },
 
-    // Delete User
-    async deleteUser(req, res) {
+    async deleteUser(request, response) {
         try {
-            const userDelete = await Users.findOneAndDelete({ _id: req.params.id });
-            return res.json(userDelete);
+            const deleteUser = await Users.findOneAndDelete({ _id: request.params.id });
+            return response.json(deleteUser);
         } catch (error) {
             console.log("Erro ao deletar item da coleção Users", error)
-            return res.status(400).json({ error });
+            return response.status(400).json({ error });
         }
     },
 
-    // Update User
-    async updateUser(req, res) {
-        if (req.params.key === "id") {
+    async updateUser(request, response) {
+        if (request.params.key === "id") {
             try {
-                req.body.password = await bcrypt.hash(req.body.password, 10)
-                const userUpdate = await Users.findOneAndUpdate({ _id: req.params.value }, req.body);
-                return res.json(userUpdate);
+                request.body.password = await bcrypt.hash(request.body.password, 10)
+                const updateUser = await Users.findOneAndUpdate({ _id: request.params.value }, request.body);
+                return response.json(updateUser);
             } catch (error) {
                 console.log("Erro ao atualizar item da coleção Rooms", error)
-                return res.status(400).json({ error });
+                return response.status(400).json({ error });
             }
         }
 
-        if (req.params.key === "email") {
+        if (request.params.key === "email") {
             try {
-                req.body.password = await bcrypt.hash(req.body.password, 10)
-                const userUpdate = await Users.findOneAndUpdate({ email: req.params.value }, req.body);
-                return res.json(userUpdate);
+                request.body.password = await bcrypt.hash(request.body.password, 10)
+                const updateUser = await Users.findOneAndUpdate({ email: request.params.value }, request.body);
+                return response.json(updateUser);
             } catch (error) {
                 console.log("Erro ao atualizar item da coleção Rooms", error)
-                return res.status(400).json({ error });
+                return response.status(400).json({ error });
             }
         }
-
-
-
 
         // try {
         //     const userUpdate = await Users.findOneAndUpdate({ _id: req.params.id }, req.body);
-        //     return res.json(userUpdate);
+        //     return response.json(userUpdate);
         // } catch (error) {
         //     console.log("Erro ao atualizar item da coleção Rooms", error)
-        //     return res.status(400).json({ error });
+        //     return response.status(400).json({ error });
         // }
     },
 
-    // Get User(s)
-    async getUser(req, res) {
-        if (req.params.id == "all") {
+    async getUser(request, response) {
+        if (request.params.id == "all") {
             try {
                 const getUsers = await Users.find()
-                return res.json(getUsers);
+                return response.json(getUsers);
             } catch (error) {
                 console.log("Erro ao obter todos os usuários", error)
-                return res.status(400).json({ error });
+                return response.status(400).json({ error });
             }
         } else {
             try {
-                const getUsers = await Users.findOne({ _id: req.params.id })
-                return res.json(getUsers);
+                const getUsers = await Users.findOne({ _id: request.params.id })
+                return response.json(getUsers);
             } catch (error) {
                 console.log("Erro ao obter o detalhe do usuário", error)
-                return res.status(400).json({ error });
+                return response.status(400).json({ error });
             }
         }
 
     },
 
-
-    // Register User
-    async registerUser(req, res) {
+    async registerUser(request, response) {
         try {
-            req.body.password = await bcrypt.hash(req.body.password, 10)
-            const userPost = await Users.create(req.body);
-            return res.status(201).json({ userPost });
+            request.body.password = await bcrypt.hash(request.body.password, 10)
+            const registerUser = await Users.create(request.body);
+            return response.status(201).json({ registerUser });
         } catch (error) {
-            return res.status(400).json({ error: error });
+            return response.status(400).json({ error: error });
         }
     },
 
-    // Valida se o e-mail já está cadastrado no banco de dados
-    async validEmail(req, res) {
+    async validateEmail(request, response) {
         try {
-            const validEmail = await Users.findOne({ email: req.params.email })
-            if (validEmail == null) {
-                return res.status(200).json({ msg: 'O e-mail não está cadastrado ' })
+            const validateEmail = await Users.findOne({ email: request.params.email })
+            if (validateEmail == null) {
+                return response.status(200).json({ msg: 'O e-mail não está cadastrado ' })
             } else {
-                return res.status(203).json({ msg: 'O e-mail já está cadastrado' })
+                return response.status(203).json({ msg: 'O e-mail já está cadastrado' })
             }
         } catch (error) {
             console.log("Email não registrado", error)
-            return res.status(400).json({ error });
+            return response.status(400).json({ error });
         }
     },
 
-    // Autenticação de usuário
-    async auth(req, res) {
+    async authenticateUser(request, response) {
         try {
-            const userInfo = await Users.findOne({ email: req.params.email })
+            const userInfo = await Users.findOne({ email: request.params.email })
             if (!userInfo) {
-                return res.status(203).json({ msg: 'O e-mail informado não está cadastrado.' })
+                return response.status(203).json({ msg: 'O e-mail informado não está cadastrado.' })
             } else {
-                const checkPassword = await bcrypt.compare(req.params.password, userInfo.password)
+                const checkPassword = await bcrypt.compare(request.params.password, userInfo.password)
                 if (!checkPassword) {
-                    return res.status(203).json({ msg: "A senha informada está inválida." })
+                    return response.status(203).json({ msg: "A senha informada está inválida." })
                 }
 
                 try {
@@ -129,25 +119,23 @@ module.exports = {
                         type: userInfo.type
                     }, secret)
 
-                    return res.status(200).json({ msg: 'Login aprovado', token: token })
+                    return response.status(200).json({ msg: 'Login aprovado', token: token })
                 } catch (error) {
                     console.log("Erro ao gerar o token", error)
-                    return res.status(400).json({ error });
+                    return response.status(400).json({ error });
                 }
-
-
             }
         } catch (error) {
             console.log("Email não registrado", error)
-            return res.status(400).json({ error });
+            return response.status(400).json({ error });
         }
     },
 
-    async sentEmail(req, res) {
+    async forgotPassword(request, response) {
         try {
-            const validEmail = await Users.findOne({ email: req.params.email });
-            if (validEmail == null) {
-                return res.status(203).json({ msg: 'O e-mail não está cadastrado.' });
+            const user = await Users.findOne({ email: request.params.email });
+            if (user == null) {
+                return response.status(203).json({ msg: 'O e-mail não está cadastrado.' });
             } else {
                 let mailtransporter = nodemailer.createTransport({
                     service: "gmail",
@@ -159,7 +147,7 @@ module.exports = {
 
                 let details = {
                     from: "bochoskifelipe@gmail.com",
-                    to: validEmail.email,
+                    to: user.email,
                     subject: "Redefinicao de senha",
                     html: `<p>Olá, você solicitou a redefinição de senha.</p>
                 <p>Clique <a href="http://localhost:3000/resetPassword">aqui</a> para redefinir sua senha.</p>`,
@@ -175,42 +163,41 @@ module.exports = {
             }
         } catch (error) {
             console.log('Erro ao pesquisar o e-mail:', error);
-            return res.status(400).json({ error });
+            return response.status(400).json({ error });
         }
     },
 
-    async resetPassword(req, res) {
-        if (req.params.key === "id") {
+    async resetPassword(request, response) {
+        if (request.params.key === "id") {
             try {
-                const userUpdate = await Users.findOneAndUpdate({ _id: req.params.value }, req.body);
-                return res.json(userUpdate);
+                const userUpdate = await Users.findOneAndUpdate({ _id: request.params.value }, request.body);
+                return response.json(userUpdate);
             } catch (error) {
                 console.log("Erro ao atualizar item da coleção Rooms", error)
-                return res.status(400).json({ error });
+                return response.status(400).json({ error });
             }
         }
 
-        if (req.params.key === "email") {
+        if (request.params.key === "email") {
             try {
-                const userUpdate = await Users.findOneAndUpdate({ email: req.params.value }, req.body);
-                return res.json(userUpdate);
+                const userUpdate = await Users.findOneAndUpdate({ email: request.params.value }, request.body);
+                return response.json(userUpdate);
             } catch (error) {
                 console.log("Erro ao atualizar item da coleção Rooms", error)
-                return res.status(400).json({ error });
+                return response.status(400).json({ error });
             }
         }
-
 
         try {
-            const userUpdate = await Users.findOneAndUpdate({ _id: req.params.email }, req.body);
-            return res.json(userUpdate);
+            const userUpdate = await Users.findOneAndUpdate({ _id: request.params.email }, request.body);
+            return response.json(userUpdate);
         } catch (error) {
             console.log("Erro ao atualizar item da coleção Rooms", error)
-            return res.status(400).json({ error });
+            return response.status(400).json({ error });
         }
     },
 
-    //   async resetPassword(req, res) {
+    //   async resetPassword(request, res) {
     // try {
     //     const userUpdate = await Users.findOneAndUpdate({ _id: req.params.email }, req.body);
     //     return res.json(userUpdate);
