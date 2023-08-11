@@ -78,7 +78,7 @@ routes.delete('/process/:id', processController.deleteProcess)
 // User CRUD --------------------------------------------------
 routes.post('/user/create', userController.createUser)
 routes.get('/user/:id', userController.getUser)
-routes.get('/users', userController.getUsers)
+// routes.get('/users', userController.getUsers)
 routes.put('/user/:key/:value', userController.updateUser)
 routes.delete('/user/:id', userController.deleteUser)
 
