@@ -1,70 +1,62 @@
 const express = require('express');
 const routes = express.Router();
 
-const calendarController = require('./controller/calendarController');
+const calendarItemController = require('./controller/calendarItemController');
 const dashboardController = require('./controller/dashboardController');
 const defaultListController = require('./controller/defaultListController');
-const itemListController = require('./controller/itemListController');
+const itemController = require('./controller/itemController');
 const opinionAboutPlaceController = require('./controller/opinionAboutPlaceController');
 const placeController = require('./controller/placeController');
-const planningCostController = require('./controller/planningCostController');
+const planningCostItemController = require('./controller/planningCostItemController');
 const serviceController = require('./controller/serviceController');
 const processController = require('./controller/processController');
 const userController = require('./controller/userController');
 
-// Calendar CRUD ---------------------------------------------
-routes.post('/calendar/create', calendarController.createCalendar)
-routes.get('/calendar/:id', calendarController.getCalendar)
-routes.get('/calendars', calendarController.getCalendars)
-routes.put('/calendar/:id', calendarController.updateCalendar)
-routes.delete('/calendar/:id', calendarController.deleteCalendar)
+// CalendarItem CRUD ---------------------------------------------
+routes.post('/calendar/item/create', calendarItemController.createCalendarItem)
+routes.get('/calendar/item/:id', calendarItemController.getCalendarItem)
+routes.put('/calendar/item/:id', calendarItemController.updateCalendarItem)
+routes.delete('/calendar/item/:id', calendarItemController.deleteCalendarItem)
 
 // Dashboard CRUD ---------------------------------------------
 routes.post('/dashboard/create', dashboardController.createDashboard)
 routes.get('/dashboard/:id', dashboardController.getDashboard)
-routes.get('/dashboards', dashboardController.getDashboards)
 routes.put('/dashboard/:id', dashboardController.updateDashboard)
 routes.delete('/dashboard/:id', dashboardController.deleteDashboard)
 
 // Default List CRUD --------------------------------------------------
 routes.post('/default-item/create', defaultListController.createItem)
 routes.get('/default-item/:id', defaultListController.getItem)
-routes.get('/default-items/:id', defaultListController.getItems)
 routes.put('/default-item/:id', defaultListController.updateItem)
 routes.delete('/default-item/:id', defaultListController.deleteItem)
 
 // Item List CRUD --------------------------------------------------
-routes.post('/item/create', itemListController.createItem)
-routes.get('/item/:id', itemListController.getItem)
-routes.get('/items', itemListController.getItems)
-routes.put('/item/:id', itemListController.updateItem)
-routes.delete('/item/:id', itemListController.deleteItem)
+routes.post('/item/create', itemController.createItem)
+routes.get('/item/:id', itemController.getItem)
+routes.put('/item/:id', itemController.updateItem)
+routes.delete('/item/:id', itemController.deleteItem)
 
 // OpinionAboutPlace CRUD ---------------------------------------------
-routes.post('/place/opinion/create', opinionAboutPlaceController.createOpinionAboutPlace)
-routes.get('/place/opinion/:id', opinionAboutPlaceController.getOpinionAboutPlace)
-routes.get('/place/opinions', opinionAboutPlaceController.getOpinionAboutPlaces)
-routes.put('/place/opinion/:id', opinionAboutPlaceController.updateOpinionAboutPlace)
-routes.delete('/place/opinion/:id', opinionAboutPlaceController.deleteOpinionAboutPlace)
+routes.post('/opinion_about_place/create', opinionAboutPlaceController.createOpinionAboutPlace)
+routes.get('/opinion_about_place/:id', opinionAboutPlaceController.getOpinionAboutPlace)
+routes.put('/opinion_about_place/:id', opinionAboutPlaceController.updateOpinionAboutPlace)
+routes.delete('/opinion_about_place/:id', opinionAboutPlaceController.deleteOpinionAboutPlace)
 
 // Place CRUD ---------------------------------------------
 routes.post('/place/create', placeController.createPlace)
 routes.get('/place/:id', placeController.getPlace)
-routes.get('/place/:id', placeController.getPlaces)
 routes.put('/place/:id', placeController.updatePlace)
 routes.delete('/place/:id', placeController.deletePlace)
 
-// PlanningCost CRUD ---------------------------------------------
-routes.post('/cost/create', planningCostController.createPlanningCost)
-routes.get('/cost/:id', planningCostController.getPlanningCost)
-routes.get('/costs', planningCostController.getPlanningCosts)
-routes.put('/cost/:id', planningCostController.updatePlanningCost)
-routes.delete('/cost/:id', planningCostController.deletePlanningCost)
+// PlanningCostItem CRUD ---------------------------------------------
+routes.post('/cost/create', planningCostItemController.createPlanningCostItem)
+routes.get('/cost/:id', planningCostItemController.getPlanningCostItem)
+routes.put('/cost/:id', planningCostItemController.updatePlanningCostItem)
+routes.delete('/cost/:id', planningCostItemController.deletePlanningCostItem)
 
 // Service CRUD ---------------------------------------------
 routes.post('/service/create', serviceController.createService)
 routes.get('/service/:id', serviceController.getService)
-routes.get('/services', serviceController.getServices)
 routes.put('/service/:id', serviceController.updateService)
 routes.delete('/service/:id', serviceController.deleteService)
 
@@ -78,7 +70,6 @@ routes.delete('/process/:id', processController.deleteProcess)
 // User CRUD --------------------------------------------------
 routes.post('/user/create', userController.createUser)
 routes.get('/user/:id', userController.getUser)
-// routes.get('/users', userController.getUsers)
 routes.put('/user/:key/:value', userController.updateUser)
 routes.delete('/user/:id', userController.deleteUser)
 
