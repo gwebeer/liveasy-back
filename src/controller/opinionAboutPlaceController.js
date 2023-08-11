@@ -3,6 +3,10 @@ const OpinionAboutPlace = require("../models/opinionAbouPlaceModel");
 module.exports = {
 
     async createOpinionAboutPlace(request, response) {
+        /* 
+            #swagger.tags = ["opinionAboutPlaceController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const createOpinionAboutPlace = await OpinionAboutPlace.create(request.body);
             return response.status(201).json({ createOpinionAboutPlace });
@@ -12,6 +16,10 @@ module.exports = {
     },
 
     async getOpinionAboutPlace(request, response) {
+        /* 
+            #swagger.tags = ["opinionAboutPlaceController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getOpinionAboutPlace = await OpinionAboutPlace.findOne({ _id: request.params.id })
             return response.json(getOpinionAboutPlace);
@@ -22,6 +30,10 @@ module.exports = {
     },
 
     async getOpinionAboutPlaces(request, response) {
+        /* 
+            #swagger.tags = ["opinionAboutPlaceController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getOpinionAboutPlaces = await OpinionAboutPlace.find()
             return response.json(getOpinionAboutPlaces);
@@ -32,6 +44,10 @@ module.exports = {
     },
 
     async updateOpinionAboutPlace(request, response) {
+        /* 
+            #swagger.tags = ["opinionAboutPlaceController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const createOpinionAboutPlace = await OpinionAboutPlace.findOneAndUpdate({ _id: request.params.id }, request.body);
             return response.json(createOpinionAboutPlace)
@@ -42,6 +58,10 @@ module.exports = {
     },
 
     async deleteOpinionAboutPlace(request, response) {
+        /* 
+            #swagger.tags = ["opinionAboutPlaceController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const deleteOpinionAboutPlace = await OpinionAboutPlace.findOneAndDelete({ _id: request.params.id });
             return response.json(deleteOpinionAboutPlace);

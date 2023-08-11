@@ -3,6 +3,10 @@ const DefaultList = require('../models/defaultListModel');
 module.exports = {
     
     async createItem(request, response) {
+        /* 
+            #swagger.tags = ["defaultListController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const createItem = await DefaultList.create(request.body);
             return response.json({ createItem });
@@ -12,6 +16,10 @@ module.exports = {
     },
 
     async getItem(request, response) {
+        /* 
+            #swagger.tags = ["defaultListController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getItem = await DefaultList.findOne({ _id: request.params.id })
             return response.json(getItem);
@@ -22,6 +30,10 @@ module.exports = {
     },
 
     async getItems(request, response) {
+        /* 
+            #swagger.tags = ["defaultListController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getItem = await DefaultList.find()
             return response.json(getItem);
@@ -32,6 +44,10 @@ module.exports = {
     },
     
     async updateItem(request, response) {
+        /* 
+            #swagger.tags = ["defaultListController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const updateItem = await DefaultList.findOneAndUpdate({ _id: request.params.id }, request.body);
             return response.json(updateItem);
@@ -42,6 +58,10 @@ module.exports = {
     },
     
     async deleteItem(request, response) {
+        /* 
+            #swagger.tags = ["defaultListController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const deleteItem = await DefaultList.findOneAndDelete({ _id: request.params.id });
             return response.json(deleteItem);

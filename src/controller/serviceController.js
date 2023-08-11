@@ -3,6 +3,10 @@ const Service = require("../models/serviceModel");
 module.exports = {
  
     async createService(request, response) {
+        /* 
+            #swagger.tags = ["serviceController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const createService = await Service.create(request.body);
             return response.status(201).json({ createService });
@@ -12,6 +16,10 @@ module.exports = {
     },
 
     async getService(request, response) {
+        /* 
+            #swagger.tags = ["serviceController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getService = await Service.findOne({ _id: request.params.id })
             return response.json(getService);
@@ -22,6 +30,10 @@ module.exports = {
     },
 
     async getServices(request, response) {
+        /* 
+            #swagger.tags = ["serviceController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getServices = await Service.find()
             return response.json(getServices);
@@ -32,6 +44,10 @@ module.exports = {
     },
     
     async updateService(request, response) {
+        /* 
+            #swagger.tags = ["serviceController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const updateService = await Service.findOneAndUpdate({ user: request.params.value }, request.body);
             return response.json(updateService);
@@ -42,6 +58,10 @@ module.exports = {
     },
     
     async deleteService(request, response) {
+        /* 
+            #swagger.tags = ["serviceController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const deleteService = await Service.delete({ _id: request.params.id})
             return response.json(deleteService)

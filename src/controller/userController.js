@@ -6,6 +6,10 @@ const nodemailer = require('nodemailer');
 module.exports = {
     
     async createUser(request, response) {
+        /* 
+            #swagger.tags = ["userController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const createUser = await Users.create(request.body);
             return response.json({ createUser });
@@ -15,6 +19,10 @@ module.exports = {
     },
 
     async deleteUser(request, response) {
+        /* 
+            #swagger.tags = ["userController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const deleteUser = await Users.findOneAndDelete({ _id: request.params.id });
             return response.json(deleteUser);
@@ -25,6 +33,10 @@ module.exports = {
     },
 
     async updateUser(request, response) {
+        /* 
+            #swagger.tags = ["userController"]
+            #swagger.description = "Description here..."
+        */
         if (request.params.key === "id") {
             try {
                 request.body.password = await bcrypt.hash(request.body.password, 10)
@@ -57,6 +69,10 @@ module.exports = {
     },
 
     async getUser(request, response) {
+        /* 
+            #swagger.tags = ["userController"]
+            #swagger.description = "Description here..."
+        */
         if (request.params.id == "all") {
             try {
                 const getUsers = await Users.find()
@@ -78,6 +94,10 @@ module.exports = {
     },
 
     async registerUser(request, response) {
+        /* 
+            #swagger.tags = ["userController"]
+            #swagger.description = "Description here..."
+        */
         try {
             request.body.password = await bcrypt.hash(request.body.password, 10)
             const registerUser = await Users.create(request.body);
@@ -88,6 +108,10 @@ module.exports = {
     },
 
     async validateEmail(request, response) {
+        /* 
+            #swagger.tags = ["userController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const validateEmail = await Users.findOne({ email: request.params.email })
             if (validateEmail == null) {
@@ -102,6 +126,10 @@ module.exports = {
     },
 
     async authenticateUser(request, response) {
+        /* 
+            #swagger.tags = ["userController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const userInfo = await Users.findOne({ email: request.params.email })
             if (!userInfo) {
@@ -132,6 +160,10 @@ module.exports = {
     },
 
     async forgotPassword(request, response) {
+        /* 
+            #swagger.tags = ["userController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const user = await Users.findOne({ email: request.params.email });
             if (user == null) {
@@ -168,6 +200,10 @@ module.exports = {
     },
 
     async resetPassword(request, response) {
+        /* 
+            #swagger.tags = ["userController"]
+            #swagger.description = "Description here..."
+        */
         if (request.params.key === "id") {
             try {
                 const userUpdate = await Users.findOneAndUpdate({ _id: request.params.value }, request.body);

@@ -3,6 +3,10 @@ const Process = require('../models/processModel');
 module.exports = {
     
     async createProcess(request, response) {
+        /* 
+            #swagger.tags = ["processController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const createProcess = await Process.create(request.body);
             return response.status(201).json({ createProcess });
@@ -12,6 +16,10 @@ module.exports = {
     },
     
     async getProcess(request, response) {
+        /* 
+            #swagger.tags = ["processController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getProcess = await Process.findOne({ _id: request.params.id })
             return response.json(getProcess);
@@ -22,6 +30,10 @@ module.exports = {
     },
     
     async getProcesses(request, response) {
+        /* 
+            #swagger.tags = ["processController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getProcesses = await Process.find()
             return response.json(getProcesses);
@@ -32,6 +44,10 @@ module.exports = {
     },
     
     async getUserProcess(request, response) {
+        /* 
+            #swagger.tags = ["processController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getProcess = await Process.findOne({ user: request.params.id })
             return response.json(getProcess);
@@ -42,6 +58,10 @@ module.exports = {
     },
     
     async updateProcess(request, response) {
+        /* 
+            #swagger.tags = ["processController"]
+            #swagger.description = "Description here..."
+        */
         if (request.params.key === "user") {
             try {
                 const proccessUpdate = await Process.findOneAndUpdate({ user: request.params.value }, request.body);
@@ -72,6 +92,10 @@ module.exports = {
     },
     
     async deleteProcess(request, response) {
+        /* 
+            #swagger.tags = ["processController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const deleteProcess = await Process.findOneAndDelete({ _id: request.params.id });
             return response.json(deleteProcess);

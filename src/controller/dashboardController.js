@@ -3,6 +3,10 @@ const Dashboard = require("../models/dashboardModel");
 module.exports = {
     
     async createDashboard(request, response) {
+        /* 
+            #swagger.tags = ["dashboardController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const createDashboard = await Dashboard.create(request.body);
             return response.json({ createDashboard });
@@ -12,6 +16,10 @@ module.exports = {
     },
 
     async getDashboard(request, response) {
+        /* 
+            #swagger.tags = ["dashboardController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getDashboard = await Dashboard.findOne({ _id: request.params.id })
             return response.json(getDashboard);
@@ -22,6 +30,10 @@ module.exports = {
     },
 
     async getDashboards(request, response) {
+        /* 
+            #swagger.tags = ["dashboardController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getDashboard = await Dashboard.find()
             return response.json(getDashboard);
@@ -32,6 +44,10 @@ module.exports = {
     },
 
     async getDashboards(request, response) {
+        /* 
+            #swagger.tags = ["dashboardController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getDashboards = await Dashboard.find()
             return response.json(getDashboards);
@@ -42,6 +58,10 @@ module.exports = {
     },
 
     async updateDashboard(request, response) {
+        /* 
+            #swagger.tags = ["dashboardController"]
+            #swagger.description = "Description here..."
+        */
         if (request.params.key === "id") {
             try {
                 const updateDashboard = await Dashboard.findOneAndUpdate({ _id: request.params.value }, request.body);
@@ -72,6 +92,10 @@ module.exports = {
     },
 
     async deleteDashboard(request, response) {
+        /* 
+            #swagger.tags = ["dashboardController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const deleteDashboard = await Dashboard.findOneAndDelete({ _id: request.params.id });
             return response.json(deleteDashboard);

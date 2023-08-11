@@ -3,6 +3,10 @@ const PlanningCost = require("../models/planningCostModel");
 module.exports = {
     
     async createPlanningCost(request, response) {
+        /* 
+            #swagger.tags = ["planningCostController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const createPlanningCost = await PlanningCost.create(request.body);
             return response.json({ createPlanningCost });
@@ -12,6 +16,10 @@ module.exports = {
     },
 
     async getPlanningCost(request, response) {
+        /* 
+            #swagger.tags = ["planningCostController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getPlanningCost = await PlanningCost.findOne({ _id: request.params.id })
             return response.json(getPlanningCost);
@@ -22,6 +30,10 @@ module.exports = {
     },
 
     async getPlanningCosts(request, response) {
+        /* 
+            #swagger.tags = ["planningCostController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getPlanningCosts = await PlanningCost.find()
             return response.json(getPlanningCosts);
@@ -32,6 +44,10 @@ module.exports = {
     },
 
     async updatePlanningCost(request, response) {
+        /* 
+            #swagger.tags = ["planningCostController"]
+            #swagger.description = "Description here..."
+        */
         if (request.params.key === "id") {
             try {
                 const updatePlanningCost = await PlanningCost.findOneAndUpdate({ _id: request.params.value }, request.body);
@@ -62,6 +78,10 @@ module.exports = {
     },
 
     async deletePlanningCost(request, response) {
+        /* 
+            #swagger.tags = ["planningCostController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const deletePlanningCost = await PlanningCost.findOneAndDelete({ _id: request.params.id });
             return response.json(deletePlanningCost);

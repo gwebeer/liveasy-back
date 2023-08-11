@@ -3,6 +3,10 @@ const Place = require("../models/placeModel");
 module.exports = {
     
     async createPlace(request, response) {
+        /* 
+            #swagger.tags = ["placeController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const createPlace = await Place.create(request.body);
             return response.json({ createPlace });
@@ -12,6 +16,10 @@ module.exports = {
     },
 
     async getPlace(request, response) {
+        /* 
+            #swagger.tags = ["placeController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getPlace = await Place.findOne({ _id: request.params.id })
             return response.json(getPlace);
@@ -22,6 +30,10 @@ module.exports = {
     },
 
     async getPlaces(request, response) {
+        /* 
+            #swagger.tags = ["placeController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const getPlaces = await Place.find()
             return response.json(getPlaces);
@@ -32,6 +44,10 @@ module.exports = {
     },
 
     async updatePlace(request, response) {
+        /* 
+            #swagger.tags = ["placeController"]
+            #swagger.description = "Description here..."
+        */
         if (request.params.key === "id") {
             try {
                 const updatePlace = await Place.findOneAndUpdate({ _id: request.params.value }, request.body);
@@ -62,6 +78,10 @@ module.exports = {
     },
 
     async deletePlace(request, response) {
+        /* 
+            #swagger.tags = ["placeController"]
+            #swagger.description = "Description here..."
+        */
         try {
             const deletePlace = await Place.findOneAndDelete({ _id: request.params.id });
             return response.json(deletePlace);
