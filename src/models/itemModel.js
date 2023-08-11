@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ItemListSchema = new mongoose.Schema({
+const ItemSchema = new mongoose.Schema({
     title: { type: String, required: true },
     priority: { type: String, required: true },
     category: { type: String, required: true },
@@ -10,4 +10,4 @@ const ItemListSchema = new mongoose.Schema({
     proccess: { type: mongoose.Schema.Types.ObjectId, ref: "moves", required: true },
 }, { timestamps: {} });
 
-module.exports = mongoose.model('item-list', ItemListSchema);
+module.exports = mongoose.model('item-list', ItemSchema);
