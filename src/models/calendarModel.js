@@ -6,7 +6,7 @@ const CalendarSchema = new mongoose.Schema({
     initialDate: { type: Date, required: true },
     finalDate: { type: Date, required: false },
     repeat: { type: Boolean, required: true },
-    repeatEvery: { type: Int16Array, required: false}
+    repeatEvery: { type: Number, required: false}
 }, { timestamps: {} });
 
 module.exports = mongoose.model("Calendar", CalendarSchema);
