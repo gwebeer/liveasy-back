@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
-// Informações de Consumos
 const DefaultListSchema = new mongoose.Schema({
-    item: { type: String, required: true },
-    priority: { type: String, required: true },
-    category: { type: String, required: true }
-        
+    option: { type: String, required: true },
+    title: { type: String, required: true },
+    priority: { type: String, required: false },
+    category: { type: String, required: false }
 }, { timestamps: {} });
 
 module.exports = mongoose.model('default-item', DefaultListSchema);
