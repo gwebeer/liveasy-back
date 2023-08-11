@@ -3,45 +3,47 @@ const Dashboard = require("../models/dashboardModel");
 module.exports = {
     
     async createDashboard(request, response) {
+        /* 
+            #swagger.tags = ["dashboardController"]
+            #swagger.description = "Função que cria um novo Dashboard"
+        */
         try {
             const createDashboard = await Dashboard.create(request.body);
-            return response.json({ createDashboard });
+            return response.status(201).json({ createDashboard });
         } catch (error) {
             return response.status(400).json({ error: error });
         }
     },
 
     async getDashboard(request, response) {
-        try {
-            const getDashboard = await Dashboard.findOne({ _id: request.params.id })
-            return response.json(getDashboard);
-        } catch (error) {
-            console.log("Erro ao obter os detalhes do Dashboard", error)
-            return response.status(400).json({ error });
-        }
-    },
-
-    async getDashboards(request, response) {
-        try {
-            const getDashboard = await Dashboard.find()
-            return response.json(getDashboard);
-        } catch (error) {
-            console.log("Erro ao obter todos os Dashboards", error)
-            return response.status(400).json({ error });
-        }
-    },
-
-    async getDashboards(request, response) {
-        try {
-            const getDashboards = await Dashboard.find()
-            return response.json(getDashboards);
-        } catch (error) {
-            console.log("Erro ao obter todos os Dashboards", error)
-            return response.status(400).json({ error });
+        /* 
+            #swagger.tags = ["dashboardController"]
+            #swagger.description = "Função que busca um ou vários Dashboards"
+        */
+        if (request.params.id == "all") {
+            try {
+                const getDashboard = await Dashboard.findOne({ _id: request.params.id })
+                return response.json(getDashboard);
+            } catch (error) {
+                console.log("Erro ao obter os detalhes do Dashboard", error)
+                return response.status(400).json({ error });
+            }
+        } else {
+            try {
+                const getDashboard = await Dashboard.find()
+                return response.json(getDashboard);
+            } catch (error) {
+                console.log("Erro ao obter todos os Dashboards", error)
+                return response.status(400).json({ error });
+            }
         }
     },
 
     async updateDashboard(request, response) {
+        /* 
+            #swagger.tags = ["dashboardController"]
+            #swagger.description = "Função que atualiza um Dashboard"
+        */
         if (request.params.key === "id") {
             try {
                 const updateDashboard = await Dashboard.findOneAndUpdate({ _id: request.params.value }, request.body);
@@ -72,6 +74,10 @@ module.exports = {
     },
 
     async deleteDashboard(request, response) {
+        /* 
+            #swagger.tags = ["dashboardController"]
+            #swagger.description = "Função que deleta um Dashboard"
+        */
         try {
             const deleteDashboard = await Dashboard.findOneAndDelete({ _id: request.params.id });
             return response.json(deleteDashboard);
