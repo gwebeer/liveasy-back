@@ -8,11 +8,11 @@ module.exports = {
     async createUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que cria um novo usuário."
         */
         try {
             const createUser = await Users.create(request.body);
-            return response.json({ createUser });
+            return response.status(201).json({ createUser });
         } catch (error) {
             return response.status(400).json({ error: error });
         }
@@ -21,7 +21,7 @@ module.exports = {
     async deleteUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que deleta um usuário."
         */
         try {
             const deleteUser = await Users.findOneAndDelete({ _id: request.params.id });
@@ -35,7 +35,7 @@ module.exports = {
     async updateUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que atualiza um usuário."
         */
         if (request.params.key === "id") {
             try {
@@ -71,7 +71,7 @@ module.exports = {
     async getUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que busca por um ou mais usuários."
         */
         if (request.params.id == "all") {
             try {
@@ -96,7 +96,7 @@ module.exports = {
     async registerUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que registra o usuário, pegando sua senha e passando em hash."
         */
         try {
             request.body.password = await bcrypt.hash(request.body.password, 10)
@@ -110,7 +110,7 @@ module.exports = {
     async validateEmail(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que valida se o e-mail solicitado existe."
         */
         try {
             const validateEmail = await Users.findOne({ email: request.params.email })
@@ -128,7 +128,7 @@ module.exports = {
     async authenticateUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que autentica o usuário e usa o JWT"
         */
         try {
             const userInfo = await Users.findOne({ email: request.params.email })
@@ -162,7 +162,7 @@ module.exports = {
     async forgotPassword(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que envia um e-mail para o usuário cadastrado que tenha esquecido sua senha."
         */
         try {
             const user = await Users.findOne({ email: request.params.email });
@@ -202,7 +202,7 @@ module.exports = {
     async resetPassword(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função usada par resetar a senha do usuário cadastrado."
         */
         if (request.params.key === "id") {
             try {

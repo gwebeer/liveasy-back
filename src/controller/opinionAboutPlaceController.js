@@ -5,7 +5,7 @@ module.exports = {
     async createOpinionAboutPlace(request, response) {
         /* 
             #swagger.tags = ["opinionAboutPlaceController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que cria uma nova opinião sobre o lugar"
         */
         try {
             const createOpinionAboutPlace = await OpinionAboutPlace.create(request.body);
@@ -18,39 +18,35 @@ module.exports = {
     async getOpinionAboutPlace(request, response) {
         /* 
             #swagger.tags = ["opinionAboutPlaceController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que busca por uma ou várias opiniões sobre o lugar"
         */
-        try {
-            const getOpinionAboutPlace = await OpinionAboutPlace.findOne({ _id: request.params.id })
-            return response.json(getOpinionAboutPlace);
-        } catch (error) {
-            console.log("Erro ao obter os detalhes da opinião", error)
-            return response.status(400).json({ error });
-        }
-    },
-
-    async getOpinionAboutPlaces(request, response) {
-        /* 
-            #swagger.tags = ["opinionAboutPlaceController"]
-            #swagger.description = "Description here..."
-        */
-        try {
-            const getOpinionAboutPlaces = await OpinionAboutPlace.find()
-            return response.json(getOpinionAboutPlaces);
-        } catch (error) {
-            console.log("Erro ao obter todas as opiniões", error)
-            return response.status(400).json({ error });
+        if (request.params.id == "all") {
+            try {
+                const getOpinionAboutPlace = await OpinionAboutPlace.findOne({ _id: request.params.id })
+                return response.json(getOpinionAboutPlace);
+            } catch (error) {
+                console.log("Erro ao obter os detalhes da opinião", error)
+                return response.status(400).json({ error });
+            }
+        } else {
+            try {
+                const getOpinionAboutPlaces = await OpinionAboutPlace.find()
+                return response.json(getOpinionAboutPlaces);
+            } catch (error) {
+                console.log("Erro ao obter todas as opiniões", error)
+                return response.status(400).json({ error });
+            }
         }
     },
 
     async updateOpinionAboutPlace(request, response) {
         /* 
             #swagger.tags = ["opinionAboutPlaceController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que atualiza uma opinião sobre o lugar"
         */
         try {
-            const createOpinionAboutPlace = await OpinionAboutPlace.findOneAndUpdate({ _id: request.params.id }, request.body);
-            return response.json(createOpinionAboutPlace)
+            const updateOpinionAboutPlace = await OpinionAboutPlace.findOneAndUpdate({ _id: request.params.id }, request.body);
+            return response.json(updateOpinionAboutPlace)
         } catch (error) {
             console.log("Erro ao atualizar opinião da coleção OpinionAboutPlace", error);
             return response.status(400).json({ error });
@@ -60,7 +56,7 @@ module.exports = {
     async deleteOpinionAboutPlace(request, response) {
         /* 
             #swagger.tags = ["opinionAboutPlaceController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que deleta uma opinião sobre o lugar"
         */
         try {
             const deleteOpinionAboutPlace = await OpinionAboutPlace.findOneAndDelete({ _id: request.params.id });

@@ -5,7 +5,7 @@ module.exports = {
     async createProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que cria um novo processo"
         */
         try {
             const createProcess = await Process.create(request.body);
@@ -18,35 +18,31 @@ module.exports = {
     async getProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que busca um ou vários processos"
         */
-        try {
-            const getProcess = await Process.findOne({ _id: request.params.id })
-            return response.json(getProcess);
-        } catch (error) {
-            console.log("Erro ao obter o detalhe do processo", error)
-            return response.status(400).json({ error });
-        }
-    },
-    
-    async getProcesses(request, response) {
-        /* 
-            #swagger.tags = ["processController"]
-            #swagger.description = "Description here..."
-        */
-        try {
-            const getProcesses = await Process.find()
-            return response.json(getProcesses);
-        } catch (error) {
-            console.log("Erro ao obter todos os processos", error)
-            return response.status(400).json({ error });
+        if (request.params.id == "all") {
+            try {
+                const getProcess = await Process.findOne({ _id: request.params.id })
+                return response.json(getProcess);
+            } catch (error) {
+                console.log("Erro ao obter o detalhe do processo", error)
+                return response.status(400).json({ error });
+            }
+        } else {
+            try {
+                const getProcesses = await Process.find()
+                return response.json(getProcesses);
+            } catch (error) {
+                console.log("Erro ao obter todos os processos", error)
+                return response.status(400).json({ error });
+            }
         }
     },
     
     async getUserProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que busca os processos anexados ao usuário."
         */
         try {
             const getProcess = await Process.findOne({ user: request.params.id })
@@ -60,7 +56,7 @@ module.exports = {
     async updateProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que atualiza um processo"
         */
         if (request.params.key === "user") {
             try {
@@ -94,7 +90,7 @@ module.exports = {
     async deleteProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que deleta um processo"
         */
         try {
             const deleteProcess = await Process.findOneAndDelete({ _id: request.params.id });

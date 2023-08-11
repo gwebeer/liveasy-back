@@ -5,11 +5,11 @@ module.exports = {
     async createPlace(request, response) {
         /* 
             #swagger.tags = ["placeController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que cria um novo lugar"
         */
         try {
             const createPlace = await Place.create(request.body);
-            return response.json({ createPlace });
+            return response.status(201).json({ createPlace });
         } catch (error) {
             return response.status(400).json({ error: error });
         }
@@ -18,35 +18,31 @@ module.exports = {
     async getPlace(request, response) {
         /* 
             #swagger.tags = ["placeController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que busca um ou vários lugares"
         */
-        try {
-            const getPlace = await Place.findOne({ _id: request.params.id })
-            return response.json(getPlace);
-        } catch (error) {
-            console.log("Erro ao obter os detalhes do lugar", error)
-            return response.status(400).json({ error });
-        }
-    },
-
-    async getPlaces(request, response) {
-        /* 
-            #swagger.tags = ["placeController"]
-            #swagger.description = "Description here..."
-        */
-        try {
-            const getPlaces = await Place.find()
-            return response.json(getPlaces);
-        } catch (error) {
-            console.log("Erro ao obter todos os lugares", error)
-            return response.status(400).json({ error });
+        if (request.params.id == "all") {
+            try {
+                const getPlace = await Place.findOne({ _id: request.params.id })
+                return response.json(getPlace);
+            } catch (error) {
+                console.log("Erro ao obter os detalhes do lugar", error)
+                return response.status(400).json({ error });
+            }
+        } else {
+            try {
+                const getPlaces = await Place.find()
+                return response.json(getPlaces);
+            } catch (error) {
+                console.log("Erro ao obter todos os lugares", error)
+                return response.status(400).json({ error });
+            }
         }
     },
 
     async updatePlace(request, response) {
         /* 
             #swagger.tags = ["placeController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que atualiza um lugar"
         */
         if (request.params.key === "id") {
             try {
@@ -80,7 +76,7 @@ module.exports = {
     async deletePlace(request, response) {
         /* 
             #swagger.tags = ["placeController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que deleta um lugar"
         */
         try {
             const deletePlace = await Place.findOneAndDelete({ _id: request.params.id });

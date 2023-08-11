@@ -5,11 +5,11 @@ module.exports = {
     async createItem(request, response) {
         /* 
             #swagger.tags = ["defaultListController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que cria um novo item padrão"
         */
         try {
             const createItem = await DefaultList.create(request.body);
-            return response.json({ createItem });
+            return response.status(201).json({ createItem });
         } catch (error) {
             return response.status(400).json({ error: error });
         }
@@ -18,35 +18,31 @@ module.exports = {
     async getItem(request, response) {
         /* 
             #swagger.tags = ["defaultListController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que busca por um ou vários itens padrão"
         */
-        try {
-            const getItem = await DefaultList.findOne({ _id: request.params.id })
-            return response.json(getItem);
-        } catch (error) {
-            console.log("Erro ao obter o item requisitado", error)
-            return response.status(400).json({ error });
-        }
-    },
-
-    async getItems(request, response) {
-        /* 
-            #swagger.tags = ["defaultListController"]
-            #swagger.description = "Description here..."
-        */
-        try {
-            const getItem = await DefaultList.find()
-            return response.json(getItem);
-        } catch (error) {
-            console.log("Erro ao obter todos os itens", error)
-            return response.status(400).json({ error });
-        }
+        if (request.params.id == "all") {
+            try {
+                const getItem = await DefaultList.findOne({ _id: request.params.id })
+                return response.json(getItem);
+            } catch (error) {
+                console.log("Erro ao obter o item requisitado", error)
+                return response.status(400).json({ error });
+            }
+        } else {
+            try {
+                const getItem = await DefaultList.find()
+                return response.json(getItem);
+            } catch (error) {
+                console.log("Erro ao obter todos os itens", error)
+                return response.status(400).json({ error });
+            }
+        } 
     },
     
     async updateItem(request, response) {
         /* 
             #swagger.tags = ["defaultListController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que atualiza um item padrão"
         */
         try {
             const updateItem = await DefaultList.findOneAndUpdate({ _id: request.params.id }, request.body);
@@ -60,7 +56,7 @@ module.exports = {
     async deleteItem(request, response) {
         /* 
             #swagger.tags = ["defaultListController"]
-            #swagger.description = "Description here..."
+            #swagger.description = "Função que deleta um item padrão"
         */
         try {
             const deleteItem = await DefaultList.findOneAndDelete({ _id: request.params.id });
