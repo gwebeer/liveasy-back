@@ -6,7 +6,7 @@ const ProcessSchema = new mongoose.Schema({
     status: { type: String, required: true },
     monthly_income: { type: String, required: false },
     special_budget: { type: String, required: false },
-    moving_date: { type: Date, required: false },
+    moving_date: { type: String, required: false },
 }, { timestamps: {} });
 
 module.exports = mongoose.model('Moves', ProcessSchema);
