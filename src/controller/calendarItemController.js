@@ -6,6 +6,16 @@ module.exports = {
         /* 
             #swagger.tags = ["calendarItemController"]
             #swagger.description = "Função que cria um novo item no calendário"
+            #swagger.responses[201] = {
+                schema: {
+
+                }
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    
+                }
+            }
         */
         try {
             const createCalendarItem = await CalendarItem.create(request.body);
@@ -19,11 +29,21 @@ module.exports = {
         /* 
             #swagger.tags = ["calendarItemController"]
             #swagger.description = "Função que pega um ou vários itens do calendário."
+            #swagger.responses[200] = {
+                schema: {
+
+                }
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    
+                }
+            }
         */
         if (request.params.id == "all") {
                 try {
                 const getCalendarItem = await CalendarItem.findOne({ _id: request.params.id })
-                return response.json(getCalendarItem);
+                return response.status(200).json(getCalendarItem);
             } catch (error) {
                 console.log("Erro ao obter o evento do calendário", error)
                 return response.status(400).json({ error });
@@ -31,7 +51,7 @@ module.exports = {
         } else {
             try {
                 const getCalendarItems = await CalendarItem.find()
-                return response.json(getCalendarItems);
+                return response.status(200).json(getCalendarItems);
             } catch (error) {
                 console.log("Erro ao obter todos os eventos do calendário", error)
                 return response.status(400).json({ error });
@@ -43,11 +63,21 @@ module.exports = {
         /* 
             #swagger.tags = ["calendarItemController"]
             #swagger.description = "Função que atualiza o item do calendário."
+            #swagger.responses[200] = {
+                schema: {
+
+                }
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    
+                }
+            }
         */
         if (request.params.key === "id") {
             try {
                 const updateCalendarItem = await CalendarItem.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.json(updateCalendarItem);
+                return response.status(200).json(updateCalendarItem);
             } catch (error) {
                 console.log("Erro ao atualizar item de calendário na coleção CalendarItem", error);
                 return response.status(400).json({ error });
@@ -57,7 +87,7 @@ module.exports = {
         if (request.params.key === "user") {
             try {
                 const updateCalendarItem = await CalendarItem.findOneAndUpdate({ user: request.params.value }, request.body)
-                return response.json(updateCalendarItem);
+                return response.status(200).json(updateCalendarItem);
             } catch (error) {
                 console.log("Erro ao atualizar o item de calendário da coleção CalendarItem", error)
                 return response.status(400).json({ error });
@@ -66,7 +96,7 @@ module.exports = {
 
         try {
             const updateCalendarItem = await CalendarItem.findOneAndUpdate({ _id : request.params.id }, request.body);
-            return response.json(updateCalendarItem);
+            return response.status(200).json(updateCalendarItem);
         } catch (error) {
             console.log("Erro ao atualizar item de calendário da coleção CalendarItem", error)
             return response.status(400).json({ error });
@@ -77,10 +107,20 @@ module.exports = {
         /* 
             #swagger.tags = ["calendarItemController"]
             #swagger.description = "Função que deleta um item do calendário"
+            #swagger.responses[200] = {
+                schema: {
+
+                }
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    
+                }
+            }
         */
         try {
             const deleteCalendarItem = await CalendarItem.findOneAndDelete({ _id: request.params.id });
-            return response.json(deleteCalendarItem);
+            return response.status(200).json(deleteCalendarItem);
         } catch (error) {
             console.log("Erro ao deletar item de calendário da coleção CalendarItem", error);
             return response.status(400).json({ error });
