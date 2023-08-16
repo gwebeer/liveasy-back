@@ -78,7 +78,7 @@ module.exports = {
         if (request.params.id == "all") {
             try {
                 const getUsers = await Users.find()
-                return response.json(getUsers);
+                return response.status(200).json(getUsers);
             } catch (error) {
                 console.log("Erro ao obter todos os usuários", error)
                 return response.status(400).json({ error });
@@ -86,7 +86,7 @@ module.exports = {
         } else {
             try {
                 const getUsers = await Users.findOne({ _id: request.params.id })
-                return response.json(getUsers);
+                return response.status(200).json(getUsers);
             } catch (error) {
                 console.log("Erro ao obter o detalhe do usuário", error)
                 return response.status(400).json({ error });
@@ -417,8 +417,6 @@ module.exports = {
     //     console.log("Erro ao atualizar item da coleção Rooms", error)
     //     return res.status(400).json({ error });
     // }
-
-
 
     // try {
     //   const email = req.params.email;
