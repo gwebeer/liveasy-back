@@ -5,7 +5,7 @@ const PlaceSchema = new mongoose.Schema({
     address: { type: String, required: true },
     zipCode: { type: String, required: true },
     neighborhood: { type: String, required: true },
-    condominiumValue : { type: String, required: true },
+    condominiumValue : { type: Number, required: true },
 }, { timestamps: {} });
 
 module.exports = mongoose.model("Place", PlaceSchema);

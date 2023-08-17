@@ -4,44 +4,128 @@ const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer');
 
 module.exports = {
-    
-    async createUser(request, response) {
+
+    async registerUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Função que cria um novo usuário."
+            #swagger.description = 'Função que registra o usuário, pegando sua senha e passando em hash.'
+            #swagger.parameters['obj'] = {
+                in: 'body',
+                required: true,
+                schema: { 
+                    "$ref": "#/definitions/UserSchema"
+                }
+            }
+            #swagger.responses[201] = { 
+                schema: {
+                    "name": "Irineu de Souza",
+                    "email": "irineu@naosabe.com",
+                    "birthDate": "14/01/2001",
+                    "password": "Minh@S3nh4",
+                    "type": "customer",
+                    "phone": "41999990",
+                    "_id": "64d6c9cdb69b40992c075fcb",
+                    "createdAt": "2023-08-11T23:52:45.777Z",
+                    "updatedAt": "2023-08-11T23:52:45.777Z",
+                    "__v": 0
+                } 
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
         */
         try {
-            const createUser = await Users.create(request.body);
-            return response.status(201).json({ createUser });
+            request.body.password = await bcrypt.hash(request.body.password, 10)
+            const registerUser = await Users.create(request.body);
+            return response.status(201).json({ registerUser });
         } catch (error) {
-            return response.status(400).json({ error: error });
+            return response.status(400).json({ error });
         }
     },
-
-    async deleteUser(request, response) {
+    
+    async getUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Função que deleta um usuário."
+            #swagger.description = 'Função que busca por um ou mais usuários.'
+            #swagger.responses[200] = { 
+                schema: [{
+                    "name": "Irineu de Souza",
+                    "email": "irineu@naosabe.com",
+                    "birthDate": "2001-01-14",
+                    "password": "Minh@S3nh4",
+                    "type": "customer",
+                    "phone": "41999999999",
+                    "_id": "64d6c9cdb69b40992c075fcb",
+                    "createdAt": "2023-08-11T23:52:45.777Z",
+                    "updatedAt": "2023-08-11T23:52:45.777Z",
+                    "__v": 0
+                }]
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
         */
-        try {
-            const deleteUser = await Users.findOneAndDelete({ _id: request.params.id });
-            return response.json(deleteUser);
-        } catch (error) {
-            console.log("Erro ao deletar item da coleção Users", error)
-            return response.status(400).json({ error });
+        if (request.params.id == "all") {
+            try {
+                const getUsers = await Users.find()
+                return response.status(200).json(getUsers);
+            } catch (error) {
+                console.log("Erro ao obter todos os usuários", error)
+                return response.status(400).json({ error });
+            }
+        } else {
+            try {
+                const getUsers = await Users.findOne({ _id: request.params.id })
+                return response.status(200).json(getUsers);
+            } catch (error) {
+                console.log("Erro ao obter o detalhe do usuário", error)
+                return response.status(400).json({ error });
+            }
         }
     },
 
     async updateUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Função que atualiza um usuário."
+            #swagger.description = 'Função que atualiza um usuário.'
+            #swagger.responses[200] = { 
+                schema: {
+                    "name": "Irineu de Souza",
+                    "email": "irineu@naosabe.com",
+                    "birthDate": "14/01/2001",
+                    "password": "Minh@S3nh4",
+                    "type": "customer",
+                    "phone": "41999999999",
+                    "_id": "64d6c9cdb69b40992c075fcb",
+                    "createdAt": "2023-08-11T23:52:45.777Z",
+                    "updatedAt": "2023-08-11T23:52:45.777Z",
+                    "__v": 0
+                } 
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
         */
         if (request.params.key === "id") {
             try {
                 request.body.password = await bcrypt.hash(request.body.password, 10)
                 const updateUser = await Users.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.json(updateUser);
+                return response.status(200).json(updateUser);
             } catch (error) {
                 console.log("Erro ao atualizar item da coleção Rooms", error)
                 return response.status(400).json({ error });
@@ -52,72 +136,91 @@ module.exports = {
             try {
                 request.body.password = await bcrypt.hash(request.body.password, 10)
                 const updateUser = await Users.findOneAndUpdate({ email: request.params.value }, request.body);
-                return response.json(updateUser);
+                return response.status(200).json(updateUser);
             } catch (error) {
                 console.log("Erro ao atualizar item da coleção Rooms", error)
                 return response.status(400).json({ error });
             }
         }
 
-        // try {
-        //     const userUpdate = await Users.findOneAndUpdate({ _id: req.params.id }, req.body);
-        //     return response.json(userUpdate);
-        // } catch (error) {
-        //     console.log("Erro ao atualizar item da coleção Rooms", error)
-        //     return response.status(400).json({ error });
-        // }
-    },
-
-    async getUser(request, response) {
-        /* 
-            #swagger.tags = ["userController"]
-            #swagger.description = "Função que busca por um ou mais usuários."
-        */
-        if (request.params.id == "all") {
-            try {
-                const getUsers = await Users.find()
-                return response.json(getUsers);
-            } catch (error) {
-                console.log("Erro ao obter todos os usuários", error)
-                return response.status(400).json({ error });
-            }
-        } else {
-            try {
-                const getUsers = await Users.findOne({ _id: request.params.id })
-                return response.json(getUsers);
-            } catch (error) {
-                console.log("Erro ao obter o detalhe do usuário", error)
-                return response.status(400).json({ error });
-            }
+        try {
+            const updateUser = await Users.findOneAndUpdate({ _id: request.params.id }, request.body);
+            return response.status(200).json(updateUser);
+        } catch (error) {
+            console.log("Erro ao atualizar item da coleção Rooms", error)
+            return response.status(400).json({ error });
         }
-
     },
 
-    async registerUser(request, response) {
+    async deleteUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Função que registra o usuário, pegando sua senha e passando em hash."
+            #swagger.description = 'Função que deleta um usuário.'
+            #swagger.responses[200] =  {
+                "_id": "64da73c47478259cf31660c0",
+                "name": "Irinelson da Silva",
+                "email": "irineu@naosabe.com",
+                "birthDate": "2001-01-14",
+                "password": "Minh@S3nh4",
+                "type": "customer",
+                "phone": "41999999999",
+                "createdAt": "2023-08-13T20:34:32.099Z",
+                "updatedAt": "2023-08-13T21:14:38.355Z",
+                "__v": 0
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "error": { 
+                        "stringValue": "example",
+                        "valueType": "example",
+                        "kind": "example",
+                        "value": "example",
+                        "path": "example",
+                        "reason": {},
+                        "name": "ExampleError",
+                        "message": "Error message: some message error here"
+                    },
+                }
+            }
         */
         try {
-            request.body.password = await bcrypt.hash(request.body.password, 10)
-            const registerUser = await Users.create(request.body);
-            return response.status(201).json({ registerUser });
+            const deleteUser = await Users.findOneAndDelete({ _id: request.params.id });
+            return response.status(200).json(deleteUser);
         } catch (error) {
-            return response.status(400).json({ error: error });
+            console.log("Erro ao deletar item da coleção Users", error)
+            return response.status(400).json({ error });
         }
     },
 
     async validateEmail(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Função que valida se o e-mail solicitado existe."
+            #swagger.description = 'Função que valida se o e-mail solicitado existe.'
+            #swagger.responses[200] = { 
+                schema: {
+                    "msg": 'O e-mail já está cadastrado' 
+                } 
+            }
+            #swagger.responses[203] = { 
+                schema: {
+                    "msg": 'O e-mail não está cadastrado'
+                } 
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
         */
         try {
             const validateEmail = await Users.findOne({ email: request.params.email })
             if (validateEmail == null) {
-                return response.status(200).json({ msg: 'O e-mail não está cadastrado ' })
+                return response.status(203).json({ msg: 'O e-mail não está cadastrado' })
             } else {
-                return response.status(203).json({ msg: 'O e-mail já está cadastrado' })
+                return response.status(200).json({ msg: 'O e-mail já está cadastrado' })
             }
         } catch (error) {
             console.log("Email não registrado", error)
@@ -128,7 +231,33 @@ module.exports = {
     async authenticateUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Função que autentica o usuário e usa o JWT"
+            #swagger.description = 'Função que autentica o usuário e usa o JWT'
+            #swagger.responses[200] = { 
+                schema: {
+                    "msg": 'Login aprovado', 
+                    "token": "<token>"
+                } 
+            }
+            #swagger.responses[203] = [
+                { 
+                    schema: {
+                        "msg": 'O e-mail informado não está cadastrado.'
+                    } 
+                },
+                {
+                    schema: {
+                        "msg": "A senha informada está inválida."
+                    }
+                }
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
         */
         try {
             const userInfo = await Users.findOne({ email: request.params.email })
@@ -162,7 +291,20 @@ module.exports = {
     async forgotPassword(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Função que envia um e-mail para o usuário cadastrado que tenha esquecido sua senha."
+            #swagger.description = 'Função que envia um e-mail para o usuário cadastrado que tenha esquecido sua senha.'
+            #swagger.responses[200] = { 
+                schema: {
+                    
+                } 
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
         */
         try {
             const user = await Users.findOne({ email: request.params.email });
@@ -173,14 +315,14 @@ module.exports = {
                     service: "gmail",
                     auth: {
                         user: "bochoskifelipe@gmail.com",
-                        pass: "hcllrfvkxbzophcy",
+                        pass: "hcllrfvkxbzophcy",   
                     }
                 })
 
                 let details = {
                     from: "bochoskifelipe@gmail.com",
                     to: user.email,
-                    subject: "Redefinicao de senha",
+                    subject: "Redefinição de senha",
                     html: `<p>Olá, você solicitou a redefinição de senha.</p>
                 <p>Clique <a href="http://localhost:3000/resetPassword">aqui</a> para redefinir sua senha.</p>`,
                 }
@@ -188,8 +330,10 @@ module.exports = {
                 mailtransporter.sendMail(details, (err) => {
                     if (err) {
                         console.log("Ocorreu um erro ao enviar o e-mail de redefinição de senha.", err)
+                        return response.status(500).json({ err })
                     } else {
                         console.log("E-mail de redefinição de senha enviado com sucesso.")
+                        return response.status(200);
                     }
                 })
             }
@@ -202,12 +346,33 @@ module.exports = {
     async resetPassword(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = "Função usada par resetar a senha do usuário cadastrado."
+            #swagger.description = 'Função usada par resetar a senha do usuário cadastrado.'
+            #swagger.parameters['obj'] = {
+                in: 'body',
+                required: true,
+                schema: { 
+                    "id": "",
+                    "email": ""
+                }
+            }
+            #swagger.responses[200] = { 
+                schema: {
+                    "userUpdate": {}
+                } 
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
         */
         if (request.params.key === "id") {
             try {
                 const userUpdate = await Users.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.json(userUpdate);
+                return response.status(200).json(userUpdate);
             } catch (error) {
                 console.log("Erro ao atualizar item da coleção Rooms", error)
                 return response.status(400).json({ error });
@@ -217,7 +382,7 @@ module.exports = {
         if (request.params.key === "email") {
             try {
                 const userUpdate = await Users.findOneAndUpdate({ email: request.params.value }, request.body);
-                return response.json(userUpdate);
+                return response.status(200).json(userUpdate);
             } catch (error) {
                 console.log("Erro ao atualizar item da coleção Rooms", error)
                 return response.status(400).json({ error });
@@ -226,7 +391,7 @@ module.exports = {
 
         try {
             const userUpdate = await Users.findOneAndUpdate({ _id: request.params.email }, request.body);
-            return response.json(userUpdate);
+            return response.status(200).json(userUpdate);
         } catch (error) {
             console.log("Erro ao atualizar item da coleção Rooms", error)
             return response.status(400).json({ error });
@@ -241,8 +406,6 @@ module.exports = {
     //     console.log("Erro ao atualizar item da coleção Rooms", error)
     //     return res.status(400).json({ error });
     // }
-
-
 
     // try {
     //   const email = req.params.email;
