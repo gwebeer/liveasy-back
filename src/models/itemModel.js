@@ -7,7 +7,7 @@ const ItemSchema = new mongoose.Schema({
     convenient: { type: String, required: true },
     value: { type: String, required: true },
     bought: { type: Boolean, required: true },
-    proccess: { type: mongoose.Schema.Types.ObjectId, ref: "moves", required: true },
+    process: { type: mongoose.Schema.Types.ObjectId, ref: "moves", required: true },
 }, { timestamps: {} });
 
 module.exports = mongoose.model('item-list', ItemSchema);
