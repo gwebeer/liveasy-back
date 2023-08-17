@@ -98,17 +98,6 @@ module.exports = {
         /* 
             #swagger.tags = ["userController"]
             #swagger.description = 'Função que atualiza um usuário.'
-            #swagger.parameters['obj'] = {
-                in: 'body',
-                required: true,
-                schema: {
-                    "name": "Irinelson da Silva",
-                    "email": "irineu@naosabe.com",
-                    "birthDate": "14/01/2001",
-                    "password": "Minh@S3nh4",
-                    "phone": "41999999999"
-                }
-            }
             #swagger.responses[200] = { 
                 schema: {
                     "name": "Irineu de Souza",

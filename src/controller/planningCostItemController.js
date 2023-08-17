@@ -6,22 +6,40 @@ module.exports = {
         /* 
             #swagger.tags = ["planningCostItemController"]
             #swagger.description = "Função que cria um novo item de planejamento de custos"
+            #swagger.parameters['obj'] = {
+                in: 'body',
+                required: true,
+                schema: { 
+                    "$ref": "#/definitions/PlanningCostItemSchema"
+                }
+            }
             #swagger.responses[201] = {
                 schema: {
-
+                    "process": "64de5f45cf79a38afca5a165",
+                    "title": "Aluguel",
+                    "value": 850,
+                    "_id": "64de5f56cf79a38afca5a167",
+                    "createdAt": "2023-08-17T17:56:38.273Z",
+                    "updatedAt": "2023-08-17T17:56:38.273Z",
+                    "__v": 0
                 }
             }
             #swagger.responses[400] = {
                 schema: {
-                    
+                    "error": {
+                        "errors": { },
+                        "_message": "ErrorMessageExample",
+                        "name": "ExampleError",
+                        "message": "ErrorMessageExample: some message error here"
+                    }
                 }
             }
         */
         try {
             const createPlanningCostItem = await PlanningCostItem.create(request.body);
-            return response.status(201).json({ createPlanningCostItem });
+            return response.status(201).json(createPlanningCostItem);
         } catch (error) {
-            return response.status(400).json({ error: error });
+            return response.status(400).json({ error });
         }
     },
 
@@ -30,30 +48,46 @@ module.exports = {
             #swagger.tags = ["planningCostItemController"]
             #swagger.description = "Função que busca por um ou vários itens de planejamento de custos"
             #swagger.responses[200] = {
-                schema: {
-
-                }
+                schema: [
+                    {
+                        "_id": "64de5f56cf79a38afca5a167",
+                        "process": "64de5f45cf79a38afca5a165",
+                        "title": "Aluguel",
+                        "value": 850,
+                        "createdAt": "2023-08-17T17:56:38.273Z",
+                        "updatedAt": "2023-08-17T17:56:38.273Z",
+                        "__v": 0
+                    }
+                ]
             }
             #swagger.responses[400] = {
                 schema: {
-                    
+                    "error": {
+                        "valueType": "",
+                        "kind": "",
+                        "value": "",
+                        "path": "",
+                        "reason": {},
+                        "name": "ExampleError",
+                        "message": "Example of a Message Error"
+                    }
                 }
             }
         */
         if (request.params.id == "all") {
             try {
-                const getPlanningCostItem = await PlanningCostItem.findOne({ _id: request.params.id })
-                return response.status(200).json({ getPlanningCostItem });
-            } catch (error) {
-                console.log("Erro ao obter os detalhes do planejamento de custos", error)
-                return response.status(400).json({ error });
-            }
-        } else {
-            try {
                 const getPlanningCostItems = await PlanningCostItem.find()
                 return response.status(200).json(getPlanningCostItems);
             } catch (error) {
                 console.log("Erro ao obter todos os planejamentos de custos", error)
+                return response.status(400).json({ error });
+            }
+        } else {
+            try {
+                const getPlanningCostItem = await PlanningCostItem.findOne({ _id: request.params.id })
+                return response.status(200).json(getPlanningCostItem);
+            } catch (error) {
+                console.log("Erro ao obter os detalhes do planejamento de custos", error)
                 return response.status(400).json({ error });
             }
         }
@@ -63,6 +97,13 @@ module.exports = {
         /* 
             #swagger.tags = ["planningCostItemController"]
             #swagger.description = "Função que atualiza um item do planejamento de custos"
+            #swagger.parameters['obj'] = {
+                in: 'body',
+                required: false,
+                schema: { 
+                    
+                }
+            }
             #swagger.responses[200] = {
                 schema: {
 
@@ -70,7 +111,9 @@ module.exports = {
             }
             #swagger.responses[400] = {
                 schema: {
-                    
+                    "error": {
+                        
+                    }
                 }
             }
         */
@@ -109,12 +152,27 @@ module.exports = {
             #swagger.description = "Função que deleta um item do planejamento de custos"
             #swagger.responses[200] = {
                 schema: {
-
+                    "_id": "64de5f56cf79a38afca5a167",
+                    "process": "64de5f45cf79a38afca5a165",
+                    "title": "Aluguel",
+                    "value": 850,
+                    "createdAt": "2023-08-17T17:56:38.273Z",
+                    "updatedAt": "2023-08-17T17:56:38.273Z",
+                    "__v": 0
                 }
             }
             #swagger.responses[400] = {
                 schema: {
-                    
+                    "error": {
+                        "stringValue": "",
+                        "valueType": "",
+                        "kind": "",
+                        "value": "",
+                        "path": "",
+                        "reason": {},
+                        "name": "ExampleError",
+                        "message": "Example of a Message Error"
+                    }
                 }
             }
         */

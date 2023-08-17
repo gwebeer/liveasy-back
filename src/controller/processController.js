@@ -40,7 +40,7 @@ module.exports = {
         */
         try {
             const createProcess = await Process.create(request.body);
-            return response.status(201).json({ createProcess });
+            return response.status(201).json(createProcess);
         } catch (error) {
             return response.status(400).json({ error });
         }
@@ -104,12 +104,30 @@ module.exports = {
             #swagger.description = "Função que busca os processos anexados ao usuário."
             #swagger.responses[200] = {
                 schema: {
-
+                    "_id": "64dc043391834dca8c01aacf",
+                    "user": "64da742da876e905b9b149a2",
+                    "step": "Planejamento",
+                    "status": "Em progresso",
+                    "monthly_income": "2652.85",
+                    "special_budget": "8500",
+                    "moving_date": "2024-02-25",
+                    "createdAt": "2023-08-15T23:03:15.343Z",
+                    "updatedAt": "2023-08-15T23:03:15.343Z",
+                    "__v": 0
                 }
             }
             #swagger.responses[400] = {
                 schema: {
-                    
+                    "error": {
+                        "stringValue": "",
+                        "valueType": "",
+                        "kind": "",
+                        "value": "",
+                        "path": "",
+                        "reason": {},
+                        "name": "ExampleError",
+                        "message": "Example of Message Error"
+                    }
                 }
             }
         */
@@ -126,14 +144,45 @@ module.exports = {
         /* 
             #swagger.tags = ["processController"]
             #swagger.description = "Função que atualiza um processo"
+            #swagger.parameters['obj'] = {
+                in: 'body',
+                required: false,
+                schema: { 
+                    "user": "ObjectId",
+                    "id": "ObjectId",
+                    "step": "Planejamento",
+                    "status": "Em progresso",
+                    "monthly_income": 2652.85,
+                    "special_budget": 8500,
+                    "moving_date": "2024-02-25"
+                }
+            }
             #swagger.responses[200] = {
                 schema: {
-
+                    "_id": "64dc043391834dca8c01aacf",
+                    "user": "64da742da876e905b9b149a2",
+                    "step": "Planejamento",
+                    "status": "Em progresso",
+                    "monthly_income": "2652.85",
+                    "special_budget": "8500",
+                    "moving_date": "2024-02-25",
+                    "createdAt": "2023-08-15T23:03:15.343Z",
+                    "updatedAt": "2023-08-15T23:03:15.343Z",
+                    "__v": 0
                 }
             }
             #swagger.responses[400] = {
                 schema: {
-                    
+                    "error": {
+                        "stringValue": "",
+                        "valueType": "",
+                        "kind": "",
+                        "value": "",
+                        "path": "",
+                        "reason": {},
+                        "name": "ExampleError",
+                        "message": "Example of a Message Error"
+                    }
                 }
             }
         */
@@ -172,12 +221,30 @@ module.exports = {
             #swagger.description = "Função que deleta um processo"
             #swagger.responses[200] = {
                 schema: {
-
+                    "_id": "64dc043391834dca8c01aacf",
+                    "user": "64da742da876e905b9b149a2",
+                    "step": "Planejamento",
+                    "status": "Em progresso",
+                    "monthly_income": "3000.85",
+                    "special_budget": "7000",
+                    "moving_date": "2024-05-20",
+                    "createdAt": "2023-08-15T23:03:15.343Z",
+                    "updatedAt": "2023-08-17T14:34:09.866Z",
+                    "__v": 0
                 }
             }
             #swagger.responses[400] = {
                 schema: {
-                    
+                    "error": {
+                        "stringValue": "",
+                        "valueType": "",
+                        "kind": "",
+                        "value": "",
+                        "path": "",
+                        "reason": {},
+                        "name": "ExampleError",
+                        "message": "Example of a Message Error"
+                    }
                 }
             }
         */
