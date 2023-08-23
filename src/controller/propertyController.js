@@ -1,8 +1,8 @@
-const Place = require("../models/placeModel");
+const Property = require("../models/propertyModel");
 
 module.exports = {
     
-    async createPlace(request, response) {
+    async createProperty(request, response) {
         /* 
             #swagger.tags = ["placeController"]
             #swagger.description = "Função que cria um novo lugar"
@@ -38,14 +38,14 @@ module.exports = {
             }
         */
         try {
-            const createPlace = await Place.create(request.body);
-            return response.status(201).json(createPlace);
+            const createProperty = await Property.create(request.body);
+            return response.status(201).json(createProperty);
         } catch (error) {
             return response.status(400).json({ error });
         }
     },
 
-    async getPlace(request, response) {
+    async getProperty(request, response) {
         /* 
             #swagger.tags = ["placeController"]
             #swagger.description = "Função que busca um ou vários lugares"
@@ -79,16 +79,16 @@ module.exports = {
         */
         if (request.params.id == "all") {
             try {
-                const getPlaces = await Place.find()
-                return response.status(200).json(getPlaces);
+                const getProperties = await Property.find()
+                return response.status(200).json(getProperties);
             } catch (error) {
                 console.log("Erro ao obter todos os lugares", error)
                 return response.status(400).json({ error });
             }
         } else {
             try {
-                const getPlace = await Place.findOne({ _id: request.params.id })
-                return response.status(200).json(getPlace);
+                const getProperty = await Property.findOne({ _id: request.params.id })
+                return response.status(200).json(getProperty);
             } catch (error) {
                 console.log("Erro ao obter os detalhes do lugar", error)
                 return response.status(400).json({ error });
@@ -96,7 +96,7 @@ module.exports = {
         }
     },
 
-    async updatePlace(request, response) {
+    async updateProperty(request, response) {
         /* 
             #swagger.tags = ["placeController"]
             #swagger.description = "Função que atualiza um lugar"
@@ -120,8 +120,8 @@ module.exports = {
         */
         if (request.params.key === "id") {
             try {
-                const updatePlace = await Place.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.status(200).json(updatePlace);
+                const updateProperty = await Property.findOneAndUpdate({ _id: request.params.value }, request.body);
+                return response.status(200).json(updateProperty);
             } catch (error) {
                 console.log("Erro ao atualizar o lugar na coleção Place", error);
                 return response.status(400).json({ error });
@@ -130,8 +130,8 @@ module.exports = {
 
         if (request.params.key === "user") {
             try {
-                const updatePlace = await Place.findOneAndUpdate({ user: request.params.value }, request.body)
-                return response.status(200).json(updatePlace);
+                const updateProperty = await Property.findOneAndUpdate({ user: request.params.value }, request.body)
+                return response.status(200).json(updateProperty);
             } catch (error) {
                 console.log("Erro ao atualizar o lugar na coleção Place", error)
                 return response.status(400).json({ error });
@@ -139,15 +139,15 @@ module.exports = {
         }
 
         try {
-            const updatePlace = await Place.findOneAndUpdate({ _id : request.params.id }, request.body);
-            return response.status(200).json(updatePlace);
+            const updateProperty = await Property.findOneAndUpdate({ _id : request.params.id }, request.body);
+            return response.status(200).json(updateProperty);
         } catch (error) {
             console.log("Erro ao atualizar o lugar na coleção Place", error)
             return response.status(400).json({ error });
         }
     },
 
-    async deletePlace(request, response) {
+    async deleteProperty(request, response) {
         /* 
             #swagger.tags = ["placeController"]
             #swagger.description = "Função que deleta um lugar"
@@ -180,8 +180,8 @@ module.exports = {
             }
         */
         try {
-            const deletePlace = await Place.findOneAndDelete({ _id: request.params.id });
-            return response.status(200).json(deletePlace);
+            const deleteProperty = await Property.findOneAndDelete({ _id: request.params.id });
+            return response.status(200).json(deleteProperty);
         } catch (error) {
             console.log("Erro ao deletar o lugar na coleção Place", error);
             return response.status(400).json({ error });
