@@ -11,7 +11,6 @@ const PropertySchema = new mongoose.Schema({
     parkingSpaces: { type: Number, required: true },
     infraestructure: { type: Boolean, required: true },
     furnished: { type: Boolean, required: true },
-    priceRange: { type: Number, required: true },
     isForRent: { type: Boolean, required: true },
     value: { type: Number, required: true }
 }, { timestamps: {} });
