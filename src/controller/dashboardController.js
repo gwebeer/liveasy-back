@@ -3,37 +3,6 @@ const Dashboard = require("../models/dashboardModel");
 module.exports = {
     
     async createDashboard(request, response) {
-        /* 
-            #swagger.tags = ["dashboardController"]
-            #swagger.description = "Função que cria um novo Dashboard"
-            #swagger.parameters['obj'] = {
-                in: 'body',
-                required: true,
-                schema: { 
-                    "$ref": "#/definitions/DashboardSchema"
-                }
-            }
-            #swagger.responses[201] = {
-                schema: {
-                    "process": "64dc0f8167f66149a8d49f97",
-                    "user": "64da742da876e905b9b149a2",
-                    "_id": "64de7155956dcb624aca8b36",
-                    "createdAt": "2023-08-17T19:13:25.415Z",
-                    "updatedAt": "2023-08-17T19:13:25.415Z",
-                    "__v": 0
-                }
-            }
-            #swagger.responses[400] = {
-                schema: {
-                    "error": {
-                        "errors": { },
-                        "_message": "ErrorMessageExample",
-                        "name": "ExampleError",
-                        "message": "ErrorMessageExample: some message error here"
-                    }
-                }
-            }
-        */
         try {
             const createDashboard = await Dashboard.create(request.body);
             return response.status(201).json(createDashboard);
@@ -43,34 +12,6 @@ module.exports = {
     },
 
     async getDashboard(request, response) {
-        /* 
-            #swagger.tags = ["dashboardController"]
-            #swagger.description = "Função que busca um ou vários Dashboards"
-            #swagger.responses[200] = {
-                schema: [{
-                    "_id": "64de7198956dcb624aca8b38",
-                    "process": "64dc0f8167f66149a8d49f97",
-                    "user": "64da742da876e905b9b149a2",
-                    "createdAt": "2023-08-17T19:14:32.358Z",
-                    "updatedAt": "2023-08-17T19:14:32.358Z",
-                    "__v": 0
-                }]
-            }
-            #swagger.responses[400] = {
-                schema: {
-                    "error": {
-                        "stringValue": "",
-                        "valueType": "",
-                        "kind": "",
-                        "value": "",
-                        "path": "_id",
-                        "reason": {},
-                        "name": "ExampleError",
-                        "message": "Example of a Message Error"
-                    }
-                }
-            }
-        */
         if (request.params.id == "all") {
             try {
                 const getDashboard = await Dashboard.find()
@@ -91,36 +32,6 @@ module.exports = {
     },
 
     async updateDashboard(request, response) {
-        /* 
-            #swagger.tags = ["dashboardController"]
-            #swagger.description = "Função que atualiza um Dashboard"
-            #swagger.parameters['obj'] = {
-                in: 'body',
-                required: false,
-                schema: { 
-                    
-                }
-            }
-            #swagger.responses[200] = {
-                schema: {
-
-                }
-            }
-            #swagger.responses[400] = {
-                schema: {
-                    "error": {
-                        "stringValue": "",
-                        "valueType": "",
-                        "kind": "",
-                        "value": "",
-                        "path": "_id",
-                        "reason": {},
-                        "name": "ExampleError",
-                        "message": "Example of a Message Error"
-                    }
-                }
-            }
-        */
         if (request.params.key === "id") {
             try {
                 const updateDashboard = await Dashboard.findOneAndUpdate({ _id: request.params.value }, request.body);
@@ -151,34 +62,6 @@ module.exports = {
     },
 
     async deleteDashboard(request, response) {
-        /* 
-            #swagger.tags = ["dashboardController"]
-            #swagger.description = "Função que deleta um Dashboard"
-            #swagger.responses[200] = {
-                schema: {
-                    "_id": "64de7198956dcb624aca8b38",
-                    "process": "64dc0f8167f66149a8d49f97",
-                    "user": "64da742da876e905b9b149a2",
-                    "createdAt": "2023-08-17T19:14:32.358Z",
-                    "updatedAt": "2023-08-17T19:14:32.358Z",
-                    "__v": 0
-                }
-            }
-            #swagger.responses[400] = {
-                schema: {
-                    "error": {
-                        "stringValue": "",
-                        "valueType": "",
-                        "kind": "",
-                        "value": "",
-                        "path": "_id",
-                        "reason": {},
-                        "name": "ExampleError",
-                        "message": "Example of a Message Error"
-                    }
-                }
-            }
-        */
         try {
             const deleteDashboard = await Dashboard.findOneAndDelete({ _id: request.params.id });
             return response.status(200).json(deleteDashboard);
