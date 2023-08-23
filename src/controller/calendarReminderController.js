@@ -1,16 +1,16 @@
-const CalendarItem = require("../models/calendarItemModel");
+const CalendarReminder = require("../models/calendarReminderModel");
 
 module.exports = {
     
-    async createCalendarItem(request, response) {
+    async createCalendarReminder(request, response) {
         /* 
-            #swagger.tags = ["calendarItemController"]
+            #swagger.tags = ["calendarReminderController"]
             #swagger.description = "Função que cria um novo item no calendário"
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: true,
                 schema: { 
-                    "$ref": "#/definitions/CalendarItemSchema"
+                    "$ref": "#/definitions/CalendarReminderSchema"
                 }
             }
             #swagger.responses[201] = {
@@ -39,16 +39,16 @@ module.exports = {
             }
         */
         try {
-            const createCalendarItem = await CalendarItem.create(request.body);
-            return response.status(201).json(createCalendarItem);
+            const createCalendarReminder = await CalendarReminder.create(request.body);
+            return response.status(201).json(createCalendarReminder);
         } catch (error) {
             return response.status(400).json({ error });
         }
     },
 
-    async getCalendarItem(request, response) {
+    async getCalendarReminder(request, response) {
         /* 
-            #swagger.tags = ["calendarItemController"]
+            #swagger.tags = ["calendarReminderController"]
             #swagger.description = "Função que pega um ou vários itens do calendário."
             #swagger.responses[200] = {
                 schema: [{
@@ -81,16 +81,16 @@ module.exports = {
         */
         if (request.params.id == "all") {
             try {
-                const getCalendarItems = await CalendarItem.find()
-                return response.status(200).json(getCalendarItems);
+                const getCalendarReminders = await CalendarReminder.find()
+                return response.status(200).json(getCalendarReminders);
             } catch (error) {
                 console.log("Erro ao obter todos os eventos do calendário", error)
                 return response.status(400).json({ error });
             }
         } else {
             try {
-                const getCalendarItem = await CalendarItem.findOne({ _id: request.params.id })
-                return response.status(200).json(getCalendarItem);
+                const getCalendarReminder = await CalendarReminder.findOne({ _id: request.params.id })
+                return response.status(200).json(getCalendarReminder);
             } catch (error) {
                 console.log("Erro ao obter o evento do calendário", error)
                 return response.status(400).json({ error });
@@ -98,9 +98,9 @@ module.exports = {
         }
     },
 
-    async updateCalendarItem(request, response) {
+    async updateCalendarReminder(request, response) {
         /* 
-            #swagger.tags = ["calendarItemController"]
+            #swagger.tags = ["calendarReminderController"]
             #swagger.description = "Função que atualiza o item do calendário."
             #swagger.parameters['obj'] = {
                 in: 'body',
@@ -131,36 +131,36 @@ module.exports = {
         */
         if (request.params.key === "id") {
             try {
-                const updateCalendarItem = await CalendarItem.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.status(200).json(updateCalendarItem);
+                const updateCalendarReminder = await CalendarReminder.findOneAndUpdate({ _id: request.params.value }, request.body);
+                return response.status(200).json(updateCalendarReminder);
             } catch (error) {
-                console.log("Erro ao atualizar item de calendário na coleção CalendarItem", error);
+                console.log("Erro ao atualizar item de calendário na coleção CalendarReminder", error);
                 return response.status(400).json({ error });
             }
         }
 
         if (request.params.key === "user") {
             try {
-                const updateCalendarItem = await CalendarItem.findOneAndUpdate({ user: request.params.value }, request.body)
-                return response.status(200).json(updateCalendarItem);
+                const updateCalendarReminder = await CalendarReminder.findOneAndUpdate({ user: request.params.value }, request.body)
+                return response.status(200).json(updateCalendarReminder);
             } catch (error) {
-                console.log("Erro ao atualizar o item de calendário da coleção CalendarItem", error)
+                console.log("Erro ao atualizar o item de calendário da coleção CalendarReminder", error)
                 return response.status(400).json({ error });
             }
         }
 
         try {
-            const updateCalendarItem = await CalendarItem.findOneAndUpdate({ _id : request.params.id }, request.body);
-            return response.status(200).json(updateCalendarItem);
+            const updateCalendarReminder = await CalendarReminder.findOneAndUpdate({ _id : request.params.id }, request.body);
+            return response.status(200).json(updateCalendarReminder);
         } catch (error) {
-            console.log("Erro ao atualizar item de calendário da coleção CalendarItem", error)
+            console.log("Erro ao atualizar item de calendário da coleção CalendarReminder", error)
             return response.status(400).json({ error });
         }
     },
 
-    async deleteCalendarItem(request, response) {
+    async deleteCalendarReminder(request, response) {
         /* 
-            #swagger.tags = ["calendarItemController"]
+            #swagger.tags = ["calendarReminderController"]
             #swagger.description = "Função que deleta um item do calendário"
             #swagger.responses[200] = {
                 schema: {
@@ -192,10 +192,10 @@ module.exports = {
             }
         */
         try {
-            const deleteCalendarItem = await CalendarItem.findOneAndDelete({ _id: request.params.id });
-            return response.status(200).json(deleteCalendarItem);
+            const deleteCalendarReminder = await CalendarReminder.findOneAndDelete({ _id: request.params.id });
+            return response.status(200).json(deleteCalendarReminder);
         } catch (error) {
-            console.log("Erro ao deletar item de calendário da coleção CalendarItem", error);
+            console.log("Erro ao deletar item de calendário da coleção CalendarReminder", error);
             return response.status(400).json({ error });
         }
     },
