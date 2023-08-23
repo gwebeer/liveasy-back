@@ -84,16 +84,14 @@ module.exports = {
                 const getCalendarReminders = await CalendarReminder.find()
                 return response.status(200).json(getCalendarReminders);
             } catch (error) {
-                console.log("Erro ao obter todos os eventos do calendário", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         } else {
             try {
                 const getCalendarReminder = await CalendarReminder.findOne({ _id: request.params.id })
                 return response.status(200).json(getCalendarReminder);
             } catch (error) {
-                console.log("Erro ao obter o evento do calendário", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         }
     },
@@ -129,31 +127,10 @@ module.exports = {
                 }
             }
         */
-        if (request.params.key === "id") {
-            try {
-                const updateCalendarReminder = await CalendarReminder.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.status(200).json(updateCalendarReminder);
-            } catch (error) {
-                console.log("Erro ao atualizar item de calendário na coleção CalendarReminder", error);
-                return response.status(400).json({ error });
-            }
-        }
-
-        if (request.params.key === "user") {
-            try {
-                const updateCalendarReminder = await CalendarReminder.findOneAndUpdate({ user: request.params.value }, request.body)
-                return response.status(200).json(updateCalendarReminder);
-            } catch (error) {
-                console.log("Erro ao atualizar o item de calendário da coleção CalendarReminder", error)
-                return response.status(400).json({ error });
-            }
-        }
-
         try {
             const updateCalendarReminder = await CalendarReminder.findOneAndUpdate({ _id : request.params.id }, request.body);
             return response.status(200).json(updateCalendarReminder);
         } catch (error) {
-            console.log("Erro ao atualizar item de calendário da coleção CalendarReminder", error)
             return response.status(400).json({ error });
         }
     },
@@ -195,7 +172,6 @@ module.exports = {
             const deleteCalendarReminder = await CalendarReminder.findOneAndDelete({ _id: request.params.id });
             return response.status(200).json(deleteCalendarReminder);
         } catch (error) {
-            console.log("Erro ao deletar item de calendário da coleção CalendarReminder", error);
             return response.status(400).json({ error });
         }
     },
