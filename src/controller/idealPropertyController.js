@@ -4,13 +4,13 @@ module.exports = {
     
     async createIdealProperty(request, response) {
         /* 
-            #swagger.tags = ["placeController"]
-            #swagger.description = "Função que cria um novo lugar"
+            #swagger.tags = ["idealPropertyController"]
+            #swagger.description = "Função que o usuário adiciona dados de uma propriedade ideal para o mesmo"
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: true,
                 schema: { 
-                    "$ref": "#/definitions/PlaceSchema"
+                    "$ref": "#/definitions/IdealPropertySchema"
                 }
             }
             #swagger.responses[201] = {
@@ -47,7 +47,7 @@ module.exports = {
 
     async getIdealProperty(request, response) {
         /* 
-            #swagger.tags = ["placeController"]
+            #swagger.tags = ["idealPropertyController"]
             #swagger.description = "Função que busca um ou vários lugares"
             #swagger.responses[200] = {
                 schema: {
@@ -82,23 +82,21 @@ module.exports = {
                 const getIdealProperties = await IdealProperty.find()
                 return response.status(200).json(getIdealProperties);
             } catch (error) {
-                console.log("Erro ao obter todos os lugares", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         } else {
             try {
                 const getIdealProperty = await IdealProperty.findOne({ _id: request.params.id })
                 return response.status(200).json(getIdealProperty);
             } catch (error) {
-                console.log("Erro ao obter os detalhes do lugar", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         }
     },
 
     async updateIdealProperty(request, response) {
         /* 
-            #swagger.tags = ["placeController"]
+            #swagger.tags = ["idealPropertyController"]
             #swagger.description = "Função que atualiza um lugar"
             #swagger.parameters['obj'] = {
                 in: 'body',
@@ -118,38 +116,17 @@ module.exports = {
                 }
             }
         */
-        if (request.params.key === "id") {
-            try {
-                const updateIdealProperty = await IdealProperty.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.status(200).json(updateIdealProperty);
-            } catch (error) {
-                console.log("Erro ao atualizar o lugar na coleção Place", error);
-                return response.status(400).json({ error });
-            }
-        }
-
-        if (request.params.key === "user") {
-            try {
-                const updateIdealProperty = await IdealProperty.findOneAndUpdate({ user: request.params.value }, request.body)
-                return response.status(200).json(updateIdealProperty);
-            } catch (error) {
-                console.log("Erro ao atualizar o lugar na coleção Place", error)
-                return response.status(400).json({ error });
-            }
-        }
-
         try {
             const updateIdealProperty = await IdealProperty.findOneAndUpdate({ _id : request.params.id }, request.body);
             return response.status(200).json(updateIdealProperty);
         } catch (error) {
-            console.log("Erro ao atualizar o lugar na coleção Place", error)
             return response.status(400).json({ error });
         }
     },
 
     async deleteIdealProperty(request, response) {
         /* 
-            #swagger.tags = ["placeController"]
+            #swagger.tags = ["idealPropertyController"]
             #swagger.description = "Função que deleta um lugar"
             #swagger.responses[200] = {
                 schema: {
@@ -183,7 +160,6 @@ module.exports = {
             const deleteIdealProperty = await IdealProperty.findOneAndDelete({ _id: request.params.id });
             return response.status(200).json(deleteIdealProperty);
         } catch (error) {
-            console.log("Erro ao deletar o lugar na coleção Place", error);
             return response.status(400).json({ error });
         }
     },
