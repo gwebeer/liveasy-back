@@ -79,16 +79,14 @@ module.exports = {
                 const getPlanningCostItems = await PlanningCostItem.find()
                 return response.status(200).json(getPlanningCostItems);
             } catch (error) {
-                console.log("Erro ao obter todos os planejamentos de custos", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         } else {
             try {
                 const getPlanningCostItem = await PlanningCostItem.findOne({ _id: request.params.id })
                 return response.status(200).json(getPlanningCostItem);
             } catch (error) {
-                console.log("Erro ao obter os detalhes do planejamento de custos", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         }
     },
@@ -117,31 +115,10 @@ module.exports = {
                 }
             }
         */
-        if (request.params.key === "id") {
-            try {
-                const updatePlanningCostItem = await PlanningCostItem.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.status(200).json(updatePlanningCostItem);
-            } catch (error) {
-                console.log("Erro ao atualizar o planejamento de custos na coleção PlanningCostItem", error);
-                return response.status(400).json({ error });
-            }
-        }
-
-        if (request.params.key === "user") {
-            try {
-                const updatePlanningCostItem = await PlanningCostItem.findOneAndUpdate({ user: request.params.value }, request.body)
-                return response.status(200).json(updatePlanningCostItem);
-            } catch (error) {
-                console.log("Erro ao atualizar o planejamento de custos na coleção PlanningCostItem", error)
-                return response.status(400).json({ error });
-            }
-        }
-
         try {
             const updatePlanningCostItem = await PlanningCostItem.findOneAndUpdate({ _id : request.params.id }, request.body);
             return response.status(200).json(updatePlanningCostItem);
         } catch (error) {
-            console.log("Erro ao atualizar o planejamento de custos na coleção PlanningCostItem", error)
             return response.status(400).json({ error });
         }
     },
@@ -180,7 +157,6 @@ module.exports = {
             const deletePlanningCostItem = await PlanningCostItem.findOneAndDelete({ _id: request.params.id });
             return response.status(200).json(deletePlanningCostItem);
         } catch (error) {
-            console.log("Erro ao deletar o planejamento de custos na coleção PlanningCostItem", error);
             return response.status(400).json({ error });
         }
     },
