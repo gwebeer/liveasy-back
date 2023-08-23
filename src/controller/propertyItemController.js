@@ -80,16 +80,14 @@ module.exports = {
                 const getPropertyItems = await PropertyItem.find()
                 return response.status(200).json(getPropertyItems);
             } catch (error) {
-                console.log("Erro ao obter todos os itens", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         } else {
             try {
                 const getPropertyItem = await PropertyItem.findOne({ _id: request.params.id })
                 return response.status(200).json(getPropertyItem);
             } catch (error) {
-                console.log("Erro ao obter o item requisitado", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         } 
     },
@@ -129,7 +127,6 @@ module.exports = {
             const updatePropertyItem = await PropertyItem.findOneAndUpdate({ _id: request.params.id }, request.body);
             return response.status(200).json(updatePropertyItem);
         } catch (error) {
-            console.log("Erro ao atualizar item da coleção PropertyItem", error)
             return response.status(400).json({ error });
         }
     },
@@ -169,7 +166,6 @@ module.exports = {
             const deletePropertyItem = await PropertyItem.findOneAndDelete({ _id: request.params.id });
             return response.status(200).json(deletePropertyItem);
         } catch (error) {
-            console.log("Erro ao deletar item da coleção PropertyItem", error)
             return response.status(400).json({ error });
         }
     },

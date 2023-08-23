@@ -80,16 +80,14 @@ module.exports = {
                 const getUsers = await Users.find()
                 return response.status(200).json(getUsers);
             } catch (error) {
-                console.log("Erro ao obter todos os usuários", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         } else {
             try {
                 const getUsers = await Users.findOne({ _id: request.params.id })
                 return response.status(200).json(getUsers);
             } catch (error) {
-                console.log("Erro ao obter o detalhe do usuário", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         }
     },
@@ -121,33 +119,11 @@ module.exports = {
                 }
             }
         */
-        if (request.params.key === "id") {
-            try {
-                request.body.password = await bcrypt.hash(request.body.password, 10)
-                const updateUser = await Users.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.status(200).json(updateUser);
-            } catch (error) {
-                console.log("Erro ao atualizar item da coleção Rooms", error)
-                return response.status(400).json({ error });
-            }
-        }
-
-        if (request.params.key === "email") {
-            try {
-                request.body.password = await bcrypt.hash(request.body.password, 10)
-                const updateUser = await Users.findOneAndUpdate({ email: request.params.value }, request.body);
-                return response.status(200).json(updateUser);
-            } catch (error) {
-                console.log("Erro ao atualizar item da coleção Rooms", error)
-                return response.status(400).json({ error });
-            }
-        }
-
         try {
+            request.body.password = await bcrypt.hash(request.body.password, 10)
             const updateUser = await Users.findOneAndUpdate({ _id: request.params.id }, request.body);
             return response.status(200).json(updateUser);
         } catch (error) {
-            console.log("Erro ao atualizar item da coleção Rooms", error)
             return response.status(400).json({ error });
         }
     },
@@ -187,7 +163,6 @@ module.exports = {
             const deleteUser = await Users.findOneAndDelete({ _id: request.params.id });
             return response.status(200).json(deleteUser);
         } catch (error) {
-            console.log("Erro ao deletar item da coleção Users", error)
             return response.status(400).json({ error });
         }
     },
@@ -223,7 +198,6 @@ module.exports = {
                 return response.status(200).json({ msg: 'O e-mail já está cadastrado' })
             }
         } catch (error) {
-            console.log("Email não registrado", error)
             return response.status(400).json({ error });
         }
     },
@@ -283,8 +257,7 @@ module.exports = {
                 }
             }
         } catch (error) {
-            console.log("Email não registrado", error)
-            return response.status(400).json({ error });
+            return response.status(404).json({ error });
         }
     },
 
@@ -369,31 +342,10 @@ module.exports = {
                 }
             }
         */
-        if (request.params.key === "id") {
-            try {
-                const userUpdate = await Users.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.status(200).json(userUpdate);
-            } catch (error) {
-                console.log("Erro ao atualizar item da coleção Rooms", error)
-                return response.status(400).json({ error });
-            }
-        }
-
-        if (request.params.key === "email") {
-            try {
-                const userUpdate = await Users.findOneAndUpdate({ email: request.params.value }, request.body);
-                return response.status(200).json(userUpdate);
-            } catch (error) {
-                console.log("Erro ao atualizar item da coleção Rooms", error)
-                return response.status(400).json({ error });
-            }
-        }
-
         try {
-            const userUpdate = await Users.findOneAndUpdate({ _id: request.params.email }, request.body);
+            const userUpdate = await Users.findOneAndUpdate({ _id: request.params.id }, request.body);
             return response.status(200).json(userUpdate);
         } catch (error) {
-            console.log("Erro ao atualizar item da coleção Rooms", error)
             return response.status(400).json({ error });
         }
     },

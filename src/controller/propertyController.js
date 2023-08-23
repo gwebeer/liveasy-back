@@ -82,16 +82,14 @@ module.exports = {
                 const getProperties = await Property.find()
                 return response.status(200).json(getProperties);
             } catch (error) {
-                console.log("Erro ao obter todos os lugares", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         } else {
             try {
                 const getProperty = await Property.findOne({ _id: request.params.id })
                 return response.status(200).json(getProperty);
             } catch (error) {
-                console.log("Erro ao obter os detalhes do lugar", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         }
     },
@@ -118,31 +116,10 @@ module.exports = {
                 }
             }
         */
-        if (request.params.key === "id") {
-            try {
-                const updateProperty = await Property.findOneAndUpdate({ _id: request.params.value }, request.body);
-                return response.status(200).json(updateProperty);
-            } catch (error) {
-                console.log("Erro ao atualizar o lugar na coleção Place", error);
-                return response.status(400).json({ error });
-            }
-        }
-
-        if (request.params.key === "user") {
-            try {
-                const updateProperty = await Property.findOneAndUpdate({ user: request.params.value }, request.body)
-                return response.status(200).json(updateProperty);
-            } catch (error) {
-                console.log("Erro ao atualizar o lugar na coleção Place", error)
-                return response.status(400).json({ error });
-            }
-        }
-
         try {
             const updateProperty = await Property.findOneAndUpdate({ _id : request.params.id }, request.body);
             return response.status(200).json(updateProperty);
         } catch (error) {
-            console.log("Erro ao atualizar o lugar na coleção Place", error)
             return response.status(400).json({ error });
         }
     },
@@ -183,7 +160,6 @@ module.exports = {
             const deleteProperty = await Property.findOneAndDelete({ _id: request.params.id });
             return response.status(200).json(deleteProperty);
         } catch (error) {
-            console.log("Erro ao deletar o lugar na coleção Place", error);
             return response.status(400).json({ error });
         }
     },

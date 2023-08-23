@@ -80,16 +80,14 @@ module.exports = {
                 const getSuggestionItems = await SuggestionItem.find()
                 return response.status(200).json(getSuggestionItems);
             } catch (error) {
-                console.log("Erro ao obter todos os itens", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         } else {
             try {
                 const getSuggestionItem = await SuggestionItem.findOne({ _id: request.params.id })
                 return response.status(200).json(getSuggestionItem);
             } catch (error) {
-                console.log("Erro ao obter o item requisitado", error)
-                return response.status(400).json({ error });
+                return response.status(404).json({ error });
             }
         } 
     },
@@ -129,7 +127,6 @@ module.exports = {
             const updateSuggestionItem = await SuggestionItem.findOneAndUpdate({ _id: request.params.id }, request.body);
             return response.status(200).json(updateSuggestionItem);
         } catch (error) {
-            console.log("Erro ao atualizar item da coleção SuggestionItem", error)
             return response.status(400).json({ error });
         }
     },
@@ -169,7 +166,6 @@ module.exports = {
             const deleteItem = await SuggestionItem.findOneAndDelete({ _id: request.params.id });
             return response.status(200).json(deleteItem);
         } catch (error) {
-            console.log("Erro ao deletar item da coleção SuggestionItem", error)
             return response.status(400).json({ error });
         }
     },
