@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const CalendarItemSchema = new mongoose.Schema({
+const CalendarReminderSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     planningCostItem: { type: mongoose.Schema.Types.ObjectId, ref: "PlanningCostItem", required: true },
     initialDate: { type: String, required: true },
@@ -9,4 +9,4 @@ const CalendarItemSchema = new mongoose.Schema({
     repeatEvery: { type: Number, required: false}
 }, { timestamps: {} });
 
-module.exports = mongoose.model("CalendarItem", CalendarItemSchema);
+module.exports = mongoose.model("CalendarReminder", CalendarReminderSchema);
