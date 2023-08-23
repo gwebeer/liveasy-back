@@ -134,7 +134,7 @@ module.exports = {
         }
     },
     
-    async deleteItem(request, response) {
+    async deletePropertyItem(request, response) {
         /* 
             #swagger.tags = ["propertyItemController"]
             #swagger.description = "Função que deleta um item padrão"
@@ -166,8 +166,8 @@ module.exports = {
             }
         */
         try {
-            const deleteItem = await PropertyItem.findOneAndDelete({ _id: request.params.id });
-            return response.status(200).json(deleteItem);
+            const deletePropertyItem = await PropertyItem.findOneAndDelete({ _id: request.params.id });
+            return response.status(200).json(deletePropertyItem);
         } catch (error) {
             console.log("Erro ao deletar item da coleção PropertyItem", error)
             return response.status(400).json({ error });
