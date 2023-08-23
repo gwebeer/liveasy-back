@@ -1,8 +1,8 @@
-const Item = require('../models/itemModel');
+const CustomItem = require('../models/customItemModel');
 
 module.exports = {
     
-    async createItem(request, response) {
+    async createCustomItem(request, response) {
         /* 
             #swagger.tags = ["itemController"]
             #swagger.description = "Função que cria um novo item"
@@ -40,14 +40,14 @@ module.exports = {
             }
         */
         try {
-            const createItem = await Item.create(request.body);
-            return response.status(201).json(createItem);
+            const createCustomItem = await CustomItem.create(request.body);
+            return response.status(201).json(createCustomItem);
         } catch (error) {
             return response.status(400).json({ error });
         }
     },
 
-    async getItem(request, response) {
+    async getCustomItem(request, response) {
         /* 
             #swagger.tags = ["itemController"]
             #swagger.description = "Função que busca por um ou vários itens"
@@ -85,16 +85,16 @@ module.exports = {
         */
         if (request.params.id == "all") {
             try {
-                const getItem = await Item.find()
-                return response.status(200).json(getItem);
+                const getCustomItem = await CustomItem.find()
+                return response.status(200).json(getCustomItem);
             } catch (error) {
                 console.log("Erro ao obter todos os itens", error)
                 return response.status(400).json({ error });
             }
         } else {
             try {
-                const getItem = await Item.findOne({ _id: request.params.id })
-                return response.status(200).json(getItem);
+                const getCustomItem = await CustomItem.findOne({ _id: request.params.id })
+                return response.status(200).json(getCustomItem);
             } catch (error) {
                 console.log("Erro ao obter o item requisitado", error)
                 return response.status(400).json({ error });
@@ -102,7 +102,7 @@ module.exports = {
         }
     },
     
-    async updateItem(request, response) {
+    async updateCustomItem(request, response) {
         /* 
             #swagger.tags = ["itemController"]
             #swagger.description = "Função que atualiza um item"
@@ -134,15 +134,15 @@ module.exports = {
             }
         */
         try {
-            const updateItem = await Item.findOneAndUpdate({ _id: request.params.id }, request.body);
-            return response.status(200).json(updateItem);
+            const updateCustomItem = await CustomItem.findOneAndUpdate({ _id: request.params.id }, request.body);
+            return response.status(200).json(updateCustomItem);
         } catch (error) {
-            console.log("Erro ao atualizar item da coleção DefaultList", error)
+            console.log("Erro ao atualizar item da coleção SuggestionItem", error)
             return response.status(400).json({ error });
         }
     },
     
-    async deleteItem(request, response) {
+    async deleteCustomItem(request, response) {
         /* 
             #swagger.tags = ["itemController"]
             #swagger.description = "Função que deleta um item"
@@ -177,10 +177,10 @@ module.exports = {
             }
         */
         try {
-            const deleteItem = await Item.findOneAndDelete({ _id: request.params.id });
-            return response.status(200).json(deleteItem);
+            const deleteCustomItem = await CustomItem.findOneAndDelete({ _id: request.params.id });
+            return response.status(200).json(deleteCustomItem);
         } catch (error) {
-            console.log("Erro ao deletar item da coleção DefaultList", error)
+            console.log("Erro ao deletar item da coleção SuggestionItem", error)
             return response.status(400).json({ error });
         }
     },
