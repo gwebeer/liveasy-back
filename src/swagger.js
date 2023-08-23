@@ -8,7 +8,7 @@ const doc = {
   host: 'localhost:4000',
   schemes: ['http'],
   definitions: {
-    CalendarItemSchema: {
+    CalendarReminderSchema: {
       $user: 'ObjectId()',
       $service: 'ObjectId()',
       $initialDate: "2023-07-21",
@@ -16,37 +16,37 @@ const doc = {
       $repeat: true,
       repeatEvery: 30 
     },
-    DashboardSchema: {
+    ChoosedPropertySchema: {
+      $user: 'ObjectId()',
+      $property: 'ObjectId()',
+      $reason: 'Perfeito para mim, pois moro sozinho.'
+    },
+    CustomItemSchema: {
       $process: 'ObjectId()',
-      $user: 'ObjectId()'
-    },
-    DefaultListSchema: {
-      $option: "Item",
-      $title: "Sofá",
-      category: "Móveis",
-      convenient: "Sala"
-    },
-    ItemSchema: {
+      $convenient: "Sala",
       $title: "Sofá",
       $priority: "Média",
-      $category: "Móveis",
-      $convenient: "Sala",
       $value: 2500.00,
       $bought: false,
-      $process: 'ObjectId()'
+      valuePaid: 2490.90,
+      boughtDate: '2022-09-12'
     },
-    OpinionAboutPlaceSchema: {
-      $place: 'ObjectId()',
+    GiveUpPropertySchema: {
       $user: 'ObjectId()',
-      $pros: ["Lugar muito bom de morar", "Tem posto de combustível perto"],
-      $cons: ["Pega pouco sol", "Cheiro de mofo"]
+      $property: 'ObjectId()',
+      $reason: 'Muito caro para alugar'
     },
-    PlaceSchema: {
-      $name: "Edifício Non Facile",
-      $address: "Rua dos Desafios, 352",
-      $zipCode: "70000-600",
-      $neighborhood: "Promessas",
-      $condominiumValue: 1200.00
+    IdealPropertySchema: {
+      $user: 'ObjectId()',
+      $peopleLiving: 1,
+      $type: 'Apartamento',
+      $rooms: 2,
+      $bathrooms: 2,
+      $parkingSpaces: 1,
+      $infraestructure: true,
+      $furnished: true,
+      $priceRange: 1000.00,
+      $isForRent: true
     },
     PlanningCostItemSchema: {
       $process: 'ObjectId()',
@@ -56,15 +56,31 @@ const doc = {
     ProcessSchema: {
       $user: 'ObjectId()',
       $step: "Planejamento",
-      $status: "Em progresso",
-      monthly_income: 2652.85,
-      special_budget: 8500.00,
-      moving_date: "2024-02-25"
+      $status: "Iniciando"
     },
-    ServiceSchema: {
-      $process: 'ObjectId()',
-      $title: "Instalação de Internet",
-      $value: 120.00
+    PropertyItemSchema: {
+      $property: 'ObjectId()',
+      $title: "Mesa de Jantar",
+      $convenient: "Sala de Jantar" 
+    },
+    PropertySchema: {
+      $name: "Edifício Non Facile",
+      $address: "Rua dos Desafios, 352",
+      $zipCode: "70000-600",
+      $neighborhood: "Promessas",
+      $type: "Apartamento",
+      $rooms: 3,
+      $bathrooms: 2,
+      $parkingSpaces: 1,
+      $infraestructure: true,
+      $furnished: false,
+      $isForRent: true,
+      $value: 1200.00
+    },
+    SuggestionItemSchema: {
+      $type: "Item",
+      $title: "Sofá",
+      convenient: "Sala"
     },
     UserSchema: {
       $name: "Irineu de Souza",
