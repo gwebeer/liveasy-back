@@ -7,8 +7,8 @@ const CustomItemSchema = new mongoose.Schema({
     priority: { type: String, required: true },
     value: { type: String, required: true },
     bought: { type: Boolean, required: true },
-    valuePaid: { type: Boolean, required: false },
-    boughtDate: { type: Boolean, required: false }
+    valuePaid: { type: Number, required: false },
+    boughtDate: { type: String, required: false }
 }, { timestamps: {} });
 
 module.exports = mongoose.model('CustomItem', CustomItemSchema);
