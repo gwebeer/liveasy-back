@@ -5,7 +5,7 @@ module.exports = {
     async createProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
-            #swagger.description = "Função que cria um novo processo"
+            #swagger.description = "Função que o usuário cria um novo processo."
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: true,
@@ -46,7 +46,7 @@ module.exports = {
     async getProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
-            #swagger.description = "Função que busca um ou vários processos"
+            #swagger.description = "Função que o usuário busca um ou vários processos."
             #swagger.responses[200] = {
                 schema: [{
                     "_id": "64dc043391834dca8c01aacf",
@@ -72,20 +72,32 @@ module.exports = {
                     }
                 }
             }
+            #swagger.responses[404] = {
+                schema: {
+                    "message": "Não foi(ram) encontrado(s) o(s) processo(s).",
+                    "_return": "null"
+                }
+            }
         */
         if (request.params.id == "all") {
             try {
                 const getProcesses = await Process.find()
+                if (getProcesses == null) {
+                    return response.status(404).json({ "message": "Não foram encontrados os processos.", "_return": getProcesses });
+                }
                 return response.json(getProcesses);
             } catch (error) {
-                return response.status(404).json({ error });
+                return response.status(400).json({ error });
             }
         } else {
             try {
                 const getProcess = await Process.findOne({ _id: request.params.id })
+                if (getProcess == null) {
+                    return response.status(404).json({ "message": "Não foi encontrado o processo.", "_return": getProcess });
+                }
                 return response.json(getProcess);
             } catch (error) {
-                return response.status(404).json({ error });
+                return response.status(400).json({ error });
             }
         }
     },
@@ -93,7 +105,7 @@ module.exports = {
     async getUserProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
-            #swagger.description = "Função que busca os processos anexados ao usuário."
+            #swagger.description = "Função que o usuário busca os processos anexados ao usuário."
             #swagger.responses[200] = {
                 schema: {
                     "_id": "64dc043391834dca8c01aacf",
@@ -119,25 +131,32 @@ module.exports = {
                     }
                 }
             }
+            #swagger.responses[404] = {
+                schema: {
+                    "message": "Não foi encontrado o usuário do processo.",
+                    "_return": "null"
+                }
+            }
         */
         try {
-            const getProcess = await Process.findOne({ user: request.params.user_id })
+            const getProcess = await Process.findOne({ user: request.params.id })
+            if (getProcess == null) {
+                return response.status(404).json({ "message": "Não foi encontrado o usuário do processo.", "_return": getProcess });
+            }
             return response.status(200).json(getProcess);
         } catch (error) {
-            return response.status(404).json({ error });
+            return response.status(400).json({ error });
         }
     },
     
     async updateProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
-            #swagger.description = "Função que o usuário atualiza um processo"
+            #swagger.description = "Função que o usuário o usuário atualiza um processo."
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: false,
                 schema: { 
-                    "user": "ObjectId",
-                    "id": "ObjectId",
                     "step": "Planejamento",
                     "status": "Em progresso",
                 }
@@ -179,7 +198,7 @@ module.exports = {
     async deleteProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
-            #swagger.description = "Função que deleta um processo"
+            #swagger.description = "Função que o usuário deleta um processo."
             #swagger.responses[200] = {
                 schema: {
                     "_id": "64dc043391834dca8c01aacf",
@@ -205,9 +224,18 @@ module.exports = {
                     }
                 }
             }
+            #swagger.responses[404] = {
+                schema: {
+                    "message": "Não foi encontrado o processo.",
+                    "_return": "null"
+                }
+            }
         */
         try {
             const deleteProcess = await Process.findOneAndDelete({ _id: request.params.id });
+            if (deleteProcess == null) {
+                return response.status(404).json({ "message": "Não foi encontrado o processo.", "_return": deleteProcess });
+            }
             return response.status(200).json(deleteProcess);
         } catch (error) {
             return response.status(400).json({ error });

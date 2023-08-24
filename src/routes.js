@@ -16,78 +16,78 @@ const userController = require('./controller/userController');
 // todo const dashboard = require('./functions/dashboard.js') 
 
 // CalendarReminder CRUD --------------------------------------------
-routes.post('/user/calendar/reminder/add', calendarReminderController.createCalendarReminder);    // todo
-routes.get('/user/calendar/reminder/:id', calendarReminderController.getCalendarReminder);        // todo
-routes.put('/user/calendar/reminder/:id', calendarReminderController.updateCalendarReminder);     // todo
-routes.delete('/user/calendar/reminder/:id', calendarReminderController.deleteCalendarReminder);  // todo
+routes.post('/user/calendar/reminder/add', calendarReminderController.createCalendarReminder);    // *
+routes.get('/user/calendar/reminder/:id', calendarReminderController.getCalendarReminder);        // *
+routes.put('/user/calendar/reminder/:id', calendarReminderController.updateCalendarReminder);     // *
+routes.delete('/user/calendar/reminder/:id', calendarReminderController.deleteCalendarReminder);  // *
 
 // ChoosedProperty CRUD ---------------------------------------------
-routes.post('/user/property/choosed/add', choosedPropertyController.createChoosedProperty);    // todo
-routes.get('/user/property/choosed/:id', choosedPropertyController.getChoosedProperty);        // todo
-routes.put('/user/property/choosed/:id', choosedPropertyController.updateChoosedProperty);     // todo
-routes.delete('/user/property/choosed/:id', choosedPropertyController.deleteChoosedProperty);  // todo
+routes.post('/user/property/choosed/add', choosedPropertyController.createChoosedProperty);    // *
+routes.get('/user/property/choosed/:id', choosedPropertyController.getChoosedProperty);        // *
+routes.put('/user/property/choosed/:id', choosedPropertyController.updateChoosedProperty);     // *
+routes.delete('/user/property/choosed/:id', choosedPropertyController.deleteChoosedProperty);  // *
 
 // CustomItem CRUD --------------------------------------------------
-routes.post('/user/property/item/add', customItemController.createCustomItem);     // todo
-routes.get('/user/property/item/:id', customItemController.getCustomItem);         // todo
-routes.put('/user/property/item/:id', customItemController.updateCustomItem);      // todo
-routes.delete('/user/property/item/:id', customItemController.deleteCustomItem);   // todo
+routes.post('/user/property/item/add', customItemController.createCustomItem);     // *
+routes.get('/user/property/item/:id', customItemController.getCustomItem);         // *
+routes.put('/user/property/item/:id', customItemController.updateCustomItem);      // *
+routes.delete('/user/property/item/:id', customItemController.deleteCustomItem);   // *
 
 // GiveUpProperty CRUD ----------------------------------------------
-routes.post('/user/property/give-up/add', giveUpPropertyController.createGiveUpProperty);    // todo
-routes.get('/user/property/give-up/:id', giveUpPropertyController.getGiveUpProperty);        // todo
-routes.put('/user/property/give-up/:id', giveUpPropertyController.updateGiveUpProperty);     // todo
-routes.delete('/user/property/give-up/:id', giveUpPropertyController.deleteGiveUpProperty);  // todo
+routes.post('/user/property/give-up/add', giveUpPropertyController.createGiveUpProperty);    // *
+routes.get('/user/property/give-up/:id', giveUpPropertyController.getGiveUpProperty);        // *
+routes.put('/user/property/give-up/:id', giveUpPropertyController.updateGiveUpProperty);     // *
+routes.delete('/user/property/give-up/:id', giveUpPropertyController.deleteGiveUpProperty);  // *
 
 // IdealProperty CRUD -----------------------------------------------
-routes.post('/user/property/add', idealPropertyController.createIdealProperty);    // todo
-routes.get('/user/property/:id', idealPropertyController.getIdealProperty);        // todo
-routes.put('/user/property/:id', idealPropertyController.updateIdealProperty);     // todo
-routes.delete('/user/property/:id', idealPropertyController.deleteIdealProperty);  // todo
+routes.post('/user/property/add', idealPropertyController.createIdealProperty);    // *
+routes.get('/user/property/:id', idealPropertyController.getIdealProperty);        // *
+routes.put('/user/property/:id', idealPropertyController.updateIdealProperty);     // *
+routes.delete('/user/property/:id', idealPropertyController.deleteIdealProperty);  // *
 
 // PlanningCostItem CRUD --------------------------------------------
-routes.post('/user/planning/cost/add', planningCostItemController.createPlanningCostItem);     // todo
-routes.get('/user/planning/cost/:id', planningCostItemController.getPlanningCostItem);            // todo
-routes.put('/user/planning/cost/:key/:value', planningCostItemController.updatePlanningCostItem); // todo
-routes.delete('/user/planning/cost/:id', planningCostItemController.deletePlanningCostItem);      // todo
+routes.post('/user/planning/cost/add', planningCostItemController.createPlanningCostItem);    // *
+routes.get('/user/planning/cost/:id', planningCostItemController.getPlanningCostItem);        // *
+routes.put('/user/planning/cost/:id', planningCostItemController.updatePlanningCostItem);     // *
+routes.delete('/user/planning/cost/:id', planningCostItemController.deletePlanningCostItem);  // *
 
 // Process CRUD -----------------------------------------------------
-routes.post('/user/process/create', processController.createProcess);    // todo
-routes.get('/user/process/:id', processController.getProcess);           // todo
-routes.put('/user/process/:id', processController.updateProcess);        // todo
-routes.delete('/user/process/:id', processController.deleteProcess);     // todo
+routes.post('/user/process/create', processController.createProcess);    // *
+routes.get('/user/process/:id', processController.getProcess);           // *
+routes.put('/user/process/:id', processController.updateProcess);        // *
+routes.delete('/user/process/:id', processController.deleteProcess);     // *
 
 // Process Functions ------------------------------------------------
-routes.get('/user/process/:user_id', processController.getUserProcess);    // todo
-
-// PropertyItem CRUD ------------------------------------------------
-routes.post('/property/item/add', propertyItemController.createPropertyItem);     // todo
-routes.get('/property/item/:id', propertyItemController.getPropertyItem);         // todo
-routes.put('/property/item/:id', propertyItemController.updatePropertyItem);      // todo
-routes.delete('/property/item/:id', propertyItemController.deletePropertyItem);   // todo
+routes.get('/user/process/user/:id', processController.getUserProcess);    // *
 
 // Property CRUD ----------------------------------------------------
-routes.post('/property/add', propertyController.createProperty);    // todo
-routes.get('/property/:id', propertyController.getProperty);        // todo
-routes.put('/property/:id', propertyController.updateProperty);     // todo
-routes.delete('/property/:id', propertyController.deleteProperty);  // todo
+routes.post('/property/add', propertyController.createProperty);    // *
+routes.get('/property/:id', propertyController.getProperty);        // *
+routes.put('/property/:id', propertyController.updateProperty);     // *
+routes.delete('/property/:id', propertyController.deleteProperty);  // *
+
+// PropertyItem CRUD ------------------------------------------------
+routes.post('/property/item/add', propertyItemController.createPropertyItem);     // *
+routes.get('/property/item/:id', propertyItemController.getPropertyItem);         // *
+routes.put('/property/item/:id', propertyItemController.updatePropertyItem);      // *
+routes.delete('/property/item/:id', propertyItemController.deletePropertyItem);   // *
 
 // SuggestionItem CRUD ----------------------------------------------
-routes.post('/suggestion/item/create', suggestionItemController.createItem);  // todo
-routes.get('/suggestion/item/:id', suggestionItemController.getItem);         // todo
-routes.put('/suggestion/item/:id', suggestionItemController.updateItem);      // todo
-routes.delete('/suggestion/item/:id', suggestionItemController.deleteItem);   // todo
+routes.post('/suggestion/item/create', suggestionItemController.createSuggestionItem);  // *
+routes.get('/suggestion/item/:id', suggestionItemController.getSuggestionItem);         // *
+routes.put('/suggestion/item/:id', suggestionItemController.updateSuggestionItem);      // *
+routes.delete('/suggestion/item/:id', suggestionItemController.deleteSuggestionItem);   // *
 
 // User CRUD --------------------------------------------------------
-routes.post('/user/register', userController.registerUser);  // todo
-routes.get('/user/:id', userController.getUser);             // todo
-routes.put('/user/:id', userController.updateUser);          // todo
-routes.delete('/user/:id', userController.deleteUser);       // todo
+routes.post('/user/register', userController.registerUser);  // *
+routes.get('/user/:id', userController.getUser);             // *
+routes.put('/user/:id', userController.updateUser);          // *
+routes.delete('/user/:id', userController.deleteUser);       // *
 
 // User Functions ---------------------------------------------------
-routes.get('/user/validate/:id', userController.validateEmail);              // todo
-routes.get('/user/auth/:id', userController.authenticateUser);               // todo
-routes.get('/user/forgot-password/:email', userController.forgotPassword);   // todo
-routes.put('/user/reset-password/:id' + userController.resetPassword);       // todo
+routes.get('/user/validate/:id', userController.validateEmail);           // *
+routes.get('/user/auth/:id', userController.authenticateUser);            // *
+routes.get('/user/forgot-password/:id', userController.forgotPassword);   // ?
+routes.put('/user/reset-password/:id' + userController.resetPassword);    // ?
 
 module.exports = routes;
