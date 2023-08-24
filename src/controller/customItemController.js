@@ -4,7 +4,7 @@ module.exports = {
     
     async createCustomItem(request, response) {
         /* 
-            #swagger.tags = ["itemController"]
+            #swagger.tags = ["customItemController"]
             #swagger.description = "Função que cria um novo item"
             #swagger.parameters['obj'] = {
                 in: 'body',
@@ -49,7 +49,7 @@ module.exports = {
 
     async getCustomItem(request, response) {
         /* 
-            #swagger.tags = ["itemController"]
+            #swagger.tags = ["customItemController"]
             #swagger.description = "Função que busca por um ou vários itens"
             #swagger.responses[200] = {
                 schema: [
@@ -102,7 +102,7 @@ module.exports = {
     
     async updateCustomItem(request, response) {
         /* 
-            #swagger.tags = ["itemController"]
+            #swagger.tags = ["customItemController"]
             #swagger.description = "Função que atualiza um item"
             #swagger.parameters['obj'] = {
                 in: 'body',
@@ -141,7 +141,7 @@ module.exports = {
     
     async deleteCustomItem(request, response) {
         /* 
-            #swagger.tags = ["itemController"]
+            #swagger.tags = ["customItemController"]
             #swagger.description = "Função que deleta um item"
             #swagger.responses[200] = {
                 schema: {

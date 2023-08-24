@@ -4,7 +4,7 @@ module.exports = {
     
     async createProperty(request, response) {
         /* 
-            #swagger.tags = ["placeController"]
+            #swagger.tags = ["propertyController"]
             #swagger.description = "Função que cria um novo lugar"
             #swagger.parameters['obj'] = {
                 in: 'body',
@@ -47,7 +47,7 @@ module.exports = {
 
     async getProperty(request, response) {
         /* 
-            #swagger.tags = ["placeController"]
+            #swagger.tags = ["propertyController"]
             #swagger.description = "Função que busca um ou vários lugares"
             #swagger.responses[200] = {
                 schema: {
@@ -96,7 +96,7 @@ module.exports = {
 
     async updateProperty(request, response) {
         /* 
-            #swagger.tags = ["placeController"]
+            #swagger.tags = ["propertyController"]
             #swagger.description = "Função que atualiza um lugar"
             #swagger.parameters['obj'] = {
                 in: 'body',
@@ -126,7 +126,7 @@ module.exports = {
 
     async deleteProperty(request, response) {
         /* 
-            #swagger.tags = ["placeController"]
+            #swagger.tags = ["propertyController"]
             #swagger.description = "Função que deleta um lugar"
             #swagger.responses[200] = {
                 schema: {
