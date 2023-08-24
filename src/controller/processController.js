@@ -102,53 +102,6 @@ module.exports = {
         }
     },
     
-    async getUserProcess(request, response) {
-        /* 
-            #swagger.tags = ["processController"]
-            #swagger.description = "Função que o usuário busca os processos anexados ao usuário."
-            #swagger.responses[200] = {
-                schema: {
-                    "_id": "64dc043391834dca8c01aacf",
-                    "user": "64da742da876e905b9b149a2",
-                    "step": "Planejamento",
-                    "status": "Em progresso",
-                    "createdAt": "2023-08-15T23:03:15.343Z",
-                    "updatedAt": "2023-08-15T23:03:15.343Z",
-                    "__v": 0
-                }
-            }
-            #swagger.responses[400] = {
-                schema: {
-                    "error": {
-                        "stringValue": "",
-                        "valueType": "",
-                        "kind": "",
-                        "value": "",
-                        "path": "",
-                        "reason": {},
-                        "name": "ExampleError",
-                        "message": "Example of Message Error"
-                    }
-                }
-            }
-            #swagger.responses[404] = {
-                schema: {
-                    "message": "Não foi encontrado o usuário do processo.",
-                    "_return": "null"
-                }
-            }
-        */
-        try {
-            const getProcess = await Process.findOne({ user: request.params.id })
-            if (getProcess == null) {
-                return response.status(404).json({ "message": "Não foi encontrado o usuário do processo.", "_return": getProcess });
-            }
-            return response.status(200).json(getProcess);
-        } catch (error) {
-            return response.status(400).json({ error });
-        }
-    },
-    
     async updateProcess(request, response) {
         /* 
             #swagger.tags = ["processController"]
@@ -237,6 +190,54 @@ module.exports = {
                 return response.status(404).json({ "message": "Não foi encontrado o processo.", "_return": deleteProcess });
             }
             return response.status(200).json(deleteProcess);
+        } catch (error) {
+            return response.status(400).json({ error });
+        }
+    },
+
+    // Functions
+    async getUserProcess(request, response) {
+        /* 
+            #swagger.tags = ["processController - Functions"]
+            #swagger.description = "Função que o usuário busca os processos anexados ao usuário."
+            #swagger.responses[200] = {
+                schema: {
+                    "_id": "64dc043391834dca8c01aacf",
+                    "user": "64da742da876e905b9b149a2",
+                    "step": "Planejamento",
+                    "status": "Em progresso",
+                    "createdAt": "2023-08-15T23:03:15.343Z",
+                    "updatedAt": "2023-08-15T23:03:15.343Z",
+                    "__v": 0
+                }
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "error": {
+                        "stringValue": "",
+                        "valueType": "",
+                        "kind": "",
+                        "value": "",
+                        "path": "",
+                        "reason": {},
+                        "name": "ExampleError",
+                        "message": "Example of Message Error"
+                    }
+                }
+            }
+            #swagger.responses[404] = {
+                schema: {
+                    "message": "Não foi encontrado o usuário do processo.",
+                    "_return": "null"
+                }
+            }
+        */
+        try {
+            const getProcess = await Process.findOne({ user: request.params.id })
+            if (getProcess == null) {
+                return response.status(404).json({ "message": "Não foi encontrado o usuário do processo.", "_return": getProcess });
+            }
+            return response.status(200).json(getProcess);
         } catch (error) {
             return response.status(400).json({ error });
         }

@@ -200,9 +200,10 @@ module.exports = {
         }
     },
 
+    // functions
     async validateEmail(request, response) {
         /* 
-            #swagger.tags = ["userController"]
+            #swagger.tags = ["userController - Functions"]
             #swagger.description = 'Função que valida se o e-mail solicitado existe.'
             #swagger.responses[200] = { 
                 schema: {
@@ -237,7 +238,7 @@ module.exports = {
 
     async authenticateUser(request, response) {
         /* 
-            #swagger.tags = ["userController"]
+            #swagger.tags = ["userController - Functions"]
             #swagger.description = 'Função que autentica o usuário e usa o JWT.'
             #swagger.responses[200] = { 
                 schema: {
@@ -294,7 +295,7 @@ module.exports = {
 
     async forgotPassword(request, response) {
         /* 
-            #swagger.tags = ["userController"]
+            #swagger.tags = ["userController - Functions"]
             #swagger.description = 'Função que envia um e-mail para o usuário cadastrado que tenha esquecido sua senha.'
             #swagger.responses[200] = { 
                 schema: {
@@ -362,11 +363,11 @@ module.exports = {
 
     async resetPassword(request, response) {
         /* 
-            #swagger.tags = ["userController"]
+            #swagger.tags = ["userController - Functions"]
             #swagger.description = 'Função usada par resetar a senha do usuário cadastrado.'
             #swagger.parameters['obj'] = {
                 in: 'body',
-                required: true,
+                required: false,
                 schema: { 
                     "id": "",
                     "email": ""
@@ -374,7 +375,7 @@ module.exports = {
             }
             #swagger.responses[200] = { 
                 schema: {
-                    "resetPassword": {}
+                    
                 } 
             }
             #swagger.responses[400] = {
@@ -393,41 +394,5 @@ module.exports = {
             return response.status(400).json({ error });
         }
     },
-
-    //   async resetPassword(request, res) {
-    // try {
-    //     const userUpdate = await Users.findOneAndUpdate({ _id: req.params.email }, req.body);
-    //     return res.json(userUpdate);
-    // } catch (error) {
-    //     console.log("Erro ao atualizar item da coleção Rooms", error)
-    //     return res.status(400).json({ error });
-    // }
-
-    // try {
-    //   const email = req.params.email;
-    //   const password = req.params.senha;
-
-    //   // Validar entrada
-    //   if (!email || !password) {
-    //     return res.status(400).json({ error: "O email e a senha são obrigatórios." });
-    //   }
-
-    //   // Verificar se o email está cadastrado e atualizar a senha
-    //   const passUpdate = await Users.findOneAndUpdate(
-    //     { email },
-    //     { $set: { password: await bcrypt.hash(password, 10) } },
-    //     { new: true }
-    //   );
-
-    //   if (!passUpdate) {
-    //     return res.status(404).json({ error: "Usuário não encontrado." });
-    //   }
-
-    //   return res.json(passUpdate);
-    // } catch (error) {
-    //   console.log("Erro ao atualizar a senha", error);
-    //   return res.status(500).json({ error: "Erro ao atualizar a senha." });
-    // }
-    //   }
 
 }
