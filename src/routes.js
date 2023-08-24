@@ -3,10 +3,10 @@ const routes = express.Router();
 
 const calendarReminderController = require('./controller/calendarReminderController');
 const choosedPropertyController = require('./controller/choosedPropertyController');
-const customItemController = require('./controller/customItemController');
+const itemListController = require('./controller/itemListController');
 const giveUpPropertyController = require('./controller/giveUpPropertyController');
 const idealPropertyController = require('./controller/idealPropertyController');
-const planningCostItemController = require('./controller/planningCostItemController');
+const costItemListController = require('./controller/costItemListController');
 const processController = require('./controller/processController');
 const propertyController = require('./controller/propertyController');
 const propertyItemController = require('./controller/propertyItemController');
@@ -27,11 +27,11 @@ routes.get('/user/property/choosed/:id', choosedPropertyController.getChoosedPro
 routes.put('/user/property/choosed/:id', choosedPropertyController.updateChoosedProperty);     // *
 routes.delete('/user/property/choosed/:id', choosedPropertyController.deleteChoosedProperty);  // *
 
-// CustomItem CRUD --------------------------------------------------
-routes.post('/user/property/item/add', customItemController.createCustomItem);     // *
-routes.get('/user/property/item/:id', customItemController.getCustomItem);         // *
-routes.put('/user/property/item/:id', customItemController.updateCustomItem);      // *
-routes.delete('/user/property/item/:id', customItemController.deleteCustomItem);   // *
+// ItemList CRUD --------------------------------------------------
+routes.post('/user/list/item/add', itemListController.createItemList);     // todo category
+routes.get('/user/list/item/:id', itemListController.getItemList);         // todo category
+routes.put('/user/list/item/:id', itemListController.updateItemList);      // todo category
+routes.delete('/user/list/item/:id', itemListController.deleteItemList);   // todo category
 
 // GiveUpProperty CRUD ----------------------------------------------
 routes.post('/user/property/give-up/add', giveUpPropertyController.createGiveUpProperty);    // *
@@ -45,11 +45,11 @@ routes.get('/user/property/:id', idealPropertyController.getIdealProperty);     
 routes.put('/user/property/:id', idealPropertyController.updateIdealProperty);     // *
 routes.delete('/user/property/:id', idealPropertyController.deleteIdealProperty);  // *
 
-// PlanningCostItem CRUD --------------------------------------------
-routes.post('/user/planning/cost/add', planningCostItemController.createPlanningCostItem);    // *
-routes.get('/user/planning/cost/:id', planningCostItemController.getPlanningCostItem);        // *
-routes.put('/user/planning/cost/:id', planningCostItemController.updatePlanningCostItem);     // *
-routes.delete('/user/planning/cost/:id', planningCostItemController.deletePlanningCostItem);  // *
+// CostItemList CRUD --------------------------------------------
+routes.post('/user/list/cost/item/add', costItemListController.createCostItemList);    // *
+routes.get('/user/list/cost/item/:id', costItemListController.getCostItemList);        // *
+routes.put('/user/list/cost/item/:id', costItemListController.updateCostItemList);     // *
+routes.delete('/user/list/cost/item/:id', costItemListController.deleteCostItemList);  // *
 
 // Process CRUD -----------------------------------------------------
 routes.post('/user/process/create', processController.createProcess);    // *
@@ -73,7 +73,7 @@ routes.put('/property/item/:id', propertyItemController.updatePropertyItem);    
 routes.delete('/property/item/:id', propertyItemController.deletePropertyItem);   // *
 
 // SuggestionItem CRUD ----------------------------------------------
-routes.post('/suggestion/item/create', suggestionItemController.createSuggestionItem);  // *
+routes.post('/suggestion/item/create', suggestionItemController.createSuggestionItem);  // * 
 routes.get('/suggestion/item/:id', suggestionItemController.getSuggestionItem);         // *
 routes.put('/suggestion/item/:id', suggestionItemController.updateSuggestionItem);      // *
 routes.delete('/suggestion/item/:id', suggestionItemController.deleteSuggestionItem);   // *
@@ -85,7 +85,7 @@ routes.put('/user/:id', userController.updateUser);          // *
 routes.delete('/user/:id', userController.deleteUser);       // *
 
 // User Functions ---------------------------------------------------
-routes.get('/user/validate/:id', userController.validateEmail);           // *
+routes.get('/user/validate-email/:id', userController.validateEmail);     // *
 routes.get('/user/auth/:id', userController.authenticateUser);            // *
 routes.get('/user/forgot-password/:id', userController.forgotPassword);   // ?
 routes.put('/user/reset-password/:id' + userController.resetPassword);    // ?
