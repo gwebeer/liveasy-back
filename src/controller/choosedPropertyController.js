@@ -5,7 +5,7 @@ module.exports = {
     async createChoosedProperty(request, response) {
         /* 
             #swagger.tags = ["choosedPropertyController"]
-            #swagger.description = "Função que o usuário adiciona uma propriedade escolhida"
+            #swagger.description = "Função que o usuário adiciona uma propriedade escolhida."
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: true,
@@ -15,7 +15,13 @@ module.exports = {
             }
             #swagger.responses[201] = {
                 schema: {
-
+                    "user": "64d93e582de00e40576bfa5c",
+                    "property": "64e765f2c44ed036878be8cf",
+                    "reason": "Perfeito para mim, pois moro sozinho.",
+                    "_id": "64e77cc77cc55538c4e4facf",
+                    "createdAt": "2023-08-24T15:52:39.883Z",
+                    "updatedAt": "2023-08-24T15:52:39.883Z",
+                    "__v": 0
                 }
             }
             #swagger.responses[400] = {
@@ -43,7 +49,13 @@ module.exports = {
             #swagger.description = "Função que o usuário busca por uma ou várias propriedades escolhidas."
             #swagger.responses[200] = {
                 schema: [{
-
+                    "user": "64d93e582de00e40576bfa5c",
+                    "property": "64e765f2c44ed036878be8cf",
+                    "reason": "Perfeito para mim, pois moro sozinho.",
+                    "_id": "64e77cc77cc55538c4e4facf",
+                    "createdAt": "2023-08-24T15:52:39.883Z",
+                    "updatedAt": "2023-08-24T15:52:39.883Z",
+                    "__v": 0
                 }]
             }
             #swagger.responses[404] = {
@@ -60,20 +72,32 @@ module.exports = {
                     }
                 }
             }
+            #swagger.responses[404] = {
+                schema: {
+                    "message": "Não foi(ram) encontrada(s) propriedade(s) escolhida(s).", 
+                    "_return": "null"
+                }
+            }
         */
         if (request.params.id == "all") {
             try {
-                const getChoosedPropertys = await ChoosedProperty.find()
-                return response.status(200).json(getChoosedPropertys);
+                const getChoosedProperties = await ChoosedProperty.find()
+                if (getChoosedProperties == null) {
+                    return response.status(404).json({ "message": "Não foram encontradas propriedades escolhidas.", "_return": getChoosedProperties });
+                }
+                return response.status(200).json(getChoosedProperties);
             } catch (error) {
-                return response.status(404).json({ error });
+                return response.status(400).json({ error });
             }
         } else {
             try {
                 const getChoosedProperty = await ChoosedProperty.findOne({ _id: request.params.id })
+                if (getChoosedProperty == null) {
+                    return response.status(404).json({ "message": "Não foi encontrada propriedade escolhida.", "_return": getChoosedProperty });
+                }
                 return response.status(200).json(getChoosedProperty);
             } catch (error) {
-                return response.status(404).json({ error });
+                return response.status(400).json({ error });
             }
         }
     },
@@ -86,12 +110,18 @@ module.exports = {
                 in: 'body',
                 required: false,
                 schema: { 
-                    
+                    "reason": "Perfeito para mim, pois moro sozinho."
                 }
             }
             #swagger.responses[200] = {
                 schema: {
-
+                    "user": "64d93e582de00e40576bfa5c",
+                    "property": "64e765f2c44ed036878be8cf",
+                    "reason": "Perfeito para mim, pois moro sozinho.",
+                    "_id": "64e77cc77cc55538c4e4facf",
+                    "createdAt": "2023-08-24T15:52:39.883Z",
+                    "updatedAt": "2023-08-24T15:52:39.883Z",
+                    "__v": 0
                 }
             }
             #swagger.responses[400] = {
@@ -123,7 +153,13 @@ module.exports = {
             #swagger.description = "Função que o usuário exclui uma propriedade escolhida."
             #swagger.responses[200] = {
                 schema: {
-                    
+                    "user": "64d93e582de00e40576bfa5c",
+                    "property": "64e765f2c44ed036878be8cf",
+                    "reason": "Perfeito para mim, pois moro sozinho.",
+                    "_id": "64e77cc77cc55538c4e4facf",
+                    "createdAt": "2023-08-24T15:52:39.883Z",
+                    "updatedAt": "2023-08-24T15:52:39.883Z",
+                    "__v": 0
                 }
             }
             #swagger.responses[400] = {
@@ -140,9 +176,18 @@ module.exports = {
                     }
                 }
             }
+            #swagger.responses[404] = {
+                schema: {
+                    "message": "Não foi encontrada propriedade escolhida.", 
+                    "_return": "null"
+                }
+            }
         */
         try {
             const deleteChoosedProperty = await ChoosedProperty.findOneAndDelete({ _id: request.params.id });
+            if (deleteChoosedProperty == null) {
+                return response.status(404).json({ "message": "Não foi encontrada propriedade escolhida.", "_return": deleteChoosedProperty });
+            }
             return response.status(200).json(deleteChoosedProperty);
         } catch (error) {
             return response.status(400).json({ error });

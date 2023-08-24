@@ -5,22 +5,23 @@ module.exports = {
     async createCustomItem(request, response) {
         /* 
             #swagger.tags = ["customItemController"]
-            #swagger.description = "Função que cria um novo item"
+            #swagger.description = "Função que o usuário cria um novo item personalizado."
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: true,
                 schema: { 
-                    "$ref": "#/definitions/ItemSchema"
+                    "$ref": "#/definitions/CustomItemSchema"
                 }
             }
             #swagger.responses[201] = {
                 schema: {
                     "title": "Sofá",
                     "priority": "Média",
-                    "category": "Móveis",
                     "convenient": "Sala",
-                    "value": "2500",
-                    "bought": false,
+                    "value": 2500.00,
+                    "bought": true,
+                    "valuePaid": 2490.90,
+                    "boughtDate": "2022-10-12",
                     "process": "64dc0f8167f66149a8d49f97",
                     "_id": "64de6f1c01d3e90f1dd55ce3",
                     "createdAt": "2023-08-17T19:03:56.306Z",
@@ -50,17 +51,18 @@ module.exports = {
     async getCustomItem(request, response) {
         /* 
             #swagger.tags = ["customItemController"]
-            #swagger.description = "Função que busca por um ou vários itens"
+            #swagger.description = "Função que o usuário busca por um ou vários itens personalizados."
             #swagger.responses[200] = {
                 schema: [
                     {
                         "_id": "64de6f1c01d3e90f1dd55ce3",
                         "title": "Sofá",
                         "priority": "Média",
-                        "category": "Móveis",
                         "convenient": "Sala",
-                        "value": "2500",
-                        "bought": false,
+                        "value": 2500.00,
+                        "bought": true,
+                        "valuePaid": 2490.90,
+                        "boughtDate": "2022-10-12",
                         "process": "64dc0f8167f66149a8d49f97",
                         "createdAt": "2023-08-17T19:03:56.306Z",
                         "updatedAt": "2023-08-17T19:03:56.306Z",
@@ -82,17 +84,29 @@ module.exports = {
                     }
                 }
             }
+            #swagger.responses[404] = {
+                schema: {
+                    "message": "Não foi(ram) encontrado(s) item(ns) personalizado(s).", 
+                    "_return": "null"
+                }
+            }
         */
         if (request.params.id == "all") {
             try {
-                const getCustomItem = await CustomItem.find()
-                return response.status(200).json(getCustomItem);
+                const getCustomItems = await CustomItem.find()
+                if (getCustomItems == null) {
+                    return response.status(404).json({ "message": "Não foram encontrados itens personalizados.", "_return": getCustomItems });
+                }
+                return response.status(200).json(getCustomItems);
             } catch (error) {
                 return response.status(404).json({ error });
             }
         } else {
             try {
                 const getCustomItem = await CustomItem.findOne({ _id: request.params.id })
+                if (getCustomItem == null) {
+                    return response.status(404).json({ "message": "Não foi encontrado item personalizado.", "_return": getCustomItem });
+                }
                 return response.status(200).json(getCustomItem);
             } catch (error) {
                 return response.status(404).json({ error });
@@ -103,17 +117,34 @@ module.exports = {
     async updateCustomItem(request, response) {
         /* 
             #swagger.tags = ["customItemController"]
-            #swagger.description = "Função que atualiza um item"
+            #swagger.description = "Função que o usuário atualiza um item personalizado."
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: false,
                 schema: { 
-                    
+                    "title": "Sofá",
+                    "priority": "Média",
+                    "convenient": "Sala",
+                    "value": 2500,
+                    "bought": true,
+                    "valuePaid": 2490.9,
+                    "boughtDate": "2022-10-12",
                 }
             }
             #swagger.responses[200] = {
                 schema: {
-
+                    "title": "Sofá",
+                    "priority": "Média",
+                    "convenient": "Sala",
+                    "value": 2500.00,
+                    "bought": true,
+                    "valuePaid": 2490.90,
+                    "boughtDate": "2022-10-12",
+                    "process": "64dc0f8167f66149a8d49f97",
+                    "_id": "64de6f1c01d3e90f1dd55ce3",
+                    "createdAt": "2023-08-17T19:03:56.306Z",
+                    "updatedAt": "2023-08-17T19:03:56.306Z",
+                    "__v": 0
                 }
             }
             #swagger.responses[400] = {
@@ -142,16 +173,17 @@ module.exports = {
     async deleteCustomItem(request, response) {
         /* 
             #swagger.tags = ["customItemController"]
-            #swagger.description = "Função que deleta um item"
+            #swagger.description = "Função que o usuário deleta um item personalizado."
             #swagger.responses[200] = {
                 schema: {
                     "_id": "64de6f1c01d3e90f1dd55ce3",
                     "title": "Sofá",
                     "priority": "Média",
-                    "category": "Móveis",
                     "convenient": "Sala",
-                    "value": "2500",
-                    "bought": false,
+                    "value": 2500.00,
+                    "bought": true,
+                    "valuePaid": 2490.90,
+                    "boughtDate": "2022-10-12",
                     "process": "64dc0f8167f66149a8d49f97",
                     "createdAt": "2023-08-17T19:03:56.306Z",
                     "updatedAt": "2023-08-17T19:03:56.306Z",
@@ -172,9 +204,18 @@ module.exports = {
                     }
                 }
             }
+            #swagger.responses[404] = {
+                schema: {
+                    "message": "Não foi encontrado item personalizado.", 
+                    "_return": "null"
+                }
+            }
         */
         try {
             const deleteCustomItem = await CustomItem.findOneAndDelete({ _id: request.params.id });
+            if (deleteCustomItem == null) {
+                return response.status(404).json({ "message": "Não foi encontrado item personalizado.", "_return": deleteCustomItem });
+            }
             return response.status(200).json(deleteCustomItem);
         } catch (error) {
             return response.status(400).json({ error });

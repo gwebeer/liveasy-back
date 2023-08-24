@@ -21,9 +21,9 @@ module.exports = {
                     "name": "Irineu de Souza",
                     "email": "irineu@naosabe.com",
                     "birthDate": "14/01/2001",
+                    "phone": "41999999999",
                     "password": "Minh@S3nh4",
                     "type": "customer",
-                    "phone": "41999990",
                     "_id": "64d6c9cdb69b40992c075fcb",
                     "createdAt": "2023-08-11T23:52:45.777Z",
                     "updatedAt": "2023-08-11T23:52:45.777Z",
@@ -42,7 +42,7 @@ module.exports = {
         try {
             request.body.password = await bcrypt.hash(request.body.password, 10)
             const registerUser = await Users.create(request.body);
-            return response.status(201).json({ registerUser });
+            return response.status(201).json(registerUser);
         } catch (error) {
             return response.status(400).json({ error });
         }
@@ -57,9 +57,9 @@ module.exports = {
                     "name": "Irineu de Souza",
                     "email": "irineu@naosabe.com",
                     "birthDate": "2001-01-14",
+                    "phone": "41999999999",
                     "password": "Minh@S3nh4",
                     "type": "customer",
-                    "phone": "41999999999",
                     "_id": "64d6c9cdb69b40992c075fcb",
                     "createdAt": "2023-08-11T23:52:45.777Z",
                     "updatedAt": "2023-08-11T23:52:45.777Z",
@@ -74,20 +74,32 @@ module.exports = {
                     "message": "Error message: some message error here"
                 }
             }
+            #swagger.responses[404] = {
+                schema: {
+                    "message": "Usuário não encontrado",
+                    "_return": null
+                }
+            }
         */
         if (request.params.id == "all") {
             try {
                 const getUsers = await Users.find()
+                if (getUsers == null) {
+                    return response.status(404).json({ 'message': 'Usuários não encontrados.', '_return': getUsers})
+                }
                 return response.status(200).json(getUsers);
             } catch (error) {
-                return response.status(404).json({ error });
+                return response.status(400).json({ error });
             }
         } else {
             try {
-                const getUsers = await Users.findOne({ _id: request.params.id })
-                return response.status(200).json(getUsers);
+                const getUser = await Users.findOne({ _id: request.params.id })
+                if (getUser == null) {
+                    return response.status(404).json({ 'message': 'Usuário não encontrado', '_return': getUser})
+                }
+                return response.status(200).json(getUser);
             } catch (error) {
-                return response.status(404).json({ error });
+                return response.status(400).json({ error });
             }
         }
     },
@@ -96,15 +108,26 @@ module.exports = {
         /* 
             #swagger.tags = ["userController"]
             #swagger.description = 'Função que atualiza um usuário.'
-            #swagger.responses[200] = { 
-                schema: {
+            #swagger.parameters['obj'] = {
+                in: 'body',
+                required: true,
+                schema: { 
                     "name": "Irineu de Souza",
                     "email": "irineu@naosabe.com",
                     "birthDate": "14/01/2001",
+                    "phone": "41999999999",
+                    "password": "Minh@S3nh4",
+                }
+            }
+            #swagger.responses[200] = { 
+                schema: {
+                    "_id": "64d6c9cdb69b40992c075fcb",
+                    "name": "Irineu de Souza",
+                    "email": "irineu@naosabe.com",
+                    "birthDate": "14/01/2001",
+                    "phone": "41999999999",
                     "password": "Minh@S3nh4",
                     "type": "customer",
-                    "phone": "41999999999",
-                    "_id": "64d6c9cdb69b40992c075fcb",
                     "createdAt": "2023-08-11T23:52:45.777Z",
                     "updatedAt": "2023-08-11T23:52:45.777Z",
                     "__v": 0
@@ -133,16 +156,18 @@ module.exports = {
             #swagger.tags = ["userController"]
             #swagger.description = 'Função que deleta um usuário.'
             #swagger.responses[200] =  {
-                "_id": "64da73c47478259cf31660c0",
-                "name": "Irinelson da Silva",
-                "email": "irineu@naosabe.com",
-                "birthDate": "2001-01-14",
-                "password": "Minh@S3nh4",
-                "type": "customer",
-                "phone": "41999999999",
-                "createdAt": "2023-08-13T20:34:32.099Z",
-                "updatedAt": "2023-08-13T21:14:38.355Z",
-                "__v": 0
+                schema: {
+                    "_id": "64e75508a75edaf5c1cd4ed4",
+                    "name": "Irineu Silveira",
+                    "email": "irineu@naosabe.com",
+                    "birthDate": "2001-01-14",
+                    "phone": "41999999999",
+                    "password": "$2a$10$UuKWQDu0gwDkwf6TkrySjuRehAJwAhMVbutd7ZskbQ8e9XZvkqI0S",
+                    "type": "customer",
+                    "createdAt": "2023-08-24T13:03:04.137Z",
+                    "updatedAt": "2023-08-24T13:07:45.205Z",
+                    "__v": 0
+                }
             }
             #swagger.responses[400] = {
                 schema: {
@@ -158,9 +183,17 @@ module.exports = {
                     },
                 }
             }
+            #swagger.responses[404] = { 
+                schema: {
+
+                }
+            }
         */
         try {
             const deleteUser = await Users.findOneAndDelete({ _id: request.params.id });
+            if (deleteUser == null) {
+                return response.status(404).json({ 'message': 'O e-mail não está cadastrado.', '_return': deleteUser })
+            } 
             return response.status(200).json(deleteUser);
         } catch (error) {
             return response.status(400).json({ error });
@@ -173,12 +206,7 @@ module.exports = {
             #swagger.description = 'Função que valida se o e-mail solicitado existe.'
             #swagger.responses[200] = { 
                 schema: {
-                    "msg": 'O e-mail já está cadastrado' 
-                } 
-            }
-            #swagger.responses[203] = { 
-                schema: {
-                    "msg": 'O e-mail não está cadastrado'
+                    "message": 'O e-mail já está cadastrado.' 
                 } 
             }
             #swagger.responses[400] = {
@@ -189,14 +217,19 @@ module.exports = {
                     "message": "Error message: some message error here"
                 }
             }
+            #swagger.responses[404] = { 
+                schema: {
+                    "message": 'O e-mail não está cadastrado',
+                    "_return": "null"
+                } 
+            }
         */
         try {
             const validateEmail = await Users.findOne({ email: request.params.email })
             if (validateEmail == null) {
-                return response.status(203).json({ msg: 'O e-mail não está cadastrado' })
-            } else {
-                return response.status(200).json({ msg: 'O e-mail já está cadastrado' })
-            }
+                return response.status(404).json({ "message": 'O e-mail não está cadastrado.', "_return": validateEmail })
+            } 
+            return response.status(200).json({ "message": 'O e-mail já está cadastrado.'})
         } catch (error) {
             return response.status(400).json({ error });
         }
@@ -205,24 +238,12 @@ module.exports = {
     async authenticateUser(request, response) {
         /* 
             #swagger.tags = ["userController"]
-            #swagger.description = 'Função que autentica o usuário e usa o JWT'
+            #swagger.description = 'Função que autentica o usuário e usa o JWT.'
             #swagger.responses[200] = { 
                 schema: {
                     "msg": 'Login aprovado', 
                     "token": "<token>"
                 } 
-            }
-            #swagger.responses[203] = [
-                { 
-                    schema: {
-                        "msg": 'O e-mail informado não está cadastrado.'
-                    } 
-                },
-                {
-                    schema: {
-                        "msg": "A senha informada está inválida."
-                    }
-                }
             }
             #swagger.responses[400] = {
                 schema: {
@@ -232,15 +253,25 @@ module.exports = {
                     "message": "Error message: some message error here"
                 }
             }
+            #swagger.responses[403] = {
+                schema: {
+                    "msg": "A senha informada está inválida."
+                }
+            }
+            #swagger.responses[404] = {
+                schema: {
+                    "msg": 'O e-mail informado não está cadastrado.'
+                } 
+            }
         */
         try {
             const userInfo = await Users.findOne({ email: request.params.email })
             if (!userInfo) {
-                return response.status(203).json({ msg: 'O e-mail informado não está cadastrado.' })
+                return response.status(404).json({ msg: 'O e-mail informado não está cadastrado.' })
             } else {
                 const checkPassword = await bcrypt.compare(request.params.password, userInfo.password)
                 if (!checkPassword) {
-                    return response.status(203).json({ msg: "A senha informada está inválida." })
+                    return response.status(403).json({ msg: "A senha informada está inválida." })
                 }
 
                 try {
@@ -257,7 +288,7 @@ module.exports = {
                 }
             }
         } catch (error) {
-            return response.status(404).json({ error });
+            return response.status(400).json({ error });
         }
     },
 
@@ -278,11 +309,24 @@ module.exports = {
                     "message": "Error message: some message error here"
                 }
             }
+            #swagger.responses[404] = { 
+                schema: { 
+                    msg: 'O e-mail não está cadastrado.' 
+                }
+            }
+            #swagger.responses[500] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
         */
         try {
             const user = await Users.findOne({ email: request.params.email });
             if (user == null) {
-                return response.status(203).json({ msg: 'O e-mail não está cadastrado.' });
+                return response.status(404).json({ msg: 'O e-mail não está cadastrado.' });
             } else {
                 let mailtransporter = nodemailer.createTransport({
                     service: "gmail",
@@ -330,7 +374,7 @@ module.exports = {
             }
             #swagger.responses[200] = { 
                 schema: {
-                    "userUpdate": {}
+                    "resetPassword": {}
                 } 
             }
             #swagger.responses[400] = {

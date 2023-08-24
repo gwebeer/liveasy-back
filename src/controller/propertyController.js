@@ -5,12 +5,12 @@ module.exports = {
     async createProperty(request, response) {
         /* 
             #swagger.tags = ["propertyController"]
-            #swagger.description = "Função que cria um novo lugar"
+            #swagger.description = "Função que o usuário adiciona uma nova propriedade."
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: true,
                 schema: { 
-                    "$ref": "#/definitions/PlaceSchema"
+                    "$ref": "#/definitions/PropertySchema"
                 }
             }
             #swagger.responses[201] = {
@@ -19,8 +19,15 @@ module.exports = {
                     "address": "Rua dos Desafios, 352",
                     "zipCode": "70000-600",
                     "neighborhood": "Promessas",
-                    "condominiumValue": 1200,
-                    "_id": "64de635a21d6b023c4b73ffb",
+                    "type": "Apartamento",
+                    "rooms": 3,
+                    "bathrooms": 2,
+                    "parkingSpaces": 1,
+                    "infraestructure": true,
+                    "furnished": false,
+                    "isForRent": true,
+                    "value": 1200,
+                    "_id": "64e765f2c44ed036878be8cf",
                     "createdAt": "2023-08-17T18:13:46.777Z",
                     "updatedAt": "2023-08-17T18:13:46.777Z",
                     "__v": 0
@@ -48,19 +55,26 @@ module.exports = {
     async getProperty(request, response) {
         /* 
             #swagger.tags = ["propertyController"]
-            #swagger.description = "Função que busca um ou vários lugares"
+            #swagger.description = "Função que o usuário busca uma ou várias propriedades."
             #swagger.responses[200] = {
-                schema: {
-                    "_id": "64de64b9af518a8c10f34f7d",
-                    "name": "Edifício Behelit",
-                    "address": "Avenida dos Sonhos, 666",
-                    "zipCode": "70707-666",
-                    "neighborhood": "Demônio Servo",
-                    "condominiumValue": 1000,
-                    "createdAt": "2023-08-17T18:19:37.099Z",
-                    "updatedAt": "2023-08-17T18:19:37.099Z",
+                schema: [{
+                    "name": "Edifício Non Facile",
+                    "address": "Rua dos Desafios, 352",
+                    "zipCode": "70000-600",
+                    "neighborhood": "Promessas",
+                    "type": "Apartamento",
+                    "rooms": 3,
+                    "bathrooms": 2,
+                    "parkingSpaces": 1,
+                    "infraestructure": true,
+                    "furnished": false,
+                    "isForRent": true,
+                    "value": 1200,
+                    "_id": "64e765f2c44ed036878be8cf",
+                    "createdAt": "2023-08-17T18:13:46.777Z",
+                    "updatedAt": "2023-08-17T18:13:46.777Z",
                     "__v": 0
-                }
+                }]
             }
             #swagger.responses[400] = {
                 schema: {
@@ -76,20 +90,32 @@ module.exports = {
                     }
                 }
             }
+            #swagger.responses[404] = {
+                schema: {
+                    "message": "Não foi(ram) encontrada(s) a(s) propriedade(s).",
+                    "_return": "null"
+                }
+            }
         */
         if (request.params.id == "all") {
             try {
                 const getProperties = await Property.find()
+                if (getProperties == null) {
+                    return response.status(404).json({"message": "Não foram encontradas as propriedades.", "_return": getProperties})
+                }
                 return response.status(200).json(getProperties);
             } catch (error) {
-                return response.status(404).json({ error });
+                return response.status(400).json({ error });
             }
         } else {
             try {
                 const getProperty = await Property.findOne({ _id: request.params.id })
+                if (getProperty == null) {
+                    return response.status(404).json({"message": "Não foi encontrada a propriedade.", "_return": getProperty})
+                }
                 return response.status(200).json(getProperty);
             } catch (error) {
-                return response.status(404).json({ error });
+                return response.status(400).json({ error });
             }
         }
     },
@@ -97,22 +123,57 @@ module.exports = {
     async updateProperty(request, response) {
         /* 
             #swagger.tags = ["propertyController"]
-            #swagger.description = "Função que atualiza um lugar"
+            #swagger.description = "Função que o usuário atualiza uma propriedade."
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: false,
                 schema: { 
-                    
+                    "name": "Edifício Non Facile",
+                    "address": "Rua dos Desafios, 352",
+                    "zipCode": "70000-600",
+                    "neighborhood": "Promessas",
+                    "type": "Apartamento",
+                    "rooms": 3,
+                    "bathrooms": 2,
+                    "parkingSpaces": 1,
+                    "infraestructure": true,
+                    "furnished": false,
+                    "isForRent": true,
+                    "value": 1200
                 }
             }
             #swagger.responses[200] = {
                 schema: {
-
+                    "_id": "64e765f2c44ed036878be8cf",
+                    "name": "Edifício Non Facile",
+                    "address": "Rua dos Desafios, 352",
+                    "zipCode": "70000-600",
+                    "neighborhood": "Promessas",
+                    "type": "Apartamento",
+                    "rooms": 3,
+                    "bathrooms": 2,
+                    "parkingSpaces": 1,
+                    "infraestructure": true,
+                    "furnished": false,
+                    "isForRent": true,
+                    "value": 1200,
+                    "createdAt": "2023-08-24T14:15:14.520Z",
+                    "updatedAt": "2023-08-24T14:15:14.520Z",
+                    "__v": 0
                 }
             }
             #swagger.responses[400] = {
                 schema: {
-                    
+                    "error": {
+                        "stringValue": "",
+                        "valueType": "",
+                        "kind": "",
+                        "value": "",
+                        "path": "_id",
+                        "reason": {},
+                        "name": "ExampleError",
+                        "message": "Example of a Message Error"
+                    }
                 }
             }
         */
@@ -127,15 +188,22 @@ module.exports = {
     async deleteProperty(request, response) {
         /* 
             #swagger.tags = ["propertyController"]
-            #swagger.description = "Função que deleta um lugar"
+            #swagger.description = "Função que o usuário deleta uma propriedade."
             #swagger.responses[200] = {
                 schema: {
                     "_id": "64de64b9af518a8c10f34f7d",
-                    "name": "Edifício Behelit",
-                    "address": "Avenida dos Sonhos, 861",
-                    "zipCode": "70707-848",
-                    "neighborhood": "Flores",
-                    "condominiumValue": 1000,
+                    "name": "Edifício Non Facile",
+                    "address": "Rua dos Desafios, 352",
+                    "zipCode": "70000-600",
+                    "neighborhood": "Promessas",
+                    "type": "Apartamento",
+                    "rooms": 3,
+                    "bathrooms": 2,
+                    "parkingSpaces": 1,
+                    "infraestructure": true,
+                    "furnished": false,
+                    "isForRent": true,
+                    "value": 1200,
                     "createdAt": "2023-08-17T18:19:37.099Z",
                     "updatedAt": "2023-08-17T18:19:37.099Z",
                     "__v": 0
@@ -155,9 +223,18 @@ module.exports = {
                     }
                 }
             }
+            #swagger.responses[404] = {
+                schema: { 
+                    'message': 'Não foi possível excluir a propriedade.', 
+                    '_return': "null"
+                }
+            }
         */
         try {
             const deleteProperty = await Property.findOneAndDelete({ _id: request.params.id });
+            if (deleteProperty == null) {
+                return response.status(404).json({ 'message': 'Não foi possível excluir a propriedade.', '_return': deleteProperty })
+            }
             return response.status(200).json(deleteProperty);
         } catch (error) {
             return response.status(400).json({ error });
