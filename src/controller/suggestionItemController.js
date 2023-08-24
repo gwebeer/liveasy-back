@@ -131,7 +131,7 @@ module.exports = {
         }
     },
     
-    async deleteItem(request, response) {
+    async deleteSuggestionItem(request, response) {
         /* 
             #swagger.tags = ["suggestionItemController"]
             #swagger.description = "Função que deleta um item padrão"
@@ -163,8 +163,8 @@ module.exports = {
             }
         */
         try {
-            const deleteItem = await SuggestionItem.findOneAndDelete({ _id: request.params.id });
-            return response.status(200).json(deleteItem);
+            const deleteSuggestionItem = await SuggestionItem.findOneAndDelete({ _id: request.params.id });
+            return response.status(200).json(deleteSuggestionItem);
         } catch (error) {
             return response.status(400).json({ error });
         }
