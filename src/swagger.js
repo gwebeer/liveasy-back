@@ -10,7 +10,7 @@ const doc = {
   definitions: {
     CalendarReminderSchema: {
       $user: 'ObjectId()',
-      $service: 'ObjectId()',
+      $planningCostItem: 'ObjectId()',
       $initialDate: "2023-07-21",
       finalDate: "2023-08-21",
       $repeat: true,
