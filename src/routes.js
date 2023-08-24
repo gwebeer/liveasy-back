@@ -73,10 +73,10 @@ routes.put('/property/:id', propertyController.updateProperty);     // todo
 routes.delete('/property/:id', propertyController.deleteProperty);  // todo
 
 // SuggestionItem CRUD ----------------------------------------------
-routes.post('/suggestion/item/create', suggestionItemController.createItem);  // todo
-routes.get('/suggestion/item/:id', suggestionItemController.getItem);         // todo
-routes.put('/suggestion/item/:id', suggestionItemController.updateItem);      // todo
-routes.delete('/suggestion/item/:id', suggestionItemController.deleteItem);   // todo
+routes.post('/suggestion/item/create', suggestionItemController.createSuggestionItem);  // todo
+routes.get('/suggestion/item/:id', suggestionItemController.getSuggestionItem);         // todo
+routes.put('/suggestion/item/:id', suggestionItemController.updateSuggestionItem);      // todo
+routes.delete('/suggestion/item/:id', suggestionItemController.deleteSuggestionItem);   // todo
 
 // User CRUD --------------------------------------------------------
 routes.post('/user/register', userController.registerUser);  // todo
