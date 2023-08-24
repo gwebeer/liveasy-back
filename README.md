@@ -1,16 +1,5 @@
 # Como rodar Back-End
 
-Crie um diretório e baixe o [repositório](https://github.com/gwebeer/liveasy-back/archive/refs/heads/master.zip) dentro do diretório criado. Faça o mesmo para o [Front-End](https://github.com/gwebeer/liveasy-front/archive/refs/heads/master.zip).
-
-Ex.:
-```
-- LivEasy/
-    - liveasy-back/
-    - liveasy-front/
-```
-
-## Configurando <code>.env</code>
-
 Para poder rodar o _back-end_ é necessário criar um arquivo <code>.env</code> no diretório principal do projeto.
 
 Ex.:
@@ -21,6 +10,8 @@ Ex.:
     - .env
     - ...
 ```
+
+## Configurando <code>.env</code>
 
 Abra o arquivo <code>.env</code> e insira os seguintes dados:
 
