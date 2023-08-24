@@ -1,16 +1,16 @@
-const PlanningCostItem = require("../models/planningCostItemModel");
+const CostItemList = require("../models/costItemListModel");
 
 module.exports = {
     
-    async createPlanningCostItem(request, response) {
+    async createCostItemList(request, response) {
         /* 
-            #swagger.tags = ["planningCostItemController"]
+            #swagger.tags = ["costItemListController"]
             #swagger.description = "Função que o usuário cria um novo item de planejamento de custos."
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: true,
                 schema: { 
-                    "$ref": "#/definitions/PlanningCostItemSchema"
+                    "$ref": "#/definitions/CostItemListSchema"
                 }
             }
             #swagger.responses[201] = {
@@ -36,16 +36,16 @@ module.exports = {
             }
         */
         try {
-            const createPlanningCostItem = await PlanningCostItem.create(request.body);
-            return response.status(201).json(createPlanningCostItem);
+            const createCostItemList = await CostItemList.create(request.body);
+            return response.status(201).json(createCostItemList);
         } catch (error) {
             return response.status(400).json({ error });
         }
     },
 
-    async getPlanningCostItem(request, response) {
+    async getCostItemList(request, response) {
         /* 
-            #swagger.tags = ["planningCostItemController"]
+            #swagger.tags = ["costItemListController"]
             #swagger.description = "Função que o usuário busca por um ou vários itens de planejamento de custos."
             #swagger.responses[200] = {
                 schema: [
@@ -82,30 +82,30 @@ module.exports = {
         */
         if (request.params.id == "all") {
             try {
-                const getPlanningCostItems = await PlanningCostItem.find()
-                if (getPlanningCostItems == null) {
-                    return response.status(404).json({ "message": "Não foram encontrados os planejamentos de custo.", "_return": getPlanningCostItems });
+                const getCostItemLists = await CostItemList.find()
+                if (getCostItemLists == null) {
+                    return response.status(404).json({ "message": "Não foram encontrados os planejamentos de custo.", "_return": getCostItemLists });
                 }
-                return response.status(200).json(getPlanningCostItems);
+                return response.status(200).json(getCostItemLists);
             } catch (error) {
                 return response.status(400).json({ error });
             }
         } else {
             try {
-                const getPlanningCostItem = await PlanningCostItem.findOne({ _id: request.params.id })
-                if (getPlanningCostItem == null) {
-                    return response.status(404).json({ "message": "Não foram encontrados os planejamentos de custo.", "_return": getPlanningCostItem });
+                const getCostItemList = await CostItemList.findOne({ _id: request.params.id })
+                if (getCostItemList == null) {
+                    return response.status(404).json({ "message": "Não foram encontrados os planejamentos de custo.", "_return": getCostItemList });
                 }
-                return response.status(200).json(getPlanningCostItem);
+                return response.status(200).json(getCostItemList);
             } catch (error) {
                 return response.status(400).json({ error });
             }
         }
     },
 
-    async updatePlanningCostItem(request, response) {
+    async updateCostItemList(request, response) {
         /* 
-            #swagger.tags = ["planningCostItemController"]
+            #swagger.tags = ["costItemListController"]
             #swagger.description = "Função que o usuário atualiza um item do planejamento de custos."
             #swagger.parameters['obj'] = {
                 in: 'body',
@@ -142,16 +142,16 @@ module.exports = {
             }
         */
         try {
-            const updatePlanningCostItem = await PlanningCostItem.findOneAndUpdate({ _id : request.params.id }, request.body);
-            return response.status(200).json(updatePlanningCostItem);
+            const updateCostItemList = await CostItemList.findOneAndUpdate({ _id : request.params.id }, request.body);
+            return response.status(200).json(updateCostItemList);
         } catch (error) {
             return response.status(400).json({ error });
         }
     },
 
-    async deletePlanningCostItem(request, response) {
+    async deleteCostItemList(request, response) {
         /* 
-            #swagger.tags = ["planningCostItemController"]
+            #swagger.tags = ["costItemListController"]
             #swagger.description = "Função que o usuário deleta um item do planejamento de custos."
             #swagger.responses[200] = {
                 schema: {
@@ -186,11 +186,11 @@ module.exports = {
             }
         */
         try {
-            const deletePlanningCostItem = await PlanningCostItem.findOneAndDelete({ _id: request.params.id });
-            if (deletePlanningCostItem == null) {
-                return response.status(404).json({ "message": "Não foi encontrado o item de planejamento de custo.", "_return": deletePlanningCostItem });
+            const deleteCostItemList = await CostItemList.findOneAndDelete({ _id: request.params.id });
+            if (deleteCostItemList == null) {
+                return response.status(404).json({ "message": "Não foi encontrado o item de planejamento de custo.", "_return": deleteCostItemList });
             }
-            return response.status(200).json(deletePlanningCostItem);
+            return response.status(200).json(deleteCostItemList);
         } catch (error) {
             return response.status(400).json({ error });
         }
