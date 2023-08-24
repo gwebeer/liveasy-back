@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
-const CustomItemSchema = new mongoose.Schema({
+const ItemListSchema = new mongoose.Schema({
     process: { type: mongoose.Schema.Types.ObjectId, ref: "Process", required: true },
     convenient: { type: String, required: true },
     title: { type: String, required: true },
+    category: { type: String, required: true },
     priority: { type: String, required: true },
     value: { type: Number, required: true },
     bought: { type: Boolean, required: true },
@@ -11,4 +12,4 @@ const CustomItemSchema = new mongoose.Schema({
     boughtDate: { type: String, required: false }
 }, { timestamps: {} });
 
-module.exports = mongoose.model('CustomItem', CustomItemSchema);
+module.exports = mongoose.model('ItemList', ItemListSchema);
