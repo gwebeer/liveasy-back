@@ -10,7 +10,7 @@ const doc = {
   definitions: {
     CalendarReminderSchema: {
       $user: 'ObjectId()',
-      $planningCostItem: 'ObjectId()',
+      $costItemList: 'ObjectId()',
       $initialDate: "2023-07-21",
       finalDate: "2023-08-21",
       $repeat: true,
@@ -21,9 +21,10 @@ const doc = {
       $property: 'ObjectId()',
       $reason: 'Perfeito para mim, pois moro sozinho.'
     },
-    CustomItemSchema: {
+    ItemListSchema: {
       $process: 'ObjectId()',
       $convenient: "Sala",
+      $category: "",
       $title: "Sofá",
       $priority: "Média",
       $value: 2500.00,
@@ -48,9 +49,10 @@ const doc = {
       $priceRange: 1000.00,
       $isForRent: true
     },
-    PlanningCostItemSchema: {
+    CostItemListSchema: {
       $process: 'ObjectId()',
       $title: "Aluguel",
+      category: "",
       $value: 850.00
     },
     ProcessSchema: {
@@ -61,6 +63,7 @@ const doc = {
     PropertyItemSchema: {
       $property: 'ObjectId()',
       $title: "Mesa de Jantar",
+      $category: "",
       $convenient: "Sala de Jantar" 
     },
     PropertySchema: {
@@ -80,6 +83,7 @@ const doc = {
     SuggestionItemSchema: {
       $type: "Item",
       $title: "Sofá",
+      category: "",
       convenient: "Sala"
     },
     UserSchema: {
