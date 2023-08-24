@@ -1,16 +1,16 @@
-const CustomItem = require('../models/customItemModel');
+const ItemList = require('../models/itemListModel');
 
 module.exports = {
     
-    async createCustomItem(request, response) {
+    async createItemList(request, response) {
         /* 
-            #swagger.tags = ["customItemController"]
+            #swagger.tags = ["itemListController"]
             #swagger.description = "Função que o usuário cria um novo item personalizado."
             #swagger.parameters['obj'] = {
                 in: 'body',
                 required: true,
                 schema: { 
-                    "$ref": "#/definitions/CustomItemSchema"
+                    "$ref": "#/definitions/ItemListSchema"
                 }
             }
             #swagger.responses[201] = {
@@ -41,16 +41,16 @@ module.exports = {
             }
         */
         try {
-            const createCustomItem = await CustomItem.create(request.body);
-            return response.status(201).json(createCustomItem);
+            const createItemList = await ItemList.create(request.body);
+            return response.status(201).json(createItemList);
         } catch (error) {
             return response.status(400).json({ error });
         }
     },
 
-    async getCustomItem(request, response) {
+    async getItemList(request, response) {
         /* 
-            #swagger.tags = ["customItemController"]
+            #swagger.tags = ["itemListController"]
             #swagger.description = "Função que o usuário busca por um ou vários itens personalizados."
             #swagger.responses[200] = {
                 schema: [
@@ -93,30 +93,30 @@ module.exports = {
         */
         if (request.params.id == "all") {
             try {
-                const getCustomItems = await CustomItem.find()
-                if (getCustomItems == null) {
-                    return response.status(404).json({ "message": "Não foram encontrados itens personalizados.", "_return": getCustomItems });
+                const getItemLists = await ItemList.find()
+                if (getItemLists == null) {
+                    return response.status(404).json({ "message": "Não foram encontrados itens personalizados.", "_return": getItemLists });
                 }
-                return response.status(200).json(getCustomItems);
+                return response.status(200).json(getItemLists);
             } catch (error) {
                 return response.status(404).json({ error });
             }
         } else {
             try {
-                const getCustomItem = await CustomItem.findOne({ _id: request.params.id })
-                if (getCustomItem == null) {
-                    return response.status(404).json({ "message": "Não foi encontrado item personalizado.", "_return": getCustomItem });
+                const getItemList = await ItemList.findOne({ _id: request.params.id })
+                if (getItemList == null) {
+                    return response.status(404).json({ "message": "Não foi encontrado item personalizado.", "_return": getItemList });
                 }
-                return response.status(200).json(getCustomItem);
+                return response.status(200).json(getItemList);
             } catch (error) {
                 return response.status(404).json({ error });
             }
         }
     },
     
-    async updateCustomItem(request, response) {
+    async updateItemList(request, response) {
         /* 
-            #swagger.tags = ["customItemController"]
+            #swagger.tags = ["itemListController"]
             #swagger.description = "Função que o usuário atualiza um item personalizado."
             #swagger.parameters['obj'] = {
                 in: 'body',
@@ -163,16 +163,16 @@ module.exports = {
             }
         */
         try {
-            const updateCustomItem = await CustomItem.findOneAndUpdate({ _id: request.params.id }, request.body);
-            return response.status(200).json(updateCustomItem);
+            const updateItemList = await ItemList.findOneAndUpdate({ _id: request.params.id }, request.body);
+            return response.status(200).json(updateItemList);
         } catch (error) {
             return response.status(400).json({ error });
         }
     },
     
-    async deleteCustomItem(request, response) {
+    async deleteItemList(request, response) {
         /* 
-            #swagger.tags = ["customItemController"]
+            #swagger.tags = ["itemListController"]
             #swagger.description = "Função que o usuário deleta um item personalizado."
             #swagger.responses[200] = {
                 schema: {
@@ -212,11 +212,11 @@ module.exports = {
             }
         */
         try {
-            const deleteCustomItem = await CustomItem.findOneAndDelete({ _id: request.params.id });
-            if (deleteCustomItem == null) {
-                return response.status(404).json({ "message": "Não foi encontrado item personalizado.", "_return": deleteCustomItem });
+            const deleteItemList = await ItemList.findOneAndDelete({ _id: request.params.id });
+            if (deleteItemList == null) {
+                return response.status(404).json({ "message": "Não foi encontrado item personalizado.", "_return": deleteItemList });
             }
-            return response.status(200).json(deleteCustomItem);
+            return response.status(200).json(deleteItemList);
         } catch (error) {
             return response.status(400).json({ error });
         }
