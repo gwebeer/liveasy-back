@@ -57,7 +57,7 @@ module.exports = {
                     "planningcostitem": "ObjectId()",
                     "initialDate": "2023-07-21",
                     "finalDate": "2023-08-21",
-                    "repeat": true,
+                    "repeat": true, 
                     "repeatEvery": 30,
                     "createdAt": "2023-08-17T19:18:00.795Z",
                     "updatedAt": "2023-08-17T19:18:00.795Z",
