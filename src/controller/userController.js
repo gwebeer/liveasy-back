@@ -98,9 +98,91 @@ module.exports = {
     // Valida se o e-mail já está cadastrado no banco de dados
     async validEmail(req, res) {
         try {
+<<<<<<< HEAD
             const validEmail = await Users.findOne({ email: req.params.email })
             if (validEmail == null) {
                 return res.status(200).json({ msg: 'O e-mail não está cadastrado ' })
+=======
+            const deleteUser = await Users.findOneAndDelete({ _id: request.params.id });
+            if (deleteUser == null) {
+                return response.status(404).json({ 'message': 'O e-mail não está cadastrado.', '_return': deleteUser })
+            } 
+            return response.status(200).json(deleteUser);
+        } catch (error) {
+            return response.status(400).json({ error });
+        }
+    },
+
+    // functions
+    async validateEmail(request, response) {
+        /* 
+            #swagger.tags = ["userController - Functions"]
+            #swagger.description = 'Função que valida se o e-mail solicitado existe.'
+            #swagger.responses[200] = { 
+                schema: {
+                    "message": 'O e-mail já está cadastrado.' 
+                } 
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
+            #swagger.responses[404] = { 
+                schema: {
+                    "message": 'O e-mail não está cadastrado',
+                    "_return": "null"
+                } 
+            }
+        */
+        try {
+            const validateEmail = await Users.findOne({ email: request.params.email })
+            if (validateEmail == null) {
+                return response.status(404).json({ "message": 'O e-mail não está cadastrado.', "_return": validateEmail })
+            } 
+            return response.status(200).json({ "message": 'O e-mail já está cadastrado.'})
+        } catch (error) {
+            return response.status(400).json({ error });
+        }
+    },
+
+    async authenticateUser(request, response) {
+        /* 
+            #swagger.tags = ["userController - Functions"]
+            #swagger.description = 'Função que autentica o usuário e usa o JWT.'
+            #swagger.responses[200] = { 
+                schema: {
+                    "msg": 'Login aprovado', 
+                    "token": "<token>"
+                } 
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
+            #swagger.responses[403] = {
+                schema: {
+                    "msg": "A senha informada está inválida."
+                }
+            }
+            #swagger.responses[404] = {
+                schema: {
+                    "msg": 'O e-mail informado não está cadastrado.'
+                } 
+            }
+        */
+        try {
+            const userInfo = await Users.findOne({ email: request.params.email })
+            if (!userInfo) {
+                return response.status(404).json({ msg: 'O e-mail informado não está cadastrado.' })
+>>>>>>> d5da515605c73bff3018bd725929cdf727e8e123
             } else {
                 return res.status(203).json({ msg: 'O e-mail já está cadastrado' })
             }
@@ -143,7 +225,41 @@ module.exports = {
         }
     },
 
+<<<<<<< HEAD
     async sentEmail(req, res) {
+=======
+    async forgotPassword(request, response) {
+        /* 
+            #swagger.tags = ["userController - Functions"]
+            #swagger.description = 'Função que envia um e-mail para o usuário cadastrado que tenha esquecido sua senha.'
+            #swagger.responses[200] = { 
+                schema: {
+                    
+                } 
+            }
+            #swagger.responses[400] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
+            #swagger.responses[404] = { 
+                schema: { 
+                    msg: 'O e-mail não está cadastrado.' 
+                }
+            }
+            #swagger.responses[500] = {
+                schema: {
+                    "errors": { },
+                    "_message": "Error message.",
+                    "name": "ExampleError",
+                    "message": "Error message: some message error here"
+                }
+            }
+        */
+>>>>>>> d5da515605c73bff3018bd725929cdf727e8e123
         try {
             const validEmail = await Users.findOne({ email: req.params.email });
             if (validEmail == null) {
@@ -179,6 +295,7 @@ module.exports = {
         }
     },
 
+<<<<<<< HEAD
     async resetPassword(req, res) {
         if (req.params.key === "id") {
             try {
@@ -197,6 +314,24 @@ module.exports = {
             } catch (error) {
                 console.log("Erro ao atualizar item da coleção Rooms", error)
                 return res.status(400).json({ error });
+=======
+    async resetPassword(request, response) {
+        /* 
+            #swagger.tags = ["userController - Functions"]
+            #swagger.description = 'Função usada par resetar a senha do usuário cadastrado.'
+            #swagger.parameters['obj'] = {
+                in: 'body',
+                required: false,
+                schema: { 
+                    "id": "",
+                    "email": ""
+                }
+            }
+            #swagger.responses[200] = { 
+                schema: {
+                    
+                } 
+>>>>>>> d5da515605c73bff3018bd725929cdf727e8e123
             }
         }
 
@@ -210,6 +345,7 @@ module.exports = {
         }
     },
 
+<<<<<<< HEAD
     //   async resetPassword(req, res) {
     // try {
     //     const userUpdate = await Users.findOneAndUpdate({ _id: req.params.email }, req.body);
@@ -248,4 +384,6 @@ module.exports = {
     // }
     //   }
 
+=======
+>>>>>>> d5da515605c73bff3018bd725929cdf727e8e123
 }
