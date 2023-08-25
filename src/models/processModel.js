@@ -1,14 +1,9 @@
 const mongoose = require('mongoose');
 
-// Informações de Consumos
 const ProcessSchema = new mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "Users", required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     step: { type: String, required: true },
-    status: { type: String, required: true },
-    renda_mensal: { type: String, required: false },
-    orcamento_especial: { type: String, required: false },
-    data_mudanca: { type: Date, required: false },
-    
+    status: { type: String, required: true },    
 }, { timestamps: {} });
 
 module.exports = mongoose.model('Moves', ProcessSchema);

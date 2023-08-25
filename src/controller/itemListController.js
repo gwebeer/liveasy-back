@@ -17,6 +17,7 @@ module.exports = {
                 schema: {
                     "title": "Sofá",
                     "priority": "Média",
+                    "category": "",
                     "convenient": "Sala",
                     "value": 2500.00,
                     "bought": true,
@@ -58,6 +59,7 @@ module.exports = {
                         "_id": "64de6f1c01d3e90f1dd55ce3",
                         "title": "Sofá",
                         "priority": "Média",
+                        "category": "",
                         "convenient": "Sala",
                         "value": 2500.00,
                         "bought": true,
@@ -124,6 +126,7 @@ module.exports = {
                 schema: { 
                     "title": "Sofá",
                     "priority": "Média",
+                    "category": "",
                     "convenient": "Sala",
                     "value": 2500,
                     "bought": true,
@@ -135,6 +138,7 @@ module.exports = {
                 schema: {
                     "title": "Sofá",
                     "priority": "Média",
+                    "category": "",
                     "convenient": "Sala",
                     "value": 2500.00,
                     "bought": true,
@@ -179,6 +183,7 @@ module.exports = {
                     "_id": "64de6f1c01d3e90f1dd55ce3",
                     "title": "Sofá",
                     "priority": "Média",
+                    "category": "",
                     "convenient": "Sala",
                     "value": 2500.00,
                     "bought": true,

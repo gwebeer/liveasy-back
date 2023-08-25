@@ -17,6 +17,7 @@ module.exports = {
                 schema: {
                     "process": "64de5f45cf79a38afca5a165",
                     "title": "Aluguel",
+                    "category": "",
                     "value": 850,
                     "_id": "64de5f56cf79a38afca5a167",
                     "createdAt": "2023-08-17T17:56:38.273Z",
@@ -53,6 +54,7 @@ module.exports = {
                         "_id": "64de5f56cf79a38afca5a167",
                         "process": "64de5f45cf79a38afca5a165",
                         "title": "Aluguel",
+                        "category": "",
                         "value": 850,
                         "createdAt": "2023-08-17T17:56:38.273Z",
                         "updatedAt": "2023-08-17T17:56:38.273Z",
@@ -112,6 +114,7 @@ module.exports = {
                 required: false,
                 schema: { 
                     "title": "Aluguel",
+                    "category": "",
                     "value": 850,
                 }
             }
@@ -120,6 +123,7 @@ module.exports = {
                     "_id": "64de5f56cf79a38afca5a167",
                     "process": "64de5f45cf79a38afca5a165",
                     "title": "Aluguel",
+                    "category": "",
                     "value": 850,
                     "createdAt": "2023-08-17T17:56:38.273Z",
                     "updatedAt": "2023-08-17T17:56:38.273Z",
@@ -158,6 +162,7 @@ module.exports = {
                     "_id": "64de5f56cf79a38afca5a167",
                     "process": "64de5f45cf79a38afca5a165",
                     "title": "Aluguel",
+                    "category": "",
                     "value": 850,
                     "createdAt": "2023-08-17T17:56:38.273Z",
                     "updatedAt": "2023-08-17T17:56:38.273Z",
