@@ -85,9 +85,9 @@ routes.put('/user/:id', userController.updateUser);          // *
 routes.delete('/user/:id', userController.deleteUser);       // *
 
 // User Functions ---------------------------------------------------
-routes.get('/user/validate-email/:id', userController.validateEmail);     // *
-routes.get('/user/auth/:id', userController.authenticateUser);            // *
-routes.get('/user/forgot-password/:id', userController.forgotPassword);   // ?
-routes.put('/user/reset-password/:id' + userController.resetPassword);    // ?
+routes.post('/user/validate-email/:email', userController.validateEmail);        // ?
+routes.post('/user/auth/:email/:password', userController.authenticateUser);     // ?
+routes.post('/user/forgot-password/:email', userController.forgotPassword);      // ?
+routes.put('/user/reset-password/:id' + userController.resetPassword);          // ?
 
 module.exports = routes;
