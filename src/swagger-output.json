@@ -5627,7 +5627,7 @@
         }
       }
     },
-    "/user/validate-email/{id}": {
+    "/user/validate-email/{email}": {
       "get": {
         "tags": [
           "userController - Functions"
@@ -5635,7 +5635,7 @@
         "description": "Função que valida se o e-mail solicitado existe.",
         "parameters": [
           {
-            "name": "id",
+            "name": "email",
             "in": "path",
             "required": true,
             "type": "string"
@@ -5706,7 +5706,7 @@
         }
       }
     },
-    "/user/auth/{id}": {
+    "/user/auth/{email}/{password}": {
       "get": {
         "tags": [
           "userController - Functions"
@@ -5714,7 +5714,13 @@
         "description": "Função que autentica o usuário e usa o JWT.",
         "parameters": [
           {
-            "name": "id",
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
             "in": "path",
             "required": true,
             "type": "string"
@@ -5800,7 +5806,7 @@
         }
       }
     },
-    "/user/forgot-password/{id}": {
+    "/user/forgot-password/{email}": {
       "get": {
         "tags": [
           "userController - Functions"
@@ -5808,7 +5814,7 @@
         "description": "Função que envia um e-mail para o usuário cadastrado que tenha esquecido sua senha.",
         "parameters": [
           {
-            "name": "id",
+            "name": "email",
             "in": "path",
             "required": true,
             "type": "string"
