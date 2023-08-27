@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import { mongoose } from "mongoose";
 
 const CostItemListSchema = new mongoose.Schema({
     process : { type: mongoose.Schema.Types.ObjectId, ref: "Process", required: true },
@@ -7,4 +7,4 @@ const CostItemListSchema = new mongoose.Schema({
     value: { type: Number, required: true },
 }, { timestamps: {} });
 
-module.exports = mongoose.model('CostItemList', CostItemListSchema);
+export default mongoose.model('CostItemList', CostItemListSchema);

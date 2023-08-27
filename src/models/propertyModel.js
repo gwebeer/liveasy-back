@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import { mongoose } from "mongoose";
 
 const PropertySchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -15,4 +15,4 @@ const PropertySchema = new mongoose.Schema({
     value: { type: Number, required: true }
 }, { timestamps: {} });
 
-module.exports = mongoose.model("Property", PropertySchema);
+export default mongoose.model("Property", PropertySchema);

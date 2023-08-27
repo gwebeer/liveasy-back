@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import { mongoose } from "mongoose";
 
 const PropertyItemSchema = new mongoose.Schema({
     property: { type: mongoose.Schema.Types.ObjectId, ref: "Property", required: true },
@@ -7,4 +7,4 @@ const PropertyItemSchema = new mongoose.Schema({
     convenient: { type: String, required: true }
 }, { timestamps: {} });
 
-module.exports = mongoose.model('PropertyItem', PropertyItemSchema);
+export default mongoose.model('PropertyItem', PropertyItemSchema);

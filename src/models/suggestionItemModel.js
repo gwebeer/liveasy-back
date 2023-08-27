@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import { mongoose } from "mongoose";
 
 const SuggestionItemSchema = new mongoose.Schema({
     type: { type: String, required: true },
@@ -7,4 +7,4 @@ const SuggestionItemSchema = new mongoose.Schema({
     convenient: { type: String, required: false }
 }, { timestamps: {} });
 
-module.exports = mongoose.model('SuggestionItem', SuggestionItemSchema);
+export default mongoose.model('SuggestionItem', SuggestionItemSchema);

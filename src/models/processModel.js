@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import { mongoose } from "mongoose";
 
 const ProcessSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -6,4 +6,4 @@ const ProcessSchema = new mongoose.Schema({
     status: { type: String, required: true },    
 }, { timestamps: {} });
 
-module.exports = mongoose.model('Moves', ProcessSchema);
+export default mongoose.model('Moves', ProcessSchema);
