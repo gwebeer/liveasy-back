@@ -1,86 +1,17 @@
-const PropertyItem = require('../models/propertyItemModel');
+import PropertyItem from '../models/propertyItemModel.js';
 
-module.exports = {
+export default class PropertyItem {
     
     async createPropertyItem(request, response) {
-        /* 
-            #swagger.tags = ["propertyItemController"]
-            #swagger.description = "Função que o usuário adiciona um novo item da propriedade."
-            #swagger.parameters['obj'] = {
-                in: 'body',
-                required: true,
-                schema: { 
-                    "$ref": "#/definitions/PropertyItemSchema"
-                }
-            }
-            #swagger.responses[201] = {
-                schema: {
-                    "property": "64e765f2c44ed036878be8cf",
-                    "title": "Sofá",
-                    "category": "",
-                    "convenient": "Sala",
-                    "_id": "64de6fdf956dcb624aca8b2f",
-                    "createdAt": "2023-08-17T19:07:11.829Z",
-                    "updatedAt": "2023-08-17T19:07:11.829Z",
-                    "__v": 0
-                }
-            }
-            #swagger.responses[400] = {
-                schema: {
-                    "error": {
-                        "errors": { },
-                        "_message": "ErrorMessageExample",
-                        "name": "ExampleError",
-                        "message": "ErrorMessageExample: some message error here"
-                    }
-                }
-            }
-        */
         try {
             const createPropertyItem = await PropertyItem.create(request.body);
             return response.status(201).json(createPropertyItem);
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
 
     async getPropertyItem(request, response) {
-        /* 
-            #swagger.tags = ["propertyItemController"]
-            #swagger.description = "Função que o usuário busca por um ou vários itens da propriedade."
-            #swagger.responses[200] = {
-                schema: {
-                    "_id": "64de6fdf956dcb624aca8b2f",
-                    "property": "ObjectId()",
-                    "title": "Sofá",
-                    "category": "",
-                    "convenient": "Sala",
-                    "createdAt": "2023-08-17T19:07:11.829Z",
-                    "updatedAt": "2023-08-17T19:07:11.829Z",
-                    "__v": 0
-                }
-            }
-            #swagger.responses[400] = {
-                schema: {
-                    "error": {
-                        "stringValue": "",
-                        "valueType": "",
-                        "kind": "",
-                        "value": "",
-                        "path": "_id",
-                        "reason": {},
-                        "name": "ExampleError",
-                        "message": "Example of a Message Error"
-                    }
-                }
-            }
-            #swagger.responses[404] = {
-                schema: {
-                    "message": "Não foi(ram) encontrado(s) o(s) item(ns) da propriedade.",
-                    "_return": "null"
-                }
-            }
-        */
         if (request.params.id == "all") {
             try {
                 const getPropertyItems = await PropertyItem.find()
@@ -102,93 +33,18 @@ module.exports = {
                 return response.status(400).json({ error });
             }
         } 
-    },
+    }
     
     async updatePropertyItem(request, response) {
-        /* 
-            #swagger.tags = ["propertyItemController"]
-            #swagger.description = "Função que o usuário atualiza um item da propriedade."
-            #swagger.parameters['obj'] = {
-                in: 'body',
-                required: false,
-                schema: { 
-                    "title": "Sofá",
-                    "category": "",
-                    "convenient": "Sala"
-                }
-            }
-            #swagger.responses[200] = {
-                schema: {
-                    "_id": "64de6fdf956dcb624aca8b2f",
-                    "property": "ObjectId()",
-                    "title": "Sofá",
-                    "category": "",
-                    "convenient": "Sala",
-                    "createdAt": "2023-08-17T19:07:11.829Z",
-                    "updatedAt": "2023-08-17T19:07:11.829Z",
-                    "__v": 0
-                }
-            }
-            #swagger.responses[400] = {
-                schema: {
-                    "error": {
-                        "stringValue": "",
-                        "valueType": "",
-                        "kind": "",
-                        "value": "",
-                        "path": "_id",
-                        "reason": {},
-                        "name": "ExampleError",
-                        "message": "Example of a Message Error"
-                    }
-                }
-            }
-        */
         try {
             const updatePropertyItem = await PropertyItem.findOneAndUpdate({ _id: request.params.id }, request.body);
             return response.status(200).json(updatePropertyItem);
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
     
     async deletePropertyItem(request, response) {
-        /* 
-            #swagger.tags = ["propertyItemController"]
-            #swagger.description = "Função que o usuário deleta um item da propriedade."
-            #swagger.responses[200] = {
-                schema: {
-                    "_id": "64de6fdf956dcb624aca8b2f",
-                    "property": "ObjectId()",
-                    "title": "Sofá",
-                    "category": "",
-                    "convenient": "Sala",
-                    "createdAt": "2023-08-17T19:07:11.829Z",
-                    "updatedAt": "2023-08-17T19:07:11.829Z",
-                    "__v": 0
-                }
-            }
-            #swagger.responses[400] = {
-                schema: {
-                    "error": {
-                        "stringValue": "",
-                        "valueType": "",
-                        "kind": "",
-                        "value": "",
-                        "path": "_id",
-                        "reason": {},
-                        "name": "ExampleError",
-                        "message": "Example of a Message Error"
-                    }
-                }
-            }
-            #swagger.responses[404] = {
-                schema: {
-                    "message": "Não foi possível excluir o item da propriedade.",
-                    "_return": "null"
-                }
-            }
-        */
         try {
             const deletePropertyItem = await PropertyItem.findOneAndDelete({ _id: request.params.id });
             if (deletePropertyItem == null) {
@@ -198,6 +54,6 @@ module.exports = {
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
     
 }
