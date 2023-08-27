@@ -1,4 +1,3 @@
-import CalendarReminder from "../models/calendarReminderModel.js";
 import CalendarReminderService from "../services/calendarReminderService.js"
 
 export default class CalendarReminderController {
