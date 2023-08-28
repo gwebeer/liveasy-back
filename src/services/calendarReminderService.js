@@ -9,7 +9,7 @@ export default class CalendarReminderService {
             initialDate: data.initialDate
         });
         if (calendarReminderExists) {
-            throw Error('Esse lembrete já está cadastrado');
+            throw Error('Esse lembrete já está cadastrado.');
         }
 
         const createCalendarReminder = await calendarReminderModel.create(data);
@@ -28,7 +28,7 @@ export default class CalendarReminderService {
             }
         } else {
             try {
-                const getCalendarReminder = await calendarReminderModel.findOne({ _id: data.id })
+                const getCalendarReminder = await calendarReminderModel.findOne({ _id: data.id });
                 return getCalendarReminder;
             } catch (error) {
                 throw Error('Houve problema ao buscar o lembrete do calendário.');
