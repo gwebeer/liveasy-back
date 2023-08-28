@@ -1,10 +1,11 @@
-import PropertyItem from '../models/propertyItemModel.js';
+import PropertyItemService from '../services/propertyItemService.js';
 
-export default class PropertyItem {
+export default class PropertyItemController {
     
     async createPropertyItem(request, response) {
         try {
-            const createPropertyItem = await PropertyItem.create(request.body);
+            const propertyItemService = new PropertyItemService();
+            const createPropertyItem = await propertyItemService.createPropertyItem(request.body);
             return response.status(201).json(createPropertyItem);
         } catch (error) {
             return response.status(400).json({ error });
@@ -12,32 +13,22 @@ export default class PropertyItem {
     }
 
     async getPropertyItem(request, response) {
-        if (request.params.id == "all") {
-            try {
-                const getPropertyItems = await PropertyItem.find()
-                if (getPropertyItems == null) {
-                    return response.status(404).json({ "message": "Não foram encontrados os itens da propriedade.", "_return": getPropertyItems })
-                }
-                return response.status(200).json(getPropertyItems);
-            } catch (error) {
-                return response.status(400).json({ error });
+        try {
+            const propertyItemService = new PropertyItemService();
+            const getPropertyItem = await propertyItemService.getPropertyItem(request.body);
+            if (getPropertyItem == null) {
+                return response.status(404).json({ "message": "Não foi(ram) encontrado(s) o(s) item(ns) da propriedade.", "_return": getPropertyItem })
             }
-        } else {
-            try {
-                const getPropertyItem = await PropertyItem.findOne({ _id: request.params.id })
-                if (getPropertyItem == null) {
-                    return response.status(404).json({ "message": "Não foi encontrado o item da propriedade.", "_return": getPropertyItem })
-                }
-                return response.status(200).json(getPropertyItem);
-            } catch (error) {
-                return response.status(400).json({ error });
-            }
+            return response.status(200).json(getPropertyItem);
+        } catch (error) {
+            return response.status(400).json({ error });
         } 
     }
     
     async updatePropertyItem(request, response) {
         try {
-            const updatePropertyItem = await PropertyItem.findOneAndUpdate({ _id: request.params.id }, request.body);
+            const propertyItemService = new PropertyItemService();
+            const updatePropertyItem = await propertyItemService.updatePropertyItem(request.body);
             return response.status(200).json(updatePropertyItem);
         } catch (error) {
             return response.status(400).json({ error });
@@ -46,7 +37,8 @@ export default class PropertyItem {
     
     async deletePropertyItem(request, response) {
         try {
-            const deletePropertyItem = await PropertyItem.findOneAndDelete({ _id: request.params.id });
+            const propertyItemService = new PropertyItemService();
+            const deletePropertyItem = await propertyItemService.deletePropertyItem(request.body);
             if (deletePropertyItem == null) {
                 return response.status(404).json({ "message": "Não foi possível excluir o item da propriedade.", "_return": deletePropertyItem });
             }

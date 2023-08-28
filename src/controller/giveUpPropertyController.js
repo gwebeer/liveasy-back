@@ -5,6 +5,7 @@ export default class GiveUpProperty {
     async createGiveUpProperty(request, response) {
         try {
             const createGiveUpProperty = await GiveUpProperty.create(request.body);
+            
             return response.status(201).json(createGiveUpProperty);
         } catch (error) {
             return response.status(400).json({ error });
@@ -12,32 +13,22 @@ export default class GiveUpProperty {
     }
 
     async getGiveUpProperty(request, response) {
-        if (request.params.id == "all") {
-            try {
-                const getGiveUpProperties = await GiveUpProperty.find()
-                if (getGiveUpProperties == null) {
-                    return response.status(404).json({ "message": "Não foram encontradas propriedades recusadas.", "_return": getGiveUpProperties });
-                }
-                return response.status(200).json(getGiveUpProperties);
-            } catch (error) {
-                return response.status(400).json({ error });
+        try {
+            const giveUpPropertyService = await GiveUpPropertyService();
+            const getGiveUpProperty = await giveUpPropertyService.getGiveUpProperty(request.body);
+            if (getGiveUpProperty == null) {
+                return response.status(404).json({ "message": "Não foi(ram) encontrada(s) propriedade(s) recusada(s).", "_return": getGiveUpProperty });
             }
-        } else {
-            try {
-                const getGiveUpProperty = await GiveUpProperty.findOne({ _id: request.params.id })
-                if (getGiveUpProperty == null) {
-                    return response.status(404).json({ "message": "Não foi encontrado propriedade recusada.", "_return": getGiveUpProperty });
-                }
-                return response.status(200).json(getGiveUpProperty);
-            } catch (error) {
-                return response.status(400).json({ error });
-            }
+            return response.status(200).json(getGiveUpProperty);
+        } catch (error) {
+            return response.status(400).json({ error });
         }
     }
 
     async updateGiveUpProperty(request, response) {
         try {
-            const updateGiveUpProperty = await GiveUpProperty.findOneAndUpdate({ _id : request.params.id }, request.body);
+            const giveUpPropertyService = new GiveUpPropertyService();
+            const updateGiveUpProperty = await giveUpPropertyService.updateGiveUpProperty(request.body);
             return response.status(200).json(updateGiveUpProperty);
         } catch (error) {
             return response.status(400).json({ error });
@@ -46,7 +37,8 @@ export default class GiveUpProperty {
 
     async deleteGiveUpProperty(request, response) {
         try {
-            const deleteGiveUpProperty = await GiveUpProperty.findOneAndDelete({ _id: request.params.id });
+            const giveUpPropertyService = new GiveUpPropertyService();
+            const deleteGiveUpProperty = await giveUpPropertyService.deleteGiveUpProperty(request.body);
             if (deleteGiveUpProperty == null) {
                 return response.status(404).json({ "message": "Não foi encontrado propriedade recusada.", "_return": deleteGiveUpProperty });
             }

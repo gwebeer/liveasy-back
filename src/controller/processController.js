@@ -1,10 +1,11 @@
-import Process from '../models/processModel.js';
+import ProcessService from '../services/processService.js';
 
 export default class Process {
     
     async createProcess(request, response) {
         try {
-            const createProcess = await Process.create(request.body);
+            const processService = new ProcessService();
+            const createProcess = await processService.createProcess(request.body);
             return response.status(201).json(createProcess);
         } catch (error) {
             return response.status(400).json({ error });
@@ -12,32 +13,22 @@ export default class Process {
     }
     
     async getProcess(request, response) {
-        if (request.params.id == "all") {
-            try {
-                const getProcesses = await Process.find()
-                if (getProcesses == null) {
-                    return response.status(404).json({ "message": "Não foram encontrados os processos.", "_return": getProcesses });
-                }
-                return response.json(getProcesses);
-            } catch (error) {
-                return response.status(400).json({ error });
+        try {
+            const processService = new ProcessService();
+            const getProcesses = await processService.getProcess(request.body);
+            if (getProcess == null) {
+                return response.status(404).json({ "message": "Não foi(ram) encontrado(s) o(s) processo(s).", "_return": getProcess });
             }
-        } else {
-            try {
-                const getProcess = await Process.findOne({ _id: request.params.id })
-                if (getProcess == null) {
-                    return response.status(404).json({ "message": "Não foi encontrado o processo.", "_return": getProcess });
-                }
-                return response.json(getProcess);
-            } catch (error) {
-                return response.status(400).json({ error });
-            }
+            return response.json(getProcess);
+        } catch (error) {
+            return response.status(400).json({ error });
         }
     }
     
     async updateProcess(request, response) {
         try {
-            const updateProcess = await Process.findOneAndUpdate({ _id: request.params.id }, request.body);
+            const processService = new ProcessService();
+            const updateProcess = await processModel.updateProcess(request.body);
             return response.status(200).json(updateProcess);
         } catch (error) {
             return response.status(400).json({ error });
@@ -46,7 +37,8 @@ export default class Process {
     
     async deleteProcess(request, response) {
         try {
-            const deleteProcess = await Process.findOneAndDelete({ _id: request.params.id });
+            const processService = new ProcessService();
+            const deleteProcess = await processService.deleteProcess(request.body);
             if (deleteProcess == null) {
                 return response.status(404).json({ "message": "Não foi encontrado o processo.", "_return": deleteProcess });
             }
@@ -58,11 +50,12 @@ export default class Process {
 
     async getUserProcess(request, response) {
         try {
-            const getProcess = await Process.findOne({ user: request.params.id })
-            if (getProcess == null) {
-                return response.status(404).json({ "message": "Não foi encontrado o usuário do processo.", "_return": getProcess });
+            const processService = new ProcessService();
+            const getUserProcess = await processService.getUserProcess(request.body);
+            if (getUserProcess == null) {
+                return response.status(404).json({ "message": "Não foi encontrado o usuário do processo.", "_return": getUserProcess });
             }
-            return response.status(200).json(getProcess);
+            return response.status(200).json(getUserProcess);
         } catch (error) {
             return response.status(400).json({ error });
         }

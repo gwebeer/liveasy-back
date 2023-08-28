@@ -5,6 +5,7 @@ module.exports = {
     async registerUser(request, response) {
         try {
             request.body.password = await bcrypt.hash(request.body.password, 10)
+            
             const registerUser = await Users.create(request.body);
             return response.status(201).json(registerUser);
         } catch (error) {
@@ -50,7 +51,7 @@ module.exports = {
         try {
             const deleteUser = await Users.findOneAndDelete({ _id: request.params.id });
             if (deleteUser == null) {
-                return response.status(404).json({ 'message': 'O e-mail não está cadastrado.', '_return': deleteUser })
+                return response.status(404).json({ 'message': 'O e-mail não está cadastrado.', '_return': deleteUser });
             } 
             return response.status(200).json(deleteUser);
         } catch (error) {
@@ -62,9 +63,9 @@ module.exports = {
         try {
             const validateEmail = await Users.findOne({ email: request.params.email })
             if (validateEmail == null) {
-                return response.status(404).json({ "message": 'O e-mail não está cadastrado.', "_return": validateEmail })
+                return response.status(404).json({ "message": 'O e-mail não está cadastrado.', "_return": validateEmail });
             } 
-            return response.status(200).json({ "message": 'O e-mail já está cadastrado.'})
+            return response.status(200).json({ "message": 'O e-mail já está cadastrado.'});
         } catch (error) {
             return response.status(400).json({ error });
         }
@@ -74,9 +75,9 @@ module.exports = {
         try {
             const userInfo = await Users.findOne({ email: request.params.email })
             if (!userInfo) {
-                return response.status(404).json({ msg: 'O e-mail informado não está cadastrado.' })
+                return response.status(404).json({ msg: 'O e-mail informado não está cadastrado.' });
             } else {
-                const checkPassword = await bcrypt.compare(request.params.password, userInfo.password)
+                const checkPassword = await bcrypt.compare(request.params.password, userInfo.password);
                 if (!checkPassword) {
                     return response.status(403).json({ msg: "A senha informada está inválida." })
                 }
@@ -88,7 +89,7 @@ module.exports = {
                         type: userInfo.type
                     }, secret)
 
-                    return response.status(200).json({ msg: 'Login aprovado', token: token })
+                    return response.status(200).json({ msg: 'Login aprovado', token: token });
                 } catch (error) {
                     console.log("Erro ao gerar o token", error)
                     return response.status(400).json({ error });

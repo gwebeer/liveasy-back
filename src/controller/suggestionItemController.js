@@ -5,6 +5,7 @@ export default class SuggestionItem {
     async createSuggestionItem(request, response) {
         try {
             const createSuggestionItem = await SuggestionItem.create(request.body);
+            
             return response.status(201).json(createSuggestionItem);
         } catch (error) {
             return response.status(400).json({ error });
