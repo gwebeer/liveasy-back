@@ -1,4 +1,3 @@
-import ChoosedProperty from "../models/choosedPropertyModel.js";
 import ChoosedPropertyService from "../services/choosedPropertyService.js";
 
 export default class ChoosedProperty {
@@ -20,6 +19,7 @@ export default class ChoosedProperty {
             if (getChoosedProperty == null) {
                 return response.status(404).json({ "message": "Não foi(ram) encontrada(s) propriedade(s) escolhida(s).", "_return": getChoosedProperties });
             }
+            return response.status(200).json(getChoosedProperty);
         } catch (error) {
             return response.status(400).json({ error });
         }
