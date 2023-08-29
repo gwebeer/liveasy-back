@@ -3,3 +3,4 @@
 .env.prd
 .env.dev
 utils/
+.vscode/
