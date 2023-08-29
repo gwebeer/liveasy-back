@@ -1,29 +1,29 @@
-const Users = require('../models/userModel');
+import UserService from '../services/userService.js';
 
-module.exports = {
+export default class UserController {
 
     async registerUser(request, response) {
         try {
             const userService = new UserService();
-            const registerUser = await userService.registerUser(request.body);
+            const registerUser = await userService.createUser(request.body);
             return response.status(201).json(registerUser);
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
     
     async getUser(request, response) {
         const userService = new UserService();
         try {
             const getUser = await userService.getUser(request.body);
-            if (getUser == null) {
-                return response.status(404).json({ 'message': 'Usuários não encontrados.', '_return': getUser})
+            if (getUser.length == 0) {
+                return response.status(404).json({ 'message': 'Usuário(s) não encontrado(s).', '_return': getUser})
             }
             return response.status(200).json(getUser);
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
 
     async updateUser(request, response) {
         const userService = new UserService();
@@ -33,39 +33,39 @@ module.exports = {
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
 
     async deleteUser(request, response) {
         const userService = new UserService();
         try {
             const deleteUser = await userService.deleteUser(request.body);
-            if (deleteUser == null) {
+            if (deleteUser.length == 0) {
                 return response.status(404).json({ 'message': 'O e-mail não está cadastrado.', '_return': deleteUser });
             } 
             return response.status(200).json(deleteUser);
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
 
     async validateEmail(request, response) {
         const userService = new UserService();
         try {
             const validateEmail = await userService.validateEmail(request.body);
-            if (validateEmail == null) {
+            if (validateEmail.length == 0) {
                 return response.status(404).json({ "message": 'O e-mail não está cadastrado.', "_return": validateEmail });
             } 
             return response.status(200).json({ "message": 'O e-mail já está cadastrado.'});
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
 
     async authenticateUser(request, response) {
         const userService = new UserService();
         try {
             const authenticateUser = await userService.authenticateUser(request.body);
-            if (authenticateUser == null) {
+            if (authenticateUser.length == 0) {
                 return response.status(404).json({ msg: 'O e-mail informado não está cadastrado.' });
             }                
             if (authenticateUser == false) {
@@ -75,13 +75,13 @@ module.exports = {
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
 
     async forgotPassword(request, response) {
         try {
             const userService = new UserService();
             const user = await userService.forgotPassword(request.body);
-            if (user == null) {
+            if (user.length == 0) {
                 return response.status(404).json({ msg: 'O e-mail não está cadastrado.' });
             } else {
                 if (user == false) {
@@ -95,7 +95,7 @@ module.exports = {
             console.log('Erro ao pesquisar o e-mail:', error);
             return response.status(400).json({ error });
         }
-    },
+    }
 
     async resetPassword(request, response) {
         try {
@@ -108,6 +108,6 @@ module.exports = {
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
 
 }

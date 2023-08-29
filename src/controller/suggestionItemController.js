@@ -1,11 +1,11 @@
-import SuggestionItem from '../models/suggestionItemModel.js';
+import SuggestionItemService from '../services/suggestionItemService.js';
 
 export default class SuggestionItem {
     
     async createSuggestionItem(request, response) {
         try {
-            const createSuggestionItem = await SuggestionItem.create(request.body);
-            
+            const suggestionItemService = new SuggestionItemService();
+            const createSuggestionItem = await suggestionItemService.createSuggestionItem(request.body);
             return response.status(201).json(createSuggestionItem);
         } catch (error) {
             return response.status(400).json({ error });
@@ -13,32 +13,22 @@ export default class SuggestionItem {
     }
 
     async getSuggestionItem(request, response) {
-        if (request.params.id == "all") {
-            try {
-                const getSuggestionItems = await SuggestionItem.find()
-                if (getSuggestionItems == null) {
-                    return response.status(404).json({ 'message': 'Não foram encontrados os itens de sugestão.', '_return': getSuggestionItems });
-                }
-                return response.status(200).json(getSuggestionItems);
-            } catch (error) {
-                return response.status(400).json({ error });
+        const suggestionItemService = new SuggestionItemService();
+        try {
+            const getSuggestionItem = await suggestionItemService.getSuggestionItem(request.body);
+            if (getSuggestionItem == null) {
+                return response.status(404).json({ 'message': 'Não foi(ram) encontrado(s) o(s) item(ns) de sugestão.', '_return': getSuggestionItem });
             }
-        } else {
-            try {
-                const getSuggestionItem = await SuggestionItem.findOne({ _id: request.params.id })
-                if (getSuggestionItem == null) {
-                    return response.status(404).json({ 'message': 'Não foi encontrado o item de sugestão.', '_return': getSuggestionItem });
-                }
-                return response.status(200).json(getSuggestionItem);
-            } catch (error) {
-                return response.status(400).json({ error });
-            }
-        } 
+            return response.status(200).json(getSuggestionItem);
+        } catch (error) {
+            return response.status(400).json({ error });
+        }
     }
     
     async updateSuggestionItem(request, response) {
         try {
-            const updateSuggestionItem = await SuggestionItem.findOneAndUpdate({ _id: request.params.id }, request.body);
+            const suggestionItemService = new SuggestionItemService();
+            const updateSuggestionItem = await suggestionItemService.updateSuggestionItem(request.body);
             return response.status(200).json(updateSuggestionItem);
         } catch (error) {
             return response.status(400).json({ error });
@@ -47,7 +37,8 @@ export default class SuggestionItem {
     
     async deleteSuggestionItem(request, response) {
         try {
-            const deleteSuggestionItem = await SuggestionItem.findOneAndDelete({ _id: request.params.id });
+            const suggestionItemService = new SuggestionItemService();
+            const deleteSuggestionItem = await suggestionItemService.deleteSuggestionItem(request.body);
             if (deleteSuggestionItem == null) {
                 return response.status(404).json({ 'message': 'Não foi encontrado o item de sugestão.', '_return': deleteSuggestionItem });
             }

@@ -1,4 +1,3 @@
-import Property from "../models/propertyModel.js";
 import PropertyService from "../services/propertyService.js";
 
 export default class Property {

@@ -1,10 +1,11 @@
-import GiveUpProperty from "../models/giveUpPropertyModel.js";
+import GiveUpPropertyService from "../services/giveUpPropertyService.js";
 
 export default class GiveUpProperty {
 
     async createGiveUpProperty(request, response) {
         try {
-            const createGiveUpProperty = await GiveUpProperty.create(request.body);
+            const giveUpPropertyService = await GiveUpPropertyService();
+            const createGiveUpProperty = await giveUpPropertyService.createGiveUpProperty(request.body);
             
             return response.status(201).json(createGiveUpProperty);
         } catch (error) {
