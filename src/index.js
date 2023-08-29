@@ -28,7 +28,7 @@ if (process.env.PRODUCTION) {
     envPath = path.join(__dirname, "..", `.env.prd`);
 } else {
     envPath = path.join(__dirname, "..", `.env.dev`);
-    app.use('/swagger-api-docs', SwaggerUI.serve, SwaggerUI.setup('./swagger.json'));
+    app.use('/api-docs', SwaggerUI.serve, SwaggerUI.setup('./swagger.json'));
 }
 
 dotenv.config({ path: envPath });
