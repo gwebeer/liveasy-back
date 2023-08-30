@@ -7,9 +7,8 @@ import SwaggerUI from 'swagger-ui-express';
 import dotenv from 'dotenv';
 
 import CalendarReminderRoute from './routes/calendarReminderRoute.js';
-import ChoosedPropertyRoute from './routes/choosedPropertyRoute.js';
+import ReasonRoute from './routes/reasonRoute.js';
 import CostItemListRoute from './routes/costItemListRoute.js';
-import GiveUpPropertyRoute from './routes/giveUpPropertyRoute.js';
 import IdealPropertyRoute from './routes/idealPropertyRoute.js';
 import ItemListRoute from './routes/itemListRoute.js';
 import ProcessRoute from './routes/processRoute.js';
@@ -47,9 +46,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use(CalendarReminderRoute);
-app.use(ChoosedPropertyRoute);
+app.use(ReasonRoute);
 app.use(CostItemListRoute);
-app.use(GiveUpPropertyRoute);
 app.use(IdealPropertyRoute);
 app.use(ItemListRoute);
 app.use(ProcessRoute);
