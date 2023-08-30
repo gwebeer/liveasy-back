@@ -8,7 +8,7 @@ export default class CostItemList {
             const createCostItemList = await costItemListService.createCostItemList(request.body);
             return response.status(201).json(createCostItemList);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -21,7 +21,7 @@ export default class CostItemList {
             }
             return response.status(200).json(getCostItemList);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -31,7 +31,7 @@ export default class CostItemList {
             const updateCostItemList = await costItemListService.updateCostItemList(request.body);
             return response.status(200).json(updateCostItemList);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -44,7 +44,7 @@ export default class CostItemList {
             }
             return response.status(200).json(deleteCostItemList);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
