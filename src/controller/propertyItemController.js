@@ -8,7 +8,7 @@ export default class PropertyItemController {
             const createPropertyItem = await propertyItemService.createPropertyItem(request.body);
             return response.status(201).json(createPropertyItem);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -21,7 +21,7 @@ export default class PropertyItemController {
             }
             return response.status(200).json(getPropertyItem);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         } 
     }
     
@@ -31,7 +31,7 @@ export default class PropertyItemController {
             const updatePropertyItem = await propertyItemService.updatePropertyItem(request.body);
             return response.status(200).json(updatePropertyItem);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
     
@@ -44,7 +44,7 @@ export default class PropertyItemController {
             }
             return response.status(200).json(deletePropertyItem);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
     
