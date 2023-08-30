@@ -8,7 +8,7 @@ export default class SuggestionItem {
             const createSuggestionItem = await suggestionItemService.createSuggestionItem(request.body);
             return response.status(201).json(createSuggestionItem);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -21,7 +21,7 @@ export default class SuggestionItem {
             }
             return response.status(200).json(getSuggestionItem);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
     
@@ -31,7 +31,7 @@ export default class SuggestionItem {
             const updateSuggestionItem = await suggestionItemService.updateSuggestionItem(request.body);
             return response.status(200).json(updateSuggestionItem);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
     
@@ -44,7 +44,7 @@ export default class SuggestionItem {
             }
             return response.status(200).json(deleteSuggestionItem);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
     
