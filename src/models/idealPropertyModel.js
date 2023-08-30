@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import { mongoose } from "mongoose";
 
 const IdealPropertySchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -13,4 +13,4 @@ const IdealPropertySchema = new mongoose.Schema({
     isForRent: { type: Boolean, required: true }
 }, { timestamps: {} });
 
-module.exports = mongoose.model("IdealProperty", IdealPropertySchema);
+export default mongoose.model("IdealProperty", IdealPropertySchema);

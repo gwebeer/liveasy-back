@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import { mongoose } from "mongoose";
 
 const ItemListSchema = new mongoose.Schema({
     process: { type: mongoose.Schema.Types.ObjectId, ref: "Process", required: true },
@@ -12,4 +12,4 @@ const ItemListSchema = new mongoose.Schema({
     boughtDate: { type: String, required: false }
 }, { timestamps: {} });
 
-module.exports = mongoose.model('ItemList', ItemListSchema);
+export default mongoose.model('ItemList', ItemListSchema);

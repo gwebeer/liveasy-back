@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import PropertyController from '../controller/propertyController.js';
+
+const routes = Router();
+
+routes.post('/property/add', (req, res) => new PropertyController().createProperty(req, res));    
+routes.get('/property', (req, res) => new PropertyController().getProperty(req, res));        
+routes.put('/property', (req, res) => new PropertyController().updateProperty(req, res));     
+routes.delete('/property', (req, res) => new PropertyController().deleteProperty(req, res));  
+
+export default routes;

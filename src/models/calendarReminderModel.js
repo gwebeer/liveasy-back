@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import { mongoose } from "mongoose";
 
 const CalendarReminderSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -9,4 +9,4 @@ const CalendarReminderSchema = new mongoose.Schema({
     repeatEvery: { type: Number, required: false}
 }, { timestamps: {} });
 
-module.exports = mongoose.model("CalendarReminder", CalendarReminderSchema);
+export default mongoose.model("CalendarReminder", CalendarReminderSchema);

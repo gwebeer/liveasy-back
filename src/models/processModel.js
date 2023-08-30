@@ -1,9 +1,12 @@
-const mongoose = require('mongoose');
+import { mongoose } from "mongoose";
 
 const ProcessSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    step: { type: String, required: true },
+    property: { type: mongoose.Schema.Types.ObjectId, ref: "Property", required: false },
     status: { type: String, required: true },    
+    income: { type: Number, required: true },
+    budget: { type: Number, required: true },
+    movingDate: { type: String, required: true }
 }, { timestamps: {} });
 
-module.exports = mongoose.model('Moves', ProcessSchema);
+export default mongoose.model('Process', ProcessSchema); 

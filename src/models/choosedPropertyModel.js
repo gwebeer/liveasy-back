@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import { mongoose } from "mongoose";
 
 const ChoosedPropertySchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -6,4 +6,4 @@ const ChoosedPropertySchema = new mongoose.Schema({
     reason: { type: String, required: true }
 }, { timestamps: {} }); 
 
-module.exports = mongoose.model("ChoosedProperty", ChoosedPropertySchema);
+export default mongoose.model("ChoosedProperty", ChoosedPropertySchema);

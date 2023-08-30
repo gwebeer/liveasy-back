@@ -1,0 +1,4362 @@
+openapi: 3.1.0
+info:
+  title: LivEasy API Documentation
+  description: This is the API documentation about LivEasy-BackEnd
+  version: 1.0.0
+host: localhost:4000
+basePath: /
+schemes:
+  - http
+tags:
+  - name: calendarReminderController
+  - name: choosedPropertyController
+  - name: costItemListController
+  - name: giveUpPropertyController
+  - name: idealPropertyController
+  - name: itemListController
+  - name: processController
+  - name: propertyController
+  - name: propertyItemController
+  - name: suggestionItemController
+  - name: userController
+  - name: processController - Functions
+  - name: userController - Functions
+components:
+  schemas:
+    CalendarReminderModel:
+      type: object
+      properties:
+        user:
+          default: ObjectId()
+          type: string
+        costItemList:
+          default: ObjectId()
+          type: string
+        initialDate:
+          default: '2023-07-21'
+          type: string
+        finalDate:
+          default: '2023-08-21'
+          type: string
+        repeat:
+          default: true
+          type: boolean
+        repeatEvery:
+          default: 30
+          type: integer
+      required:
+        - user
+        - costItemList
+        - initialDate
+        - repeat
+    ChoosedPropertyModel:
+      type: object
+      properties:
+        user:
+          default: ObjectId()
+          type: string
+        property:
+          default: ObjectId()
+          type: string
+        reason:
+          default: Perfeito para mim, pois moro sozinho.
+          type: string
+      required:
+        - user
+        - property
+        - reason
+    ItemListModel:
+      type: object
+      properties:
+        process:
+          default: ObjectId()
+          type: string
+        convenient:
+          default: Sala
+          type: string
+        category:
+          default: ''
+          type: string
+        title:
+          default: Sofá
+          type: string
+        priority:
+          default: Média
+          type: string
+        value:
+          default: 2500
+          type: number
+        bought:
+          default: false
+          type: boolean
+        valuePaid:
+          default: 2490.9
+          type: number
+        boughtDate:
+          default: '2022-09-12'
+          type: string
+      required:
+        - process
+        - convenient
+        - category
+        - title
+        - priority
+        - value
+        - bought
+    GiveUpPropertyModel:
+      type: object
+      properties:
+        user:
+          default: ObjectId()
+          type: string
+        property:
+          default: ObjectId()
+          type: string
+        reason:
+          default: Muito caro para alugar
+          type: string
+      required:
+        - user
+        - property
+        - reason
+    IdealPropertyModel:
+      type: object
+      properties:
+        user:
+          default: ObjectId()
+          type: string
+        peopleLiving:
+          default: 1
+          type: integer
+        type:
+          default: Apartamento
+          type: string
+        rooms:
+          default: 2
+          type: integer
+        bathrooms:
+          default: 2
+          type: integer
+        parkingSpaces:
+          default: 1
+          type: integer
+        infraestructure:
+          default: true
+          type: boolean
+        furnished:
+          default: true
+          type: boolean
+        priceRange:
+          default: 1000
+          type: number
+        isForRent:
+          default: true
+          type: integer
+      required:
+        - user
+        - peopleLiving
+        - type
+        - rooms
+        - bathrooms
+        - parkingSpaces
+        - infraestructure
+        - furnished
+        - priceRange
+        - isForRent
+    CostItemListModel:
+      type: object
+      properties:
+        process:
+          default: ObjectId()
+          type: string
+        title:
+          default: Aluguel
+          type: string
+        category:
+          default: ''
+          type: string
+        value:
+          default: 850
+          type: number
+      required:
+        - process
+        - title
+        - value
+    ProcessModel:
+      type: object
+      properties:
+        user:
+          default: ObjectId()
+          type: string
+        step:
+          default: Planejamento
+          type: string
+        status:
+          default: Iniciando
+          type: string
+      required:
+        - user
+        - step
+        - status
+    PropertyItemModel:
+      type: object
+      properties:
+        property:
+          default: ObjectId()
+          type: string
+        title:
+          default: Mesa de Jantar
+          type: string
+        category:
+          default: ''
+          type: string
+        convenient:
+          default: Sala de Jantar
+          type: string
+      required:
+        - property
+        - title
+        - category
+        - convenient
+    PropertyModel:
+      type: object
+      properties:
+        name:
+          default: Edifício Non Facile
+          type: string
+        address:
+          default: Rua dos Desafios, 352
+          type: string
+        zipCode:
+          default: 70000-600
+          type: string
+        neighborhood:
+          default: Promessas
+          type: string
+        type:
+          default: Apartamento
+          type: string
+        rooms:
+          default: 3
+          type: integer
+        bathrooms:
+          default: 2
+          type: integer
+        parkingSpaces:
+          default: 1
+          type: integer
+        infraestructure:
+          default: true
+          type: boolean
+        furnished:
+          default: false
+          type: boolean
+        isForRent:
+          default: true
+          type: boolean
+        value:
+          default: 1200
+          type: number
+      required:
+        - name
+        - addres
+        - zipCode
+        - neighborhood
+        - type
+        - rooms
+        - bathrooms
+        - parkingSpaces
+        - infraestructure
+        - furnished
+        - isForRent
+        - value
+    SuggestionItemModel:
+      type: object
+      properties:
+        type:
+          default: Item
+          type: string
+        title:
+          default: Sofá
+          type: string
+        category:
+          default: ''
+          type: string
+        convenient:
+          default: Sala
+          type: string
+      required:
+        - type
+        - title
+    UserModel:
+      type: object
+      properties:
+        name:
+          default: Irineu de Souza
+          type: string
+        email:
+          default: irineu@naosabe.com
+          type: string
+        birthDate:
+          default: '2001-01-14'
+          type: string
+        password:
+          default: Minh@S3nh4
+          type: string
+        type:
+          default: customer
+          type: string
+        phone:
+          default: '41999999999'
+          type: string
+      required:
+        - name
+        - email
+        - birthDate
+        - password
+        - type
+        - phone
+paths:
+  /user/calendar/reminder/add:
+    post:
+      tags:
+        - calendarReminderController
+      summary: Função que o usuário cria um novo lembrete no calendário.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: CalendarReminderModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: 
+                    type: string
+                    example: 64da742da876e905b9b149a2
+                  planningcostitem: 
+                    type: string
+                    example: ObjectId()
+                  initialDate: 
+                    type: string
+                    example: '2023-07-21'
+                  finalDate: 
+                    type: string
+                    example: '2023-08-21'
+                  repeat: 
+                    type: boolean
+                    example: true
+                  repeatEvery: 
+                    type: integer
+                    example: 30
+                  _id: 
+                    type: string
+                    example: 64de7268956dcb624aca8b41
+                  createdAt: 
+                    type: string
+                    example: '2023-08-17T19:18:00.795Z'
+                  updatedAt: 
+                    type: string
+                    example: '2023-08-17T19:18:00.795Z'
+                  __v: 
+                    type: integer
+                    example: 0
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      errors: {}
+                        type:
+                        example:
+                      _message: ErrorMessageExample
+                        type:
+                        example:
+                      name: ExampleError
+                        type:
+                        example:
+                      message: 'ErrorMessageExample: some message error here'
+                        type:
+                        example:
+  /user/calendar/reminder/:id:
+    get:
+      tags:
+        - calendarReminderController
+      summary: Função que o usuário pega um ou vários itens do calendário.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                _id: 64de7268956dcb624aca8b41
+                  type:
+                  example:
+                user: 64da742da876e905b9b149a2
+                  type:
+                  example:
+                planningcostitem: ObjectId()
+                  type:
+                  example:
+                initialDate: '2023-07-21'
+                  type:
+                  example:
+                finalDate: '2023-08-21'
+                  type:
+                  example:
+                repeat: true
+                  type:
+                  example:
+                repeatEvery: 30
+                  type:
+                  example:
+                createdAt: '2023-08-17T19:18:00.795Z'
+                  type:
+                  example:
+                updatedAt: '2023-08-17T19:18:00.795Z'
+                  type:
+                  example:
+                __v: 0
+                  type:
+                  example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type:
+                    properties:
+                      stringValue: ''
+                        type:
+                        example:
+                      valueType: ''
+                        type:
+                        example:
+                      kind: ''
+                        type:
+                        example:
+                      value: ''
+                        type:
+                        example:
+                      path: _id
+                        type:
+                        example:
+                      reason: {}
+                        type:
+                        properties:
+                      name: ExampleError
+                        type:
+                        example:
+                      message: Example of a Message Error
+                        type:
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrado(s) lembrete(s) no calendário.
+                    type:
+                    example:
+                  _return: null
+                    type:
+                    example:
+    put:
+      tags:
+        - calendarReminderController
+      summary: Função que o usuário atualiza o lembrete do calendário.
+      parameters:
+        - name: obj
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  initialDate: '2023-07-21'
+                    type:
+                    example:
+                  finalDate: '2023-08-21'
+                    type:
+                    example:
+                  repeat: true
+                    type:
+                    example:
+                  repeatEvery: 30
+                    type:
+                    example:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type:
+                    properties:
+                      stringValue: ''
+                        type:
+                        example:
+                      valueType: ''
+                        type:
+                        example:
+                      kind: ''
+                        type:
+                        example:
+                      value: ''
+                        type:
+                        example:
+                      path: _id
+                        type:
+                        example:
+                      reason: {}
+                        type:
+                        properties:
+                      name: ExampleError
+                        type:
+                        example:
+                      message: Example of a Message Error
+                        type:
+                        example:
+    delete:
+      tags:
+        - calendarReminderController
+      summary: Função que o usuário deleta um lembrete do calendário.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de7268956dcb624aca8b41
+                    type: 
+                    example:
+                  user: 64da742da876e905b9b149a2
+                    type: 
+                    example:
+                  planningcostitem: ObjectId()
+                    type: 
+                    example:
+                  initialDate: '2023-07-21'
+                    type: 
+                    example:
+                  finalDate: '2023-08-21'
+                    type: 
+                    example:
+                  repeat: true
+                    type: 
+                    example:
+                  repeatEvery: 30
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T19:18:00.795Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T19:18:00.795Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:                      
+                      kind: ''
+                        type: 
+                        example:                      
+                      value: ''
+                        type: 
+                        example:                      
+                      path: _id
+                        type: 
+                        example:                      
+                      reason: {}
+                        type: 
+                        example:                      
+                      name: ExampleError
+                        type: 
+                        example:                      
+                      message: Example of a Message Error
+                        type: 
+                        example:                    
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi encontrado lembrete no calendário.
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+  /user/property/choosed/add:
+    post:
+      tags:
+        - choosedPropertyController
+      summary: Função que o usuário adiciona uma propriedade escolhida.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: ChoosedPropertyModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: 64d93e582de00e40576bfa5c
+                    type: 
+                    example:
+                  property: 64e765f2c44ed036878be8cf
+                    type: 
+                    example:
+                  reason: Perfeito para mim, pois moro sozinho.
+                    type: 
+                    example:
+                  _id: 64e77cc77cc55538c4e4facf
+                    type: 
+                    example:
+                  createdAt: '2023-08-24T15:52:39.883Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-24T15:52:39.883Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      errors: {}
+                        type: 
+                        example:
+                      _message: ErrorMessageExample
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: 'ErrorMessageExample: some message error here'
+                        type: 
+                        example:
+  /user/property/choosed/:id:
+    get:
+      tags:
+        - choosedPropertyController
+      summary: Função que o usuário busca por uma ou várias propriedades escolhidas.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: 64d93e582de00e40576bfa5c
+                    type: 
+                    example:
+                  property: 64e765f2c44ed036878be8cf
+                    type: 
+                    example:
+                  reason: Perfeito para mim, pois moro sozinho.
+                    type: 
+                    example:
+                  _id: 64e77cc77cc55538c4e4facf
+                    type: 
+                    example:
+                  createdAt: '2023-08-24T15:52:39.883Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-24T15:52:39.883Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrada(s) propriedade(s) escolhida(s).
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:                  
+    put:
+      tags:
+        - choosedPropertyController
+      summary: Função que o usuário atualiza uma propriedade escolhida.
+      parameters:
+        - name: obj
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason: Perfeito para mim, pois moro sozinho.
+                    type: 
+                    example: 
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: 64d93e582de00e40576bfa5c
+                    type: 
+                    example: 
+                  property: 64e765f2c44ed036878be8cf
+                    type: 
+                    example: 
+                  reason: Perfeito para mim, pois moro sozinho.
+                    type: 
+                    example: 
+                  _id: 64e77cc77cc55538c4e4facf
+                    type: 
+                    example: 
+                  createdAt: '2023-08-24T15:52:39.883Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-24T15:52:39.883Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties: 
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+    delete:
+      tags:
+        - choosedPropertyController
+      summary: Função que o usuário exclui uma propriedade escolhida.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: 64d93e582de00e40576bfa5c
+                    type: 
+                    example: 
+                  property: 64e765f2c44ed036878be8cf
+                    type: 
+                    example: 
+                  reason: Perfeito para mim, pois moro sozinho.
+                    type: 
+                    example: 
+                  _id: 64e77cc77cc55538c4e4facf
+                    type: 
+                    example: 
+                  createdAt: '2023-08-24T15:52:39.883Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-24T15:52:39.883Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi encontrada propriedade escolhida.
+                    type: 
+                    example: 
+                  _return: null
+                    type: 
+                    example: 
+  /user/list/cost/item/add:
+    post:
+      tags:
+        - costItemListController
+      summary: Função que o usuário cria um novo item de planejamento de custos.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: CostItemListModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process: 64de5f45cf79a38afca5a165
+                    type: 
+                    example: 
+                  title: Aluguel
+                    type: 
+                    example: 
+                  category: ''
+                    type: 
+                    example: 
+                  value: 850
+                    type: 
+                    example: 
+                  _id: 64de5f56cf79a38afca5a167
+                    type: 
+                    example: 
+                  createdAt: '2023-08-17T17:56:38.273Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-17T17:56:38.273Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties: 
+                      errors: {}
+                        type: object
+                        properties: 
+                      _message: ErrorMessageExample
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: 'ErrorMessageExample: some message error here'
+                        type: 
+                        example: 
+  /user/list/cost/item/:id:
+    get:
+      tags:
+        - costItemListController
+      summary: Função que o usuário busca por um ou vários itens de planejamento de custos.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de5f56cf79a38afca5a167
+                    type: 
+                    example: 
+                  process: 64de5f45cf79a38afca5a165
+                    type: 
+                    example: 
+                  title: Aluguel
+                    type: 
+                    example: 
+                  category: ''
+                    type: 
+                    example: 
+                  value: 850
+                    type: 
+                    example: 
+                  createdAt: '2023-08-17T17:56:38.273Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-17T17:56:38.273Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrado(s) o(s) planejamento(s) de custo.
+                    type: 
+                    example: 
+                  _return: null
+                    type: 
+                    example: 
+    put:
+      tags:
+        - costItemListController
+      summary: Função que o usuário atualiza um item do planejamento de custos.
+      parameters:
+        - name: obj
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title: Aluguel
+                    type: 
+                    example: 
+                  category: ''
+                    type: 
+                    example: 
+                  value: 850
+                    type: 
+                    example: 
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de5f56cf79a38afca5a167
+                    type: 
+                    example: 
+                  process: 64de5f45cf79a38afca5a165
+                    type: 
+                    example: 
+                  title: Aluguel
+                    type: 
+                    example: 
+                  category: ''
+                    type: 
+                    example: 
+                  value: 850
+                    type: 
+                    example: 
+                  createdAt: '2023-08-17T17:56:38.273Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-17T17:56:38.273Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+    delete:
+      tags:
+        - costItemListController
+      summary: Função que o usuário deleta um item do planejamento de custos.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de5f56cf79a38afca5a167
+                    type: 
+                    example: 
+                  process: 64de5f45cf79a38afca5a165
+                    type: 
+                    example: 
+                  title: Aluguel
+                    type: 
+                    example: 
+                  category: ''
+                    type: 
+                    example: 
+                  value: 850
+                    type: 
+                    example: 
+                  createdAt: '2023-08-17T17:56:38.273Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-17T17:56:38.273Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi encontrado o item de planejamento de custo.
+                    type: 
+                    example: 
+                  _return: null
+                    type: 
+                    example: 
+  /user/property/give-up/add:
+    post:
+      tags:
+        - giveUpPropertyController
+      summary: Função que o usuário adiciona uma propriedade recusada.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: GiveUpPropertyModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: 64d93e582de00e40576bfa5c
+                    type: 
+                    example: 
+                  property: 64e765f2c44ed036878be8cf
+                    type: 
+                    example: 
+                  reason: Muito caro para alugar
+                    type: 
+                    example: 
+                  _id: 64e77a8005a87c1383796e46
+                    type: 
+                    example: 
+                  createdAt: '2023-08-24T15:42:56.082Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-24T15:42:56.082Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      errors: {}
+                        type: 
+                        example: 
+                      _message: ErrorMessageExample
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: 'ErrorMessageExample: some message error here'
+                        type: 
+                        example: 
+  /user/property/give-up/:id:
+    get:
+      tags:
+        - giveUpPropertyController
+      summary: Função que o usuário busca por uma ou várias propriedades recusadas.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: 64d93e582de00e40576bfa5c
+                    type: 
+                    example: 
+                  property: 64e765f2c44ed036878be8cf
+                    type: 
+                    example: 
+                  reason: Muito caro para alugar
+                    type: 
+                    example: 
+                  _id: 64e77a8005a87c1383796e46
+                    type: 
+                    example: 
+                  createdAt: '2023-08-24T15:42:56.082Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-24T15:42:56.082Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:                   
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrado(s) propriedade(s) recusada(s).
+                    type: 
+                    example: 
+                  _return: null
+                    type: 
+                    example: 
+    put:
+      tags:
+        - giveUpPropertyController
+      summary: Função que o usuário atualiza uma propriedade recusada.
+      parameters:
+        - name: obj
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason: Muito caro para alugar
+                    type: 
+                    example: 
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: 64d93e582de00e40576bfa5c
+                    type: 
+                    example: 
+                  property: 64e765f2c44ed036878be8cf
+                    type: 
+                    example: 
+                  reason: Muito caro para alugar
+                    type: 
+                    example: 
+                  _id: 64e77a8005a87c1383796e46
+                    type: 
+                    example: 
+                  createdAt: '2023-08-24T15:42:56.082Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-24T15:42:56.082Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+    delete:
+      tags:
+        - giveUpPropertyController
+      summary: Função que o usuário exclui uma propriedade recusada.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: 64d93e582de00e40576bfa5c
+                    type: 
+                    example: 
+                  property: 64e765f2c44ed036878be8cf
+                    type: 
+                    example: 
+                  reason: Muito caro para alugar
+                    type: 
+                    example: 
+                  _id: 64e77a8005a87c1383796e46
+                    type: 
+                    example: 
+                  createdAt: '2023-08-24T15:42:56.082Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-24T15:42:56.082Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi encontrado propriedade recusada.
+                    type: 
+                    example: 
+                  _return: null
+                    type: 
+                    example: 
+  /user/property/add:
+    post:
+      tags:
+        - idealPropertyController
+      summary: Função que o usuário adiciona dados de uma propriedade ideal.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: IdealPropertyModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: ObjectId()
+                    type: 
+                    example: 
+                  peopleLiving: 1
+                    type: 
+                    example: 
+                  type: Apartamento
+                    type: 
+                    example: 
+                  rooms: 2
+                    type: 
+                    example: 
+                  bathrooms: 2
+                    type: 
+                    example: 
+                  parkingSpaces: 1
+                    type: 
+                    example: 
+                  infraestructure: true
+                    type: 
+                    example: 
+                  furnished: true
+                    type: 
+                    example: 
+                  priceRange: 1000
+                    type: 
+                    example: 
+                  isForRent: true
+                    type: 
+                    example: 
+                  _id: 64de635a21d6b023c4b73ffb
+                    type: 
+                    example: 
+                  createdAt: '2023-08-17T18:13:46.777Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-17T18:13:46.777Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      errors: {}
+                        type: 
+                        example: 
+                      _message: ErrorMessageExample
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: 'ErrorMessageExample: some message error here'
+                        type: 
+                        example: 
+  /user/property/:id:
+    get:
+      tags:
+        - idealPropertyController
+      summary: Função que o usuário busca um ou vários dados de uma propriedade ideal.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de64b9af518a8c10f34f7d
+                    type: 
+                    example: 
+                  user: ObjectId()
+                    type: 
+                    example: 
+                  peopleLiving: 1
+                    type: 
+                    example: 
+                  type: Apartamento
+                    type: 
+                    example: 
+                  rooms: 2
+                    type: 
+                    example: 
+                  bathrooms: 2
+                    type: 
+                    example: 
+                  parkingSpaces: 1
+                    type: 
+                    example: 
+                  infraestructure: true
+                    type: 
+                    example: 
+                  furnished: true
+                    type: 
+                    example: 
+                  priceRange: 1000
+                    type: 
+                    example: 
+                  isForRent: true
+                    type: 
+                    example: 
+                  createdAt: '2023-08-17T18:19:37.099Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-17T18:19:37.099Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrado(s) os dados da propriedade ideal.
+                    type: 
+                    example: 
+                  _return: null
+                    type: 
+                    example: 
+    put:
+      tags:
+        - idealPropertyController
+      summary: Função que o usuário atualiza os dados de uma propriedade ideal.
+      parameters:
+        - name: obj
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  peopleLiving: 1
+                    type: 
+                    example: 
+                  type: Apartamento
+                    type: 
+                    example: 
+                  rooms: 2
+                    type: 
+                    example: 
+                  bathrooms: 2
+                    type: 
+                    example: 
+                  parkingSpaces: 1
+                    type: 
+                    example: 
+                  infraestructure: true
+                    type: 
+                    example: 
+                  furnished: true
+                    type: 
+                    example: 
+                  priceRange: 1000
+                    type: 
+                    example: 
+                  isForRent: true
+                    type: 
+                    example: 
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de64b9af518a8c10f34f7d
+                    type: 
+                    example: 
+                  user: ObjectId()
+                    type: 
+                    example: 
+                  peopleLiving: 1
+                    type: 
+                    example: 
+                  type: Apartamento
+                    type: 
+                    example: 
+                  rooms: 2
+                    type: 
+                    example: 
+                  bathrooms: 2
+                    type: 
+                    example: 
+                  parkingSpaces: 1
+                    type: 
+                    example: 
+                  infraestructure: true
+                    type: 
+                    example: 
+                  furnished: true
+                    type: 
+                    example: 
+                  priceRange: 1000
+                    type: 
+                    example: 
+                  isForRent: true
+                    type: 
+                    example: 
+                  createdAt: '2023-08-17T18:19:37.099Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-17T18:19:37.099Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+    delete:
+      tags:
+        - idealPropertyController
+      summary: Função que o usuário deleta os dados de uma propriedade ideal.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de64b9af518a8c10f34f7d
+                    type: 
+                    example: 
+                  name: Edifício Behelit
+                    type: 
+                    example: 
+                  address: Avenida dos Sonhos, 861
+                    type: 
+                    example: 
+                  zipCode: 70707-848
+                    type: 
+                    example: 
+                  neighborhood: Flores
+                    type: 
+                    example: 
+                  condominiumValue: 1000
+                    type: 
+                    example: 
+                  createdAt: '2023-08-17T18:19:37.099Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-17T18:19:37.099Z'
+                    type: 
+                    example:  
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi encontrado os dados da propriedade ideal.
+                    type: 
+                    example: 
+                  _return: null
+                    type: 
+                    example: 
+  /user/list/item/add:
+    post:
+      tags:
+        - itemListController
+      summary: Função que o usuário cria um novo item personalizado.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: ItemListModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title: Sofá
+                    type: 
+                    example: 
+                  priority: Média
+                    type: 
+                    example: 
+                  category: ''
+                    type: 
+                    example: 
+                  convenient: Sala
+                    type: 
+                    example: 
+                  value: 2500
+                    type: 
+                    example: 
+                  bought: true
+                    type: 
+                    example: 
+                  valuePaid: 2490.9
+                    type: 
+                    example: 
+                  boughtDate: '2022-10-12'
+                    type: 
+                    example: 
+                  process: 64dc0f8167f66149a8d49f97
+                    type: 
+                    example: 
+                  _id: 64de6f1c01d3e90f1dd55ce3
+                    type: 
+                    example: 
+                  createdAt: '2023-08-17T19:03:56.306Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-17T19:03:56.306Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      errors: {}
+                        type: object
+                        properties:
+                      _message: ErrorMessageExample
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: 'ErrorMessageExample: some message error here'
+                        type: 
+                        example: 
+  /user/list/item/:id:
+    get:
+      tags:
+        - itemListController
+      summary: Função que o usuário busca por um ou vários itens personalizados.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de6f1c01d3e90f1dd55ce3
+                    type: 
+                    example: 
+                  title: Sofá
+                    type: 
+                    example: 
+                  priority: Média
+                    type: 
+                    example: 
+                  category: ''
+                    type: 
+                    example: 
+                  convenient: Sala
+                    type: 
+                    example: 
+                  value: 2500
+                    type: 
+                    example: 
+                  bought: true
+                    type: 
+                    example: 
+                  valuePaid: 2490.9
+                    type: 
+                    example: 
+                  boughtDate: '2022-10-12'
+                    type: 
+                    example: 
+                  process: 64dc0f8167f66149a8d49f97
+                    type: 
+                    example: 
+                  createdAt: '2023-08-17T19:03:56.306Z'
+                    type: 
+                    example: 
+                  updatedAt: '2023-08-17T19:03:56.306Z'
+                    type: 
+                    example: 
+                  __v: 0
+                    type: 
+                    example: 
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example: 
+                      stringValue: ''
+                        type: 
+                        example: 
+                      valueType: ''
+                        type: 
+                        example: 
+                      kind: ''
+                        type: 
+                        example: 
+                      value: ''
+                        type: 
+                        example: 
+                      path: _id
+                        type: 
+                        example: 
+                      reason: {}
+                        type: 
+                        example: 
+                      name: ExampleError
+                        type: 
+                        example: 
+                      message: Example of a Message Error
+                        type: 
+                        example: 
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrado(s) item(ns) personalizado(s).
+                    type: 
+                    example: 
+                  _return: null
+                    type: 
+                    example: 
+    put:
+      tags:
+        - itemListController
+      summary: Função que o usuário atualiza um item personalizado.
+      parameters:
+        - name: obj
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title: Sofá
+                    type: 
+                    example:
+                  priority: Média
+                    type: 
+                    example:
+                  category: ''
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+                  value: 2500
+                    type: 
+                    example:
+                  bought: true
+                    type: 
+                    example:
+                  valuePaid: 2490.9
+                    type: 
+                    example:
+                  boughtDate: '2022-10-12'
+                    type: 
+                    example:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title: Sofá
+                    type: 
+                    example:
+                  priority: Média
+                    type: 
+                    example:
+                  category: ''
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+                  value: 2500
+                    type: 
+                    example:
+                  bought: true
+                    type: 
+                    example:
+                  valuePaid: 2490.9
+                    type: 
+                    example:
+                  boughtDate: '2022-10-12'
+                    type: 
+                    example:
+                  process: 64dc0f8167f66149a8d49f97
+                    type: 
+                    example:
+                  _id: 64de6f1c01d3e90f1dd55ce3
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T19:03:56.306Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T19:03:56.306Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+    delete:
+      tags:
+        - itemListController
+      summary: Função que o usuário deleta um item personalizado.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de6f1c01d3e90f1dd55ce3
+                    type: 
+                    example:
+                  title: Sofá
+                    type: 
+                    example:
+                  priority: Média
+                    type: 
+                    example:
+                  category: ''
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+                  value: 2500
+                    type: 
+                    example:
+                  bought: true
+                    type: 
+                    example:
+                  valuePaid: 2490.9
+                    type: 
+                    example:
+                  boughtDate: '2022-10-12'
+                    type: 
+                    example:
+                  process: 64dc0f8167f66149a8d49f97
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T19:03:56.306Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T19:03:56.306Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi encontrado item personalizado.
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+  /user/process/create:
+    post:
+      tags:
+        - processController
+      summary: Função que o usuário cria um novo processo.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: ProcessModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user: 64da742da876e905b9b149a2
+                    type: 
+                    example:
+                  step: Planejamento
+                    type: 
+                    example:
+                  status: Em progresso
+                    type: 
+                    example:
+                  _id: 64dc043391834dca8c01aacf
+                    type: 
+                    example:
+                  createdAt: '2023-08-15T23:03:15.343Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-15T23:03:15.343Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      errors: {}
+                        type: 
+                        example:
+                      _message: ErrorMessageExample
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: 'ErrorMessageExample: some message error here'
+                        type: 
+                        example:
+  /user/process/:id:
+    get:
+      tags:
+        - processController
+      summary: Função que o usuário busca um ou vários processos.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64dc043391834dca8c01aacf
+                    type: 
+                    example:
+                  user: 64da742da876e905b9b149a2
+                    type: 
+                    example:
+                  step: Planejamento
+                    type: 
+                    example:
+                  status: Em progresso
+                    type: 
+                    example:
+                  createdAt: '2023-08-15T23:03:15.343Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-15T23:03:15.343Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type:   
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type:   
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrado(s) o(s) processo(s).
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+    put:
+      tags:
+        - processController
+      summary: Função que o usuário o usuário atualiza um processo.
+      parameters:
+        - name: obj
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  step: Planejamento
+                    type: 
+                    example:
+                  status: Em progresso
+                    type: 
+                    example:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64dc043391834dca8c01aacf
+                    type: 
+                    example:
+                  user: 64da742da876e905b9b149a2
+                    type: 
+                    example:
+                  step: Planejamento
+                    type: 
+                    example:
+                  status: Em progresso
+                    type: 
+                    example:
+                  createdAt: '2023-08-15T23:03:15.343Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-15T23:03:15.343Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:                  
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+    delete:
+      tags:
+        - processController
+      summary: Função que o usuário deleta um processo.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64dc043391834dca8c01aacf
+                    type: 
+                    example:
+                  user: 64da742da876e905b9b149a2
+                    type: 
+                    example:
+                  step: Planejamento
+                    type: 
+                    example:
+                  status: Em progresso
+                    type: 
+                    example:
+                  createdAt: '2023-08-15T23:03:15.343Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T14:34:09.866Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi encontrado o processo.
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+  /user/process/user/:id:
+    get:
+      tags:
+        - processController - Functions
+      summary: Função que o usuário busca os processos anexados ao usuário.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64dc043391834dca8c01aacf
+                    type: 
+                    example:
+                  user: 64da742da876e905b9b149a2
+                    type: 
+                    example:
+                  step: Planejamento
+                    type: 
+                    example:
+                  status: Em progresso
+                    type: 
+                    example:
+                  createdAt: '2023-08-15T23:03:15.343Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-15T23:03:15.343Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:                  
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi encontrado o usuário do processo.
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+  /property/add:
+    post:
+      tags:
+        - propertyController
+      summary: Função que o usuário adiciona uma nova propriedade.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: PropertyModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: Edifício Non Facile
+                    type: 
+                    example:
+                  address: Rua dos Desafios, 352
+                    type: 
+                    example:
+                  zipCode: 70000-600
+                    type: 
+                    example:
+                  neighborhood: Promessas
+                    type: 
+                    example:
+                  type: Apartamento
+                    type: 
+                    example:
+                  rooms: 3
+                    type: 
+                    example:
+                  bathrooms: 2
+                    type: 
+                    example:
+                  parkingSpaces: 1
+                    type: 
+                    example:
+                  infraestructure: true
+                    type: 
+                    example:
+                  furnished: false
+                    type: 
+                    example:
+                  isForRent: true
+                    type: 
+                    example:
+                  value: 1200
+                    type: 
+                    example:
+                  _id: 64e765f2c44ed036878be8cf
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T18:13:46.777Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T18:13:46.777Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      errors: {}
+                        type: 
+                        example:
+                      _message: ErrorMessageExample
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: 'ErrorMessageExample: some message error here'
+                        type: 
+                        example:
+  /property/:id:
+    get:
+      tags:
+        - propertyController
+      summary: Função que o usuário busca uma ou várias propriedades.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: Edifício Non Facile
+                    type: 
+                    example:
+                  address: Rua dos Desafios, 352
+                    type: 
+                    example:
+                  zipCode: 70000-600
+                    type: 
+                    example:
+                  neighborhood: Promessas
+                    type: 
+                    example:
+                  type: Apartamento
+                    type: 
+                    example:
+                  rooms: 3
+                    type: 
+                    example:
+                  bathrooms: 2
+                    type: 
+                    example:
+                  parkingSpaces: 1
+                    type: 
+                    example:
+                  infraestructure: true
+                    type: 
+                    example:
+                  furnished: false
+                    type: 
+                    example:
+                  isForRent: true
+                    type: 
+                    example:
+                  value: 1200
+                    type: 
+                    example:
+                  _id: 64e765f2c44ed036878be8cf
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T18:13:46.777Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T18:13:46.777Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrada(s) a(s) propriedade(s).
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+    put:
+      tags:
+        - propertyController
+      summary: Função que o usuário atualiza uma propriedade.
+      parameters:
+        - name: obj
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: Edifício Non Facile
+                    type: 
+                    example:
+                  address: Rua dos Desafios, 352
+                    type: 
+                    example:
+                  zipCode: 70000-600
+                    type: 
+                    example:
+                  neighborhood: Promessas
+                    type: 
+                    example:
+                  type: Apartamento
+                    type: 
+                    example:
+                  rooms: 3
+                    type: 
+                    example:
+                  bathrooms: 2
+                    type: 
+                    example:
+                  parkingSpaces: 1
+                    type: 
+                    example:
+                  infraestructure: true
+                    type: 
+                    example:
+                  furnished: false
+                    type: 
+                    example:
+                  isForRent: true
+                    type: 
+                    example:
+                  value: 1200
+                    type: 
+                    example:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64e765f2c44ed036878be8cf
+                    type: 
+                    example:
+                  name: Edifício Non Facile
+                    type: 
+                    example:
+                  address: Rua dos Desafios, 352
+                    type: 
+                    example:
+                  zipCode: 70000-600
+                    type: 
+                    example:
+                  neighborhood: Promessas
+                    type: 
+                    example:
+                  type: Apartamento
+                    type: 
+                    example:
+                  rooms: 3
+                    type: 
+                    example:
+                  bathrooms: 2
+                    type: 
+                    example:
+                  parkingSpaces: 1
+                    type: 
+                    example:
+                  infraestructure: true
+                    type: 
+                    example:
+                  furnished: false
+                    type: 
+                    example:
+                  isForRent: true
+                    type: 
+                    example:
+                  value: 1200
+                    type: 
+                    example:
+                  createdAt: '2023-08-24T14:15:14.520Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-24T14:15:14.520Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+    delete:
+      tags:
+        - propertyController
+      summary: Função que o usuário deleta uma propriedade.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de64b9af518a8c10f34f7d
+                    type: 
+                    example:
+                  name: Edifício Non Facile
+                    type: 
+                    example:
+                  address: Rua dos Desafios, 352
+                    type: 
+                    example:
+                  zipCode: 70000-600
+                    type: 
+                    example:
+                  neighborhood: Promessas
+                    type: 
+                    example:
+                  type: Apartamento
+                    type: 
+                    example:
+                  rooms: 3
+                    type: 
+                    example:
+                  bathrooms: 2
+                    type: 
+                    example:
+                  parkingSpaces: 1
+                    type: 
+                    example:
+                  infraestructure: true
+                    type: 
+                    example:
+                  furnished: false
+                    type: 
+                    example:
+                  isForRent: true
+                    type: 
+                    example:
+                  value: 1200
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T18:19:37.099Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T18:19:37.099Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi possível excluir a propriedade.
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+  /property/item/add:
+    post:
+      tags:
+        - propertyItemController
+      summary: Função que o usuário adiciona um novo item da propriedade.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: PropertyItemModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  property: 64e765f2c44ed036878be8cf
+                    type: 
+                    example:
+                  title: Sofá
+                    type: 
+                    example:
+                  category: ''
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+                  _id: 64de6fdf956dcb624aca8b2f
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      errors: {}
+                        type: 
+                        example:
+                      _message: ErrorMessageExample
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: 'ErrorMessageExample: some message error here'
+                        type: 
+                        example:
+  /propert/item/:id:
+    get:
+      tags:
+        - propertyItemController
+      summary: Função que o usuário busca por um ou vários itens da propriedade.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de6fdf956dcb624aca8b2f
+                    type: 
+                    example:
+                  property: ObjectId()
+                    type: 
+                    example:
+                  title: Sofá
+                    type: 
+                    example:
+                  category: ''
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrado(s) o(s) item(ns) da propriedade.
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+    put:
+      tags:
+        - propertyItemController
+      summary: Função que o usuário atualiza um item da propriedade.
+      parameters:
+        - name: obj
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title: Sofá
+                    type: 
+                    example:
+                  category: ''
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:                
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de6fdf956dcb624aca8b2f
+                    type: 
+                    example:
+                  property: ObjectId()
+                    type: 
+                    example:
+                  title: Sofá
+                    type: 
+                    example:
+                  category: ''
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:                  
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+    delete:
+      tags:
+        - propertyItemController
+      summary: Função que o usuário deleta um item da propriedade.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de6fdf956dcb624aca8b2f
+                    type: 
+                    example:
+                  property: ObjectId()
+                    type: 
+                    example:
+                  title: Sofá
+                    type: 
+                    example:
+                  category: ''
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:                 
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi possível excluir o item da propriedade.
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+  /suggestion/item/create:
+    post:
+      tags:
+        - suggestionItemController
+      summary: Função que adiciona um novo item de sugestão.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: SuggestionItemModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type: Item
+                    type: 
+                    example:
+                  title: Sofá
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+                  _id: 64de6fdf956dcb624aca8b2f
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:                  
+                      errors: {}
+                        type: 
+                        example:
+                      _message: ErrorMessageExample
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: 'ErrorMessageExample: some message error here'
+                        type: 
+                        example:
+  /suggestion/item/:id:
+    get:
+      tags:
+        - suggestionItemController
+      summary: Função que busca por um ou vários itens de sugestão.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                  type: 
+                  example:
+                    _id: 64de6fdf956dcb624aca8b2f
+                      type: 
+                      example:
+                    type: Item
+                      type: 
+                      example:
+                    title: Sofá
+                      type: 
+                      example:
+                    convenient: Sala
+                      type: 
+                      example:
+                    createdAt: '2023-08-17T19:07:11.829Z'
+                      type: 
+                      example:
+                    updatedAt: '2023-08-17T19:07:11.829Z'
+                      type: 
+                      example:
+                    __v: 0
+                      type: 
+                      example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:                  
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrado(s) o(s) item(ns) de sugestão.
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+    put:
+      tags:
+        - suggestionItemController
+      summary: Função que atualiza um item de sugestão.
+      parameters:
+        - name: obj
+          in: query
+          required: false
+          content:
+            application/json:
+              schema:
+                type: 
+                example:
+                  type: Item
+                    type: 
+                    example:
+                  title: Sofá
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64e6a2f5e0eb30192215fa11
+                    type: 
+                    example:
+                  type: Item
+                    type: 
+                    example:
+                  title: Sofá de 4 lugares
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+                  createdAt: '2023-08-24T00:23:17.744Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-24T00:23:17.744Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:        
+    delete:
+      tags:
+        - suggestionItemController
+      summary: Função que deleta um item de sugestão.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64de6fdf956dcb624aca8b2f
+                    type: 
+                    example:
+                  type: Item
+                    type: 
+                    example:
+                  title: Sofá
+                    type: 
+                    example:
+                  convenient: Sala
+                    type: 
+                    example:
+                  createdAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  updatedAt: '2023-08-17T19:07:11.829Z'
+                    type: 
+                    example:
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:                  
+                      stringValue: ''
+                        type: 
+                        example:
+                      valueType: ''
+                        type: 
+                        example:
+                      kind: ''
+                        type: 
+                        example:
+                      value: ''
+                        type: 
+                        example:
+                      path: _id
+                        type: 
+                        example:
+                      reason: {}
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: Example of a Message Error
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi encontrado o item de sugestão.
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+  /user/validate-email/:email:
+    post:
+      tags:
+        - userController - Functions
+      summary: Função que valida se o e-mail solicitado existe.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: O e-mail já está cadastrado.
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: 
+                    example:                  
+                      errors: {}
+                        type: 
+                        example:
+                      _message: ErrorMessageExample
+                        type: 
+                        example:
+                      name: ExampleError
+                        type: 
+                        example:
+                      message: 'ErrorMessageExample: some message error here'
+                        type: 
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: O e-mail não está cadastrado
+                    type: 
+                    example:
+                  _return: null
+                    type: 
+                    example:
+  /user/auth/:email/:password:
+    post:
+      tags:
+        - userController - Functions
+      summary: Função que autentica o usuário e usa o JWT.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: 
+                example:              
+                  msg: Login aprovado
+                    type: 
+                    example:
+                  token: <token>
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors: {}
+                    type: 
+                    example:
+                  _message: Error message.
+                    type: 
+                    example:
+                  name: ExampleError
+                    type: 
+                    example:
+                  message: 'Error message: some message error here'
+                    type: 
+                    example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg: O e-mail informado não está cadastrado.
+                    type: 
+                    example:
+  /user/forgot-password/:email:
+    post:
+      tags:
+        - userController - Functions
+      summary: Função que envia um e-mail para o usuário cadastrado que tenha esquecido sua senha.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors: {}
+                    type: 
+                    example:                  
+                  _message: Error message.
+                    type: 
+                    example:                  
+                  name: ExampleError
+                    type: 
+                    example:                  
+                  message: 'Error message: some message error here'
+                    type: 
+                    example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg: O e-mail não está cadastrado.
+                    type: 
+                    example:
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors: {}
+                    type: 
+                    example:                  
+                  _message: Error message.
+                    type: 
+                    example:                  
+                  name: ExampleError
+                    type: 
+                    example:                  
+                  message: 'Error message: some message error here'
+                    type: 
+                    example:
+  /user/reset-password/:id:
+    put:
+      tags:
+        - userController - Functions
+      summary: Função que o usuário pega um ou vários itens do calendário.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                id: ''
+                  type:
+                  example:
+                email: ''
+                  type:
+                  example:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors: {}
+                    type: 
+                    example:                  
+                  _message: Error message.
+                    type: 
+                    example:                  
+                  name: ExampleError
+                    type: 
+                    example:                  
+                  message: 'Error message: some message error here'
+                    type: 
+                    example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi(ram) encontrado(s) lembrete(s) no calendário.
+                    type: 
+                    example:                  
+                  _return: null
+                    type: 
+                    example:
+  /user/register:
+    post:
+      tags:
+        - userController
+      summary: Função que registra o usuário, pegando sua senha e passando em hash.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: UserModel
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: Irineu de Souza
+                    type: 
+                    example:                  
+                  email: irineu@naosabe.com
+                    type: 
+                    example:                  
+                  birthDate: 14/01/2001
+                    type: 
+                    example:                  
+                  phone: '41999999999'
+                    type: 
+                    example:                  
+                  password: Minh@S3nh4
+                    type: 
+                    example:                  
+                  type: customer
+                    type: 
+                    example:                  
+                  _id: 64d6c9cdb69b40992c075fcb
+                    type: 
+                    example:                  
+                  createdAt: '2023-08-11T23:52:45.777Z'
+                    type: 
+                    example:                  
+                  updatedAt: '2023-08-11T23:52:45.777Z'
+                    type: 
+                    example:                  
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors: {}
+                    type: 
+                    example:                  
+                  _message: Error message.
+                    type: 
+                    example:                  
+                  name: ExampleError
+                    type: 
+                    example:                  
+                  message: 'Error message: some message error here'
+                    type: 
+                    example:
+  /user/:id:
+    get:
+      tags:
+        - userController
+      summary: Função que busca por um ou mais usuários.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: 
+                example:              
+                  name: Irineu de Souza
+                    type: 
+                    example:                  
+                  email: irineu@naosabe.com
+                    type: 
+                    example:                  
+                  birthDate: '2001-01-14'
+                    type: 
+                    example:                  
+                  phone: '41999999999'
+                    type: 
+                    example:                  
+                  password: Minh@S3nh4
+                    type: 
+                    example:                  
+                  type: customer
+                    type: 
+                    example:                  
+                  _id: 64d6c9cdb69b40992c075fcb
+                    type: 
+                    example:                  
+                  createdAt: '2023-08-11T23:52:45.777Z'
+                    type: 
+                    example:                  
+                  updatedAt: '2023-08-11T23:52:45.777Z'
+                    type: 
+                    example:                  
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors: {}
+                    type: 
+                    example:
+                  _message: Error message.
+                    type: 
+                    example:                  
+                  name: ExampleError
+                    type: 
+                    example:                  
+                  message: 'Error message: some message error here'
+                    type: 
+                    example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Usuário não encontrado
+                    type: 
+                    example:                  
+                  _return: null
+                    type: 
+                    example:
+    put:
+      tags:
+        - userController
+      summary: Função que atualiza um usuário.
+      parameters:
+        - name: obj
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                type: 
+                example:              
+                  name: Irineu de Souza
+                    type: 
+                    example:                  
+                  email: irineu@naosabe.com
+                    type: 
+                    example:                  
+                  birthDate: 14/01/2001
+                    type: 
+                    example:                  
+                  phone: '41999999999'
+                    type: 
+                    example:                  
+                  password: Minh@S3nh4
+                    type: 
+                    example:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 64d6c9cdb69b40992c075fcb
+                    type: 
+                    example:                  
+                  name: Irineu de Souza
+                    type: 
+                    example:                  
+                  email: irineu@naosabe.com
+                    type: 
+                    example:                  
+                  birthDate: 14/01/2001
+                    type: 
+                    example:                  
+                  phone: '41999999999'
+                    type: 
+                    example:                  
+                  password: Minh@S3nh4
+                    type: 
+                    example:                  
+                  type: customer
+                    type: 
+                    example:                  
+                  createdAt: '2023-08-11T23:52:45.777Z'
+                    type: 
+                    example:                  
+                  updatedAt: '2023-08-11T23:52:45.777Z'
+                    type: 
+                    example:                  
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors: {}
+                    type: 
+                    example:                  
+                  _message: Error message.
+                    type: 
+                    example:                  
+                  name: ExampleError
+                    type: 
+                    example:                  
+                  message: 'Error message: some message error here'
+                    type: 
+                    example:
+    delete:
+      tags:
+        - userController
+      summary: Função que deleta um usuário.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id: 
+                    type: string
+                    example: 64e75508a75edaf5c1cd4ed4
+                  name: Irineu Silveira
+                    type: 
+                    example:                  
+                  email: irineu@naosabe.com
+                    type: 
+                    example:                  
+                  birthDate: '2001-01-14'
+                    type: 
+                    example:                  
+                  phone: '41999999999'
+                    type: 
+                    example:                  
+                  password: $2a$10$UuKWQDu0gwDkwf6TkrySjuRehAJwAhMVbutd7ZskbQ8e9XZvkqI0S
+                    type: 
+                    example:                  
+                  type: customer
+                    type: 
+                    example:                  
+                  createdAt: '2023-08-24T13:03:04.137Z'
+                    type: 
+                    example:                  
+                  updatedAt: '2023-08-24T13:07:45.205Z'
+                    type: 
+                    example:                  
+                  __v: 0
+                    type: 
+                    example:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type:
+                    example:
+                      stringValue: example
+                        type: 
+                        example:                      
+                      valueType: example
+                        type: 
+                        example:                      
+                      kind: example
+                        type: 
+                        example:                      
+                      value: example
+                        type: 
+                        example:                      
+                      path: example
+                        type: 
+                        example:                      
+                      reason: {}
+                        type: 
+                        example:                      
+                      name: ExampleError
+                        type: 
+                        example:                      
+                      message: 'Error message: some message error here'
+                        type:
+                        example:
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: Não foi encontrado lembrete no calendário.
+                    type:
+                    example:
+                  _return: null
+                    type:
+                    example:

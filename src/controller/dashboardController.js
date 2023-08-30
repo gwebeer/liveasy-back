@@ -1,6 +1,6 @@
-const Dashboard = require("../models/dashboardModel");
+import Dashboard from "../models/dashboardModel.js";
 
-module.exports = {
+export default class Dashboard {
     
     async createDashboard(request, response) {
         try {
@@ -9,7 +9,7 @@ module.exports = {
         } catch (error) {
             return response.status(400).json({ error });
         }
-    },
+    }
 
     async getDashboard(request, response) {
         if (request.params.id == "all") {
@@ -29,7 +29,7 @@ module.exports = {
                 return response.status(400).json({ error });
             }
         }
-    },
+    }
 
     async updateDashboard(request, response) {
         if (request.params.key === "id") {
@@ -59,7 +59,7 @@ module.exports = {
             console.log("Erro ao atualizar o Dashboard na coleção Dashboard", error)
             return response.status(400).json({ error });
         }
-    },
+    }
 
     async deleteDashboard(request, response) {
         try {
@@ -69,6 +69,6 @@ module.exports = {
             console.log("Erro ao deletar o Dashboard na coleção Dashboard", error);
             return response.status(400).json({ error });
         }
-    },
+    }
 
 }
