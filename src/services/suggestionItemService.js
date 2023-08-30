@@ -4,8 +4,8 @@ export default class SuggestionItemService {
 
     async createSuggestionItem(data) {
         const suggestionItemExists = await SuggestionItemModel.find({
-            title: data.title,
-            type: data.type
+            type: data.type,
+            title: data.title
         });
         if (suggestionItemExists.length > 0) {
             throw Error("Esse item de sugestão já existe.");
@@ -16,8 +16,7 @@ export default class SuggestionItemService {
 
     async getSuggestionItem(data) {
         if (data.id == "all") {
-            const getSuggestionItems = await SuggestionItem.find();
-            console.log("getSuggestionItems: ", getSuggestionItems);
+            const getSuggestionItems = await SuggestionItemModel.find();
             return getSuggestionItems;
         } else {
             const getSuggestionItem = await SuggestionItemModel.findOne({ _id: data.id });
