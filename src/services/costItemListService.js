@@ -3,52 +3,41 @@ import CostItemListModel from '../models/costItemListModel.js';
 export default class CostItemListService {
 
     async createCostItemList(data) {
-        const costItemListModel = new CostItemListModel();
-
-        const CostItemListExists = await costItemListModel.find({
+        const CostItemListExists = await CostItemListModel.find({
             title: data.title
         });
-
-        if (CostItemListExists) {
+        if (CostItemListExists.length > 0) {
             throw Error("Esse item de custos já existe");
         }
-
-        const createCostItemList = await costItemListModel.create(data);
+        const createCostItemList = await CostItemListModel.create(data);
         return createCostItemList;
     } 
 
     async getCostItemList(data) {
-        const costItemListModel = new CostItemListModel();
-
         if (data.id == "all") {
             try {
-                const getCostItemLists = await costItemListModel.find()
+                const getCostItemLists = await CostItemListModel.find()
                 return getCostItemLists;
             } catch (error) {
                 throw Error("Houve problema ao buscar os itens de custo.");
             }
         } else {
             try {
-                const getCostItemList = await costItemListModel.findOne({ _id: data.id });
+                const getCostItemList = await CostItemListModel.findOne({ _id: data.id });
                 return getCostItemList;
             } catch (error) {
                 throw Error("Houve problema ao buscar o item de custo.");
             }
         }
-
     }
 
     async updateCostItemList(data) {
-        const costItemListModel = new CostItemListModel();
-
-        const updateCostItemList = await costItemListModel.findOneAndUpdate({ _id : data.id }, data);
+        const updateCostItemList = await CostItemListModel.findOneAndUpdate({ _id : data.id }, data);
         return updateCostItemList;
     }
 
     async deleteCostItemList(data) {
-        const costItemListModel = new CostItemListModel();
-
-        const deleteCostItemList = await costItemListModel.findOneAndDelete({ _id: data.id });
+        const deleteCostItemList = await CostItemListModel.findOneAndDelete({ _id: data.id });
         return deleteCostItemList;
     } 
 

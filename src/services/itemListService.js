@@ -2,33 +2,31 @@ import ItemListModel from '../models/itemListModel.js';
 
 export default class ItemListService {
 
-    async createItemList() {
-        const itemListModel = new ItemListModel();
-
-        const itemListExists = await itemListModel.find({
-            title: data.title
+    async createItemList(data) {
+        const itemListExists = await ItemListModel.find({
+            title: data.title,
+            category: data.category,
+            convenient: data.convenient
         });
-        if (itemListExists) {
+        if (itemListExists.length > 0) {
             throw Error("Esse item já está cadastrado.");
         }
 
-        const createItemList = await itemListModel.create(data);
+        const createItemList = await ItemListModel.create(data);
         return createItemList;
     }
 
     async getItemList(data) {
-        const itemListModel = new ItemListModel();
-
         if (data.id == "all") {
             try {
-                const getItemLists = await itemListModel.find();
+                const getItemLists = await ItemListModel.find();
                 return getItemLists;
             } catch (error) {
                 throw Error("Houve problema ao buscar os itens personalizados.");
             }
         } else {
             try {
-                const getItemList = await itemListModel.findOne({ _id: data.id });
+                const getItemList = await ItemListModel.findOne({ _id: data.id });
                 return getItemList;
             } catch (error) {
                 throw Error("Houve problema ao buscar o item personalizado.");
@@ -37,16 +35,12 @@ export default class ItemListService {
     }
 
     async updateItemList(data) {
-        const itemListModel = new ItemListModel();
-
-        const updateItemList = await itemListModel.findOneAndUpdate({ _id: data.id }, data);
+        const updateItemList = await ItemListModel.findOneAndUpdate({ _id: data.id }, data);
         return updateItemList;
     }
 
     async deleteItemList(data) {
-        const itemListModel = new ItemListModel();
-
-        const deleteItemList = await itemListModel.findOneAndDelete({ _id: data.id });
+        const deleteItemList = await ItemListModel.findOneAndDelete({ _id: data.id });
         return deleteItemList;
     }
 }
