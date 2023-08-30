@@ -1,6 +1,9 @@
 import { mongoose } from "mongoose";
 
 const PropertySchema = new mongoose.Schema({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    isChoosed: { type: Boolean, required: true },
+    score: { type: Number, required: true },
     name: { type: String, required: true },
     address: { type: String, required: true },
     zipCode: { type: String, required: true },
