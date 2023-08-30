@@ -1,34 +1,30 @@
-import PropertyItemController from '../controller/propertyItemController.js';
+import PropertyItemModel from '../models/propertyItemModel.js';
 
 export default class PropertyItemService {
 
     async createPropertyItem(data) {
-        const propertyItemModel = new propertyItemModel();
-
-        const propertyItemExists = await propertyItemModel.find({
+        const propertyItemExists = await PropertyItemModel.find({
             title: data.title
         });
-        if (propertyItemExists) {
+        if (propertyItemExists.length > 0) {
             throw Error("Esse item da propriedade já existe.");
         }
 
-        const createPropertyItem = await propertyItemModel.create(data);
+        const createPropertyItem = await PropertyItemModel.create(data);
         return createPropertyItem;
     }
 
     async getPropertyItem(data) {
-        const propertyItemModel = new propertyItemModel();
-
         if (data.id == "all") {
             try {
-                const getPropertyItems = await propertyItemModel.find();
+                const getPropertyItems = await PropertyItemModel.find();
                 return getPropertyItems;
             } catch (error) {
                 throw Error("Houve problema ao buscar os itens da propriedade.");
             }
         } else {
             try {
-                const getPropertyItem = await propertyItemModel.findOne({ _id: data.id });
+                const getPropertyItem = await PropertyItemModel.findOne({ _id: data.id });
                 return getPropertyItem;
             } catch (error) {
                 throw Error("Houve problema ao buscar o item da propriedade.");
@@ -37,16 +33,12 @@ export default class PropertyItemService {
     }
 
     async updatePropertyItem(data) {
-        const propertyItemModel = new propertyItemModel();
-
-        const updatePropertyItem = await propertyItemModel.findOneAndUpdate({ _id: data.id }, data);
+        const updatePropertyItem = await PropertyItemModel.findOneAndUpdate({ _id: data.id }, data);
         return updatePropertyItem;
     }
 
     async deletePropertyItem(data) {
-        const propertyItemModel = new propertyItemModel();
-
-        const deletePropertyItem = await propertyItemModel.findOneAndDelete({ _id: data.id });
+        const deletePropertyItem = await PropertyItemModel.findOneAndDelete({ _id: data.id });
         return deletePropertyItem;
     }
 
