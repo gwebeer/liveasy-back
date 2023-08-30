@@ -8,7 +8,7 @@ export default class IdealProperty {
             const createIdealProperty = await idealPropertyService.createIdealProperty(request.body);
             return response.status(201).json(createIdealProperty);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -21,7 +21,7 @@ export default class IdealProperty {
             }
             return response.status(200).json(getIdealProperty);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -31,7 +31,7 @@ export default class IdealProperty {
             const updateIdealProperty = await idealPropertyService.updateIdealProperty(request.body);
             return response.status(200).json(updateIdealProperty);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -44,7 +44,7 @@ export default class IdealProperty {
             }
             return response.status(200).json(deleteIdealProperty);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
