@@ -8,7 +8,7 @@ export default class CalendarReminderController {
             const createdCalendarReminder = await calendarReminderService.createCalendarReminder(request.body);
             return response.status(201).json(createdCalendarReminder);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -21,7 +21,7 @@ export default class CalendarReminderController {
             }
             return response.status(200).json(getCalendarReminder);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -31,7 +31,7 @@ export default class CalendarReminderController {
             const updateCalendarReminder = await calendarReminderService.updateCalendarReminder(request.body);
             return response.status(200).json(updateCalendarReminder);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -44,7 +44,7 @@ export default class CalendarReminderController {
             }
             return response.status(200).json(deleteCalendarReminder);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }    
 }    
