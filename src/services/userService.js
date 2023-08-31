@@ -59,7 +59,7 @@ export default class UserService {
     async authenticateUser(data) {
         const authenticateUser = await UserModel.findOne({ email: data.email })
         if (!authenticateUser) {
-            return null;
+            return authenticateUser;
         } 
         const checkPassword = await bcrypt.compare(data.password, authenticateUser.password);
         if (!checkPassword) {
