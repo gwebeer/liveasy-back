@@ -52,7 +52,7 @@ export default class UserController {
         const userService = new UserService();
         try {
             const validateEmail = await userService.validateEmail(request.body);
-            if (validateEmail.length == 0) {
+            if (validateEmail == null){
                 return response.status(404).json({ "message": 'O e-mail não está cadastrado.', "_return": validateEmail });
             } 
             return response.status(200).json({ "message": 'O e-mail já está cadastrado.'});
@@ -65,7 +65,7 @@ export default class UserController {
         const userService = new UserService();
         try {
             const authenticateUser = await userService.authenticateUser(request.body);
-            if (authenticateUser.length == 0) {
+            if (authenticateUser == null) {
                 return response.status(404).json({ msg: 'O e-mail informado não está cadastrado.' });
             }                
             if (authenticateUser == false) {
