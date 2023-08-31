@@ -8,7 +8,7 @@ export default class UserController {
             const registerUser = await userService.createUser(request.body);
             return response.status(201).json(registerUser);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
     
@@ -21,7 +21,7 @@ export default class UserController {
             }
             return response.status(200).json(getUser);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -31,7 +31,7 @@ export default class UserController {
             const updateUser = await userService.updateUser(request.body);
             return response.status(200).json(updateUser);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -44,7 +44,7 @@ export default class UserController {
             } 
             return response.status(200).json(deleteUser);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -57,7 +57,7 @@ export default class UserController {
             } 
             return response.status(200).json({ "message": 'O e-mail já está cadastrado.'});
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -73,7 +73,7 @@ export default class UserController {
             }
             return response.status(200).json({ msg: 'Login aprovado', token: authenticateUser });
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -93,7 +93,7 @@ export default class UserController {
             }
         } catch (error) {
             console.log('Erro ao pesquisar o e-mail:', error);
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
@@ -106,7 +106,7 @@ export default class UserController {
             }
             return response.status(200).json(userUpdate);
         } catch (error) {
-            return response.status(400).json({ error });
+            return response.status(400).json({ error: error.message });
         }
     }
 
