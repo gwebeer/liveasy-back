@@ -17,7 +17,7 @@ export default class UserController {
         try {
             const getUser = await userService.getUser(request.body);
             if (getUser.length == 0) {
-                return response.status(404).json({ 'message': 'Usuário(s) não encontrado(s).', '_return': getUser})
+                return response.status(404).json({ msg: 'Usuário(s) não encontrado(s).', '_return': getUser})
             }
             return response.status(200).json(getUser);
         } catch (error) {
@@ -40,7 +40,7 @@ export default class UserController {
         try {
             const deleteUser = await userService.deleteUser(request.body);
             if (deleteUser.length == 0) {
-                return response.status(404).json({ 'message': 'O e-mail não está cadastrado.', '_return': deleteUser });
+                return response.status(404).json({ msg: 'O e-mail não está cadastrado.', '_return': deleteUser });
             } 
             return response.status(200).json(deleteUser);
         } catch (error) {
@@ -53,9 +53,9 @@ export default class UserController {
         try {
             const validateEmail = await userService.validateEmail(request.body);
             if (validateEmail == null){
-                return response.status(404).json({ "message": 'O e-mail não está cadastrado.', "_return": validateEmail });
+                return response.status(404).json({ msg: 'O e-mail não está cadastrado.', "_return": validateEmail });
             } 
-            return response.status(200).json({ "message": 'O e-mail já está cadastrado.'});
+            return response.status(200).json({ msg: 'O e-mail já está cadastrado.'});
         } catch (error) {
             return response.status(400).json({ error: error.message });
         }
