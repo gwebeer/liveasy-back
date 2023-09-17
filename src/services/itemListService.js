@@ -17,20 +17,11 @@ export default class ItemListService {
     }
 
     async getItemList(data) {
-        if (data.id == "all") {
-            try {
-                const getItemLists = await ItemListModel.find();
-                return getItemLists;
-            } catch (error) {
-                throw Error("Houve problema ao buscar os itens personalizados.");
-            }
-        } else {
-            try {
-                const getItemList = await ItemListModel.findOne({ _id: data.id });
-                return getItemList;
-            } catch (error) {
-                throw Error("Houve problema ao buscar o item personalizado.");
-            }
+        try {
+            const getItemLists = await ItemListModel.find({ process: data.process});
+            return getItemLists;
+        } catch (error) {
+            throw Error("Houve problema ao buscar os itens personalizados.");
         }
     }
 
