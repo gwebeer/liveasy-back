@@ -15,7 +15,7 @@ export default class UserController {
     async getUser(request, response) {
         const userService = new UserService();
         try {
-            const getUser = await userService.getUser(request.body);
+            const getUser = await userService.getUser(request.params);
             if (getUser == null) {
                 return response.status(404).json({ msg: 'Usuário(s) não encontrado(s).', '_return': getUser})
             }
