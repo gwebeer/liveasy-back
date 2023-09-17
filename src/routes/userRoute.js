@@ -6,6 +6,6 @@ const routes = Router();
 routes.post('/user/register', (req, res) => new UserController().registerUser(req, res));  
 routes.get('/user/:id', (req, res) => new UserController().getUser(req, res));             
 routes.put('/user', (req, res) => new UserController().updateUser(req, res));          
-routes.delete('/user', (req, res) => new UserController().deleteUser(req, res));     
+routes.delete('/user/:id', (req, res) => new UserController().deleteUser(req, res));     
 
 export default routes;
