@@ -16,7 +16,7 @@ export default class UserController {
         const userService = new UserService();
         try {
             const getUser = await userService.getUser(request.body);
-            if (getUser.length == 0) {
+            if (getUser == null) {
                 return response.status(404).json({ msg: 'Usuário(s) não encontrado(s).', '_return': getUser})
             }
             return response.status(200).json(getUser);
@@ -39,7 +39,7 @@ export default class UserController {
         const userService = new UserService();
         try {
             const deleteUser = await userService.deleteUser(request.body);
-            if (deleteUser.length == 0) {
+            if (deleteUser == null) {
                 return response.status(404).json({ msg: 'O e-mail não está cadastrado.', '_return': deleteUser });
             } 
             return response.status(200).json(deleteUser);
@@ -81,7 +81,7 @@ export default class UserController {
         try {
             const userService = new UserService();
             const user = await userService.forgotPassword(request.body);
-            if (user.length == 0) {
+            if (user == null) {
                 return response.status(404).json({ msg: 'O e-mail não está cadastrado.' });
             } else {
                 if (user == false) {
