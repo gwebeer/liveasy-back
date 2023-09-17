@@ -38,7 +38,7 @@ export default class UserController {
     async deleteUser(request, response) {
         const userService = new UserService();
         try {
-            const deleteUser = await userService.deleteUser(request.body);
+            const deleteUser = await userService.deleteUser(request.params);
             if (deleteUser == null) {
                 return response.status(404).json({ msg: 'O e-mail não está cadastrado.', '_return': deleteUser });
             } 
@@ -68,6 +68,9 @@ export default class UserController {
             if (authenticateUser == null) {
                 return response.status(404).json({ msg: 'O e-mail informado não está cadastrado.' });
             }                
+            if (authenticateUser == 0) {
+                return response.status(403).json({ msg: 'Não foi possível encontrar um processo para esse usuário.'});
+            }
             if (authenticateUser == false) {
                 return response.status(401).json({ msg: "A senha informada está inválida." })
             }
