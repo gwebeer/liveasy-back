@@ -15,7 +15,7 @@ export default class ItemList {
     async getItemList(request, response) {
         try {
             const itemListService = new ItemListService();
-            const getItemList = await itemListService.getItemList(request.body);
+            const getItemList = await itemListService.getItemList(request.params);
             if (getItemList == null) {
                 return response.status(404).json({ "message": "Não foi(ram) encontrado(s) item(ns) personalizado(s).", "_return": getItemList });
             }
@@ -38,7 +38,7 @@ export default class ItemList {
     async deleteItemList(request, response) {
         try {
             const itemListService = new ItemListService();
-            const deleteItemList = await itemListService.deleteItemList(request.body);
+            const deleteItemList = await itemListService.deleteItemList(request.params);
             if (deleteItemList == null) {
                 return response.status(404).json({ "message": "Não foi encontrado item personalizado.", "_return": deleteItemList });
             }
