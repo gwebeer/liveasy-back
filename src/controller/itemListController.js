@@ -21,7 +21,7 @@ export default class ItemList {
             }
             return response.status(200).json(getItemList);
         } catch (error) {
-            return response.status(404).json({ error: error.message });
+            return response.status(400).json({ error: error.message });
         }
     }
     
