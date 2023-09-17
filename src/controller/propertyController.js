@@ -16,7 +16,7 @@ export default class Property {
     async getProperty(request, response) {
         try {
             const propertyService = new PropertyService();
-            const getProperty = await propertyService.getProperty(request.body);
+            const getProperty = await propertyService.getProperty(request.params);
             if (getProperty == null) {
                 return response.status(404).json({"message": "Não foram encontradas as propriedades.", "_return": getProperty});
             }
@@ -39,7 +39,7 @@ export default class Property {
     async deleteProperty(request, response) {
         try {
             const propertyService = new PropertyService();
-            const deleteProperty = await propertyService.deleteProperty(request.body);
+            const deleteProperty = await propertyService.deleteProperty(request.params);
             if (deleteProperty == null) {
                 return response.status(404).json({ 'message': 'Não foi possível excluir a propriedade.', '_return': deleteProperty })
             }

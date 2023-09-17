@@ -15,7 +15,7 @@ export default class PropertyItemController {
     async getPropertyItem(request, response) {
         try {
             const propertyItemService = new PropertyItemService();
-            const getPropertyItem = await propertyItemService.getPropertyItem(request.body);
+            const getPropertyItem = await propertyItemService.getPropertyItem(request.params);
             if (getPropertyItem == null) {
                 return response.status(404).json({ "message": "Não foi(ram) encontrado(s) o(s) item(ns) da propriedade.", "_return": getPropertyItem })
             }
@@ -38,7 +38,7 @@ export default class PropertyItemController {
     async deletePropertyItem(request, response) {
         try {
             const propertyItemService = new PropertyItemService();
-            const deletePropertyItem = await propertyItemService.deletePropertyItem(request.body);
+            const deletePropertyItem = await propertyItemService.deletePropertyItem(request.params);
             if (deletePropertyItem == null) {
                 return response.status(404).json({ "message": "Não foi possível excluir o item da propriedade.", "_return": deletePropertyItem });
             }

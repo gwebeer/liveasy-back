@@ -15,7 +15,7 @@ export default class CalendarReminderController {
     async getCalendarReminder(request, response) {
         try {
             const calendarReminderService = new CalendarReminderService();
-            const getCalendarReminder = await calendarReminderService.getCalendarReminder(request.body);
+            const getCalendarReminder = await calendarReminderService.getCalendarReminder(request.params);
             if (getCalendarReminder == null) {
                 return response.status(404).json({ "message": "Não foi(ram) encontrado(s) lembrete(s) no calendário.", "_return": getCalendarReminder });
             }
@@ -38,7 +38,7 @@ export default class CalendarReminderController {
     async deleteCalendarReminder(request, response) {
         try {
             const calendarReminderService = new CalendarReminderService();
-            const deleteCalendarReminder = await calendarReminderService.deleteCalendarReminder(request.body);
+            const deleteCalendarReminder = await calendarReminderService.deleteCalendarReminder(request.params);
             if (deleteCalendarReminder == null) {
                 return response.status(404).json({ "message": "Não foi encontrado lembrete no calendário.", "_return": deleteCalendarReminder });
             }

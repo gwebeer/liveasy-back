@@ -15,7 +15,7 @@ export default class Reason {
     async getReason(request, response) {
         try {
             const reasonService = new ReasonService();
-            const getReason = await reasonService.getReason(request.body);
+            const getReason = await reasonService.getReason(request.params);
             if (getReason == null) {
                 return response.status(404).json({ "message": "Não foi(ram) encontrada(s) a(s) razão(ões).", "_return": getReason });
             }
@@ -38,7 +38,7 @@ export default class Reason {
     async deleteReason(request, response) {
         try {
             const reasonService = new ReasonService();
-            const deleteReason = await reasonService.deleteReason(request.body); 
+            const deleteReason = await reasonService.deleteReason(request.params); 
             if (deleteReason == null) {
                 return response.status(404).json({ "message": "Não foi encontrada propriedade escolhida.", "_return": deleteReason });
             }

@@ -15,7 +15,7 @@ export default class SuggestionItem {
     async getSuggestionItem(request, response) {
         const suggestionItemService = new SuggestionItemService();
         try {
-            const getSuggestionItem = await suggestionItemService.getSuggestionItem(request.body);
+            const getSuggestionItem = await suggestionItemService.getSuggestionItem(request.params);
             if (getSuggestionItem == null) {
                 return response.status(404).json({ 'message': 'Não foi(ram) encontrado(s) o(s) item(ns) de sugestão.', '_return': getSuggestionItem });
             }
@@ -38,7 +38,7 @@ export default class SuggestionItem {
     async deleteSuggestionItem(request, response) {
         try {
             const suggestionItemService = new SuggestionItemService();
-            const deleteSuggestionItem = await suggestionItemService.deleteSuggestionItem(request.body);
+            const deleteSuggestionItem = await suggestionItemService.deleteSuggestionItem(request.params);
             if (deleteSuggestionItem == null) {
                 return response.status(404).json({ 'message': 'Não foi encontrado o item de sugestão.', '_return': deleteSuggestionItem });
             }

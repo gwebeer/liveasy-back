@@ -15,7 +15,7 @@ export default class IdealProperty {
     async getIdealProperty(request, response) {
         try {
             const idealPropertyService = new IdealPropertyService();
-            const getIdealProperty = await idealPropertyService.getIdealProperty(request.body);
+            const getIdealProperty = await idealPropertyService.getIdealProperty(request.params);
             if (getIdealProperty == null) {
                 return response.status(404).json({ "message": "Não foi(ram) encontrado(s) o(s) dado(s) da propriedade ideal.", "_return": getIdealProperty });
             }
@@ -38,7 +38,7 @@ export default class IdealProperty {
     async deleteIdealProperty(request, response) {
         try {
             const idealPropertyService = new IdealPropertyService();
-            const deleteIdealProperty = await idealPropertyService.deleteIdealProperty(request.body);
+            const deleteIdealProperty = await idealPropertyService.deleteIdealProperty(request.params);
             if (deleteIdealProperty == null) {
                 return response.status(404).json({ "message": "Não foi encontrado os dados da propriedade ideal.", "_return": deleteIdealProperty });
             }

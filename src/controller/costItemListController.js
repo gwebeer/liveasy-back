@@ -15,7 +15,7 @@ export default class CostItemList {
     async getCostItemList(request, response) {
         try {
             const costItemListService = new CostItemListService();
-            const getCostItemList = await costItemListService.getCostItemList(request.body);
+            const getCostItemList = await costItemListService.getCostItemList(request.params);
             if (getCostItemList == null) {
                 return response.status(404).json({ "message": "Não foram encontrados os planejamentos de custo.", "_return": getCostItemList });
             }
@@ -38,7 +38,7 @@ export default class CostItemList {
     async deleteCostItemList(request, response) {
         try {
             const costItemListService = new CostItemListService();
-            const deleteCostItemList = await costItemListService.deleteCostItemList(request.body);
+            const deleteCostItemList = await costItemListService.deleteCostItemList(request.params);
             if (deleteCostItemList == null) {
                 return response.status(404).json({ "message": "Não foi encontrado o item de planejamento de custo.", "_return": deleteCostItemList });
             }

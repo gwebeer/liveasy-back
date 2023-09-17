@@ -15,7 +15,7 @@ export default class Process {
     async getProcess(request, response) {
         try {
             const processService = new ProcessService();
-            const getProcess = await processService.getProcess(request.body);
+            const getProcess = await processService.getProcess(request.params);
             if (getProcess == null) {
                 return response.status(404).json({ "message": "Não foi(ram) encontrado(s) o(s) processo(s).", "_return": getProcess });
             }
@@ -38,7 +38,7 @@ export default class Process {
     async deleteProcess(request, response) {
         try {
             const processService = new ProcessService();
-            const deleteProcess = await processService.deleteProcess(request.body);
+            const deleteProcess = await processService.deleteProcess(request.params);
             if (deleteProcess == null) {
                 return response.status(404).json({ "message": "Não foi encontrado o processo.", "_return": deleteProcess });
             }
@@ -51,7 +51,7 @@ export default class Process {
     async getUserProcess(request, response) {
         try {
             const processService = new ProcessService();
-            const getUserProcess = await processService.getUserProcess(request.body);
+            const getUserProcess = await processService.getUserProcess(request.params);
             if (getUserProcess == null) {
                 return response.status(404).json({ "message": "Não foi encontrado o usuário do processo.", "_return": getUserProcess });
             }
