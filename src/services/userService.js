@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 
 import UserModel from '../models/userModel.js';
+import ProcessModel from '../models/processModel.js';
 
 export default class UserService {
 
@@ -65,12 +66,16 @@ export default class UserService {
         if (!checkPassword) {
             return false;
         }
+        const processes = await ProcessModel.find({ "user": authenticateUser._id, "status": { $ne: "Concluído"}})
+        if (processes == null) {
+            return 0
+        }
         const secret = process.env.SECRET_TOKEN
         const token = jwt.sign({
             id: authenticateUser._id,
-            type: authenticateUser.type
+            type: authenticateUser.type,
+            process: processes[0]._id
         }, secret)
-
         return token;
     }
 
