@@ -29,7 +29,18 @@ export default class UserController {
         const userService = new UserService();
         try {
             const updateUser = await userService.updateUser(request.body);
-            return response.status(200).json(updateUser);
+            
+            let infoCompare = {
+                name: updateUser.name == request.body.name,
+                email: updateUser.email == request.body.email,
+                birthDate: updateUser.birthDate == request.body.birthDate,
+                phone: updateUser.phone == request.body.phone,
+            }
+            if (!Object.values(infoCompare).includes(false)) {
+                return response.status(204).json({msg: "Nenhum dado foi alterado"});
+            } else {
+                return response.status(200).json(updateUser);
+            }
         } catch (error) {
             return response.status(400).json({ error: error.message });
         }
