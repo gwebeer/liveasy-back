@@ -1,12 +1,8 @@
-openapi: 3.1.0
+openapi: "3.0.0"
 info:
   title: LivEasy API Documentation
   description: This is the API documentation about LivEasy-BackEnd
   version: 1.0.0
-host: localhost:4000
-basePath: /
-schemes:
-  - http
 tags:
   - name: suggestionItemController
   - name: itemListController
@@ -380,36 +376,38 @@ paths:
           content:
             application/json:
               schema:
-                _id: 
-                  type: string
-                  example: 64de7268956dcb624aca8b41
-                user: 
-                  type: string
-                  example: 64da742da876e905b9b149a2
-                planningcostitem: 
-                  type: string
-                  example: ObjectId()
-                initialDate: 
-                  type: string
-                  example: '2023-07-21'
-                finalDate:
-                  type: string
-                  example: '2023-08-21'
-                repeat:
-                  type: boolean
-                  example: true
-                repeatEvery:
-                  type: number
-                  example: 30
-                createdAt: 
-                  type: string
-                  example: '2023-08-17T19:18:00.795Z'
-                updatedAt:
-                  type: string
-                  example: '2023-08-17T19:18:00.795Z'
-                __v: 
-                  type: number
-                  example: 0
+                type: object
+                properties:
+                  _id: 
+                    type: string
+                    example: 64de7268956dcb624aca8b41
+                  user: 
+                    type: string
+                    example: 64da742da876e905b9b149a2
+                  planningcostitem: 
+                    type: string
+                    example: ObjectId()
+                  initialDate: 
+                    type: string
+                    example: '2023-07-21'
+                  finalDate:
+                    type: string
+                    example: '2023-08-21'
+                  repeat:
+                    type: boolean
+                    example: true
+                  repeatEvery:
+                    type: number
+                    example: 30
+                  createdAt: 
+                    type: string
+                    example: '2023-08-17T19:18:00.795Z'
+                  updatedAt:
+                    type: string
+                    example: '2023-08-17T19:18:00.795Z'
+                  __v: 
+                    type: number
+                    example: 0
         '400':
           description: Bad Request
           content:
@@ -418,7 +416,7 @@ paths:
                 type: object
                 properties:
                   error:
-                    type:
+                    type: object
                     properties:
                       stringValue: 
                         type: string
@@ -436,7 +434,7 @@ paths:
                         type: string
                         example: _id
                       reason: 
-                        type: array
+                        type: object
                         properties: {}
                       name: 
                         type: string
@@ -656,8 +654,8 @@ paths:
                   updatedAt: 
                     type: string
                     example: '2023-08-17T17:56:38.273Z'
-                  __v: number
-                    type: 
+                  __v: 
+                    type: number
                     example: 0
         '400':
           description: Bad Request
@@ -726,7 +724,7 @@ paths:
                 type: object
                 properties:
                   error:
-                    type: 
+                    type: object
                     example: 
                       stringValue:
                         type: string
@@ -897,7 +895,7 @@ paths:
                 type: object
                 properties:
                   error:
-                    type: 
+                    type: object
                     example: 
                       stringValue:
                         type: string
@@ -1516,7 +1514,7 @@ paths:
                 type: object
                 properties:
                   error:
-                    type: 
+                    type: object
                     example: 
                       stringValue: 
                         type: string
@@ -1770,7 +1768,7 @@ paths:
                 type: object
                 properties:
                   error:
-                    type: 
+                    type: object
                     example: 
                       stringValue: 
                         type: string
@@ -2465,7 +2463,7 @@ paths:
                     type: boolean
                     example: false
                   isForRent:
-                    type: booleab
+                    type: boolean
                     example: true
                   value:
                     type: number
@@ -2791,7 +2789,7 @@ paths:
                     type: number
                     example: 1
                   infraestructure: 
-                    type: booleab
+                    type: boolean
                     example: true
                   furnished:
                     type: boolean
@@ -2957,7 +2955,7 @@ paths:
                     type: string
                     example: '2023-08-17T19:07:11.829Z'
                   updatedAt: 
-                    type: 
+                    type: string
                     example: '2023-08-17T19:07:11.829Z'
                   __v: 
                     type: string
@@ -3141,7 +3139,7 @@ paths:
                 type: object
                 properties:
                   error:
-                    type: 
+                    type: object
                     example:                 
                       stringValue:
                         type: string
@@ -3423,7 +3421,7 @@ paths:
                 type: object
                 properties:
                   _id: 
-                    type: 
+                    type: string
                     example: 64de6fdf956dcb624aca8b2f
                   type:
                     type: string
@@ -3662,12 +3660,14 @@ paths:
           content:
             application/json:
               schema:
-                id:
-                  type: string
-                  example: ''
-                email:
-                  type: string
-                  example: ''
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: ''
+                  email:
+                    type: string
+                    example: ''
       responses:
         '200':
           description: OK
