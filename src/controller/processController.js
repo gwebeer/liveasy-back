@@ -29,7 +29,10 @@ export default class Process {
         try {
             const processService = new ProcessService();
             const updateProcess = await processService.updateProcess(request.body);
-            return response.status(200).json(updateProcess);
+            if (updateProcess[1] == false) {
+                return response.status(204).json({msg: "Nenhum dado foi alterado"});
+            }
+            return response.status(200).json(updateProcess[0]);
         } catch (error) {
             return response.status(400).json({ error: error.message });
         }
