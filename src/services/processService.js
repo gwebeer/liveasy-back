@@ -35,7 +35,18 @@ export default class ProcessService {
     
     async updateProcess(data) {
         const updateProcess = await ProcessModel.findOneAndUpdate({ _id: data.id }, data);
-        return updateProcess;
+
+        let infoCompare = {
+            property: updateProcess.property == data.property,
+            status: updateProcess.status == data.status,
+            income: updateProcess.income == data.income,
+            budget: updateProcess.budget == data.budget,
+            movingDate: updateProcess.movingDate == data.movingDate
+        }
+        if (!Object.values(infoCompare).includes(false)) {
+            return (updateProcess, false);
+        } 
+        return (updateProcess, true);
     }
     
     async deleteProcess(data) {

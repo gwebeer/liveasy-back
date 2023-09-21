@@ -44,7 +44,17 @@ export default class UserService {
             data.password = await bcrypt.hash(data.password, 10);
         }
         const updateUser = await UserModel.findOneAndUpdate({ _id: data.id }, data);
-        return updateUser;
+        
+        let infoCompare = {
+            name: updateUser.name == data.name,
+            email: updateUser.email == data.email,
+            birthDate: updateUser.birthDate == data.birthDate,
+            phone: updateUser.phone == data.phone
+        }
+        if (!Object.values(infoCompare).includes(false)) {
+            return (updateUser, false);
+        } 
+        return (updateUser, true);
     }
 
     async deleteUser(data) {
