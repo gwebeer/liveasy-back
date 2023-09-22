@@ -29,6 +29,9 @@ export default class IdealProperty {
         try {
             const idealPropertyService = new IdealPropertyService();
             const updateIdealProperty = await idealPropertyService.updateIdealProperty(request.body);
+            if (updateIdealProperty[1] == false) {
+                return response.status(204).json({msg: "Nenhum dado foi alterado"});
+            }
             return response.status(200).json(updateIdealProperty);
         } catch (error) {
             return response.status(400).json({ error: error.message });
