@@ -71,10 +71,10 @@ export default class UserController {
             if (authenticateUser == null) {
                 return response.status(404).json({ msg: 'O e-mail informado não está cadastrado.' });
             }                
-            if (authenticateUser == 0) {
+            if (authenticateUser) {
                 return response.status(403).json({ msg: 'Não foi possível encontrar um processo para esse usuário.'});
             }
-            if (authenticateUser == false) {
+            if (!authenticateUser) {
                 return response.status(401).json({ msg: "A senha informada está inválida." })
             }
             return response.status(200).json({ msg: 'Login aprovado', token: authenticateUser });
