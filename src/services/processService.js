@@ -37,9 +37,7 @@ export default class ProcessService {
         const updateProcess = await ProcessModel.findOneAndUpdate({ _id: data.id }, data);
 
         let infoCompare = {
-            property: updateProcess.property == data.property,
-            status: updateProcess.status == data.status,
-            income: updateProcess.income == data.income,
+            income: updateProcess.income == data.income,    
             budget: updateProcess.budget == data.budget,
             movingDate: updateProcess.movingDate == data.movingDate
         }
