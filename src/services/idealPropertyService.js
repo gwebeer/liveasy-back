@@ -31,7 +31,22 @@ export default class IdealPropertyService {
 
     async updateIdealProperty(data) {
         const updateIdealProperty = await IdealPropertyModel.findOneAndUpdate({ _id : data.id }, data);
-        return updateIdealProperty;
+
+        let infoCompare = {
+            peopleLiving: updateIdealProperty.peopleLiving == data.peopleLiving,
+            type: updateIdealProperty.type == data.type,
+            rooms: updateIdealProperty.rooms == data.rooms,
+            bathrooms: updateIdealProperty.bathrooms == data.bathrooms,
+            parkingSpaces: updateIdealProperty.parkingSpaces == data.parkingSpaces,
+            infraestructure: updateIdealProperty.infraestructure == data.infraestructure,
+            furnished: updateIdealProperty.furnished == data.furnished,
+            priceRange: updateIdealProperty.priceRange == data.priceRange,
+            isForRent: updateIdealProperty.isForRent == data.isForRent
+        }
+        if (!Object.values(infoCompare).includes(false)) {
+            return [updateIdealProperty, false]
+        }
+        return [updateIdealProperty, true];
     }
 
     async deleteIdealProperty(data) {
