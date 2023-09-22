@@ -84,7 +84,7 @@ export default class UserService {
         const token = jwt.sign({
             id: authenticateUser._id,
             type: authenticateUser.type,
-            process: processes[0]._id
+            process: processes[0].id
         }, secret)
         return token;
     }
