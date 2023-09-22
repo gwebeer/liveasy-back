@@ -76,7 +76,7 @@ export default class UserService {
         if (!checkPassword) {
             return false;
         }
-        const processes = await ProcessModel.find({ "user": authenticateUser._id, "status": { $ne: "Concluído"}})
+        const processes = await ProcessModel.find({ "user": authenticateUser.id, "status": { $ne: "Concluído"}})
         if (processes == null) {
             return true
         }
