@@ -78,7 +78,7 @@ export default class UserService {
         }
         const processes = await ProcessModel.find({ "user": authenticateUser._id, "status": { $ne: "Concluído"}})
         if (processes == null) {
-            return 0
+            return true
         }
         const secret = process.env.SECRET_TOKEN
         const token = jwt.sign({
