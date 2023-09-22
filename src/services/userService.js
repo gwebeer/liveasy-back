@@ -52,9 +52,9 @@ export default class UserService {
             phone: updateUser.phone == data.phone
         }
         if (!Object.values(infoCompare).includes(false)) {
-            return (updateUser, false);
+            return [updateUser, false];
         } 
-        return (updateUser, true);
+        return [updateUser, true];
     }
 
     async deleteUser(data) {

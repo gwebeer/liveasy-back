@@ -42,9 +42,9 @@ export default class ProcessService {
             movingDate: updateProcess.movingDate == data.movingDate
         }
         if (!Object.values(infoCompare).includes(false)) {
-            return (updateProcess, false);
+            return [updateProcess, false];
         } 
-        return (updateProcess, true);
+        return [updateProcess, true];
     }
     
     async deleteProcess(data) {
