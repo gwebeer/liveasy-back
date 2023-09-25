@@ -26,7 +26,16 @@ export default class SuggestionItemService {
 
     async updateSuggestionItem(data) {        
         const updateSuggestionItem = await SuggestionItemModel.findOneAndUpdate({ _id: data.id }, data);
-        return updateSuggestionItem;
+        
+        let infoCompare = {
+            title: updateSuggestionItem.title == data.title,
+            category: updateSuggestionItem.category == data.category,
+            convenient: updateSuggestionItem.convenient == data.convenient
+        }
+        if (!Object.values(infoCompare).includes(false)) {
+            return [updateSuggestionItem, false]
+        }
+        return [updateSuggestionItem, true];
     }
 
     async deleteSuggestionItem(data) {        

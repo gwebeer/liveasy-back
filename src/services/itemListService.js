@@ -27,7 +27,21 @@ export default class ItemListService {
 
     async updateItemList(data) {
         const updateItemList = await ItemListModel.findOneAndUpdate({ _id: data.id }, data);
-        return updateItemList;
+
+        let infoCompare = {
+            convenient: updateItemList.convenient == data.convenient,
+            title: updateItemList.title == data.title,
+            category: updateItemList.category == data.category,
+            priority: updateItemList.priority == data.priority,
+            value: updateItemList.value == data.value,
+            bought: updateItemList.bought == data.bought,
+            valuePaid: updateItemList.valuePaid == updateItemList.valuePaid,
+            boughtDate: updateItemList.boughtDate == updateItemList.boughtDate
+        }
+        if (!Object.values(infoCompare).includes(false)) {
+            return [updateItemList, false];
+        }
+        return [updateItemList, true];
     }
 
     async deleteItemList(data) {

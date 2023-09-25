@@ -47,7 +47,17 @@ export default class CalendarReminderService {
 
     async updateCalendarReminder(data) {
         const updateCalendarReminder = await CalendarReminderModel.findOneAndUpdate({ _id : data.id }, data);
-        return updateCalendarReminder;
+
+        let infoCompare = {
+            initialDate: updateCalendarReminder.initialDate == data.initialDate,
+            finalDate: updateCalendarReminder.finalDate == data.finalDate,
+            repeat: updateCalendarReminder.repeat == data.repeat,
+            repeatEvery: updateCalendarReminder.repeatEvery == data.repeatEvery 
+        }
+        if (!Object.values(infoCompare).includes(false)) {
+            return [updateCalendarReminder, false]
+        }
+        return [updateCalendarReminder, true];
     }
 
     async deleteCalendarReminder(data) {

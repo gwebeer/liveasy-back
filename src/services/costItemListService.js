@@ -33,7 +33,16 @@ export default class CostItemListService {
 
     async updateCostItemList(data) {
         const updateCostItemList = await CostItemListModel.findOneAndUpdate({ _id : data.id }, data);
-        return updateCostItemList;
+
+        let infoCompare = {
+            title: updateCostItemList.title == data.title,
+            category: updateCostItemList.category == data.category,
+            value: updateCostItemList.value == data.value
+        }
+        if (!Object.values(infoCompare).includes(false)) {
+            return [updateCostItemList, false];
+        }
+        return [updateCostItemList, true];
     }
 
     async deleteCostItemList(data) {

@@ -35,7 +35,14 @@ export default class ReasonService {
 
     async updateReason(data) {
         const updateReason = await ReasonModel.findOneAndUpdate({ _id : data.id }, data);
-        return updateReason;
+
+        let infoCompare = {
+            reason: updateReason.reason == data.reason
+        }
+        if (!Object.values(infoCompare).includes(false)) {
+            return [updateReason, false]
+        }
+        return [updateReason, true];
     }
 
     async deleteReason(data) {        

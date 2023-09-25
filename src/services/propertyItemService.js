@@ -34,7 +34,16 @@ export default class PropertyItemService {
 
     async updatePropertyItem(data) {
         const updatePropertyItem = await PropertyItemModel.findOneAndUpdate({ _id: data.id }, data);
-        return updatePropertyItem;
+        
+        let infoCompare = {
+            title: updatePropertyItem.title == data.title,
+            category: updatePropertyItem.category == data.category,
+            convenient: updatePropertyItem.convenient == data.convenient
+        }
+        if (!Object.values(infoCompare).includes(false)) {
+            return [updatePropertyItem, false]
+        }
+        return [updatePropertyItem, true];
     }
 
     async deletePropertyItem(data) {
