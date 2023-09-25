@@ -29,7 +29,10 @@ export default class PropertyItemController {
         try {
             const propertyItemService = new PropertyItemService();
             const updatePropertyItem = await propertyItemService.updatePropertyItem(request.body);
-            return response.status(200).json(updatePropertyItem);
+            if (updatePropertyItem[1] == false) {
+                return response.status(204).json({ msg: "Nenhum dado foi alterado"});
+            }
+            return response.status(200).json(updatePropertyItem[0]);
         } catch (error) {
             return response.status(400).json({ error: error.message });
         }

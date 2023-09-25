@@ -13,8 +13,8 @@ export default class UserController {
     }
     
     async getUser(request, response) {
-        const userService = new UserService();
         try {
+            const userService = new UserService();
             const getUser = await userService.getUser(request.params);
             if (getUser == null) {
                 return response.status(404).json({ msg: 'Usuário(s) não encontrado(s).', '_return': getUser})
@@ -26,8 +26,8 @@ export default class UserController {
     }
 
     async updateUser(request, response) {
-        const userService = new UserService();
         try {
+            const userService = new UserService();
             const updateUser = await userService.updateUser(request.body);
             if (updateUser[1] == false) {
                 return response.status(204).json({msg: "Nenhum dado foi alterado"});
@@ -39,8 +39,8 @@ export default class UserController {
     }
 
     async deleteUser(request, response) {
-        const userService = new UserService();
         try {
+            const userService = new UserService();
             const deleteUser = await userService.deleteUser(request.params);
             if (deleteUser == null) {
                 return response.status(404).json({ msg: 'O e-mail não está cadastrado.', '_return': deleteUser });
@@ -52,8 +52,8 @@ export default class UserController {
     }
 
     async validateEmail(request, response) {
-        const userService = new UserService();
         try {
+            const userService = new UserService();
             const validateEmail = await userService.validateEmail(request.body);
             if (validateEmail == null){
                 return response.status(404).json({ msg: 'O e-mail não está cadastrado.', "_return": validateEmail });
@@ -65,8 +65,8 @@ export default class UserController {
     }
 
     async authenticateUser(request, response) {
-        const userService = new UserService();
         try {
+            const userService = new UserService();
             const authenticateUser = await userService.authenticateUser(request.body);
             if (authenticateUser === null) {
                 return response.status(404).json({ msg: 'O e-mail informado não está cadastrado.' });

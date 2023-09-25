@@ -29,6 +29,9 @@ export default class CostItemList {
         try {
             const costItemListService = new CostItemListService();
             const updateCostItemList = await costItemListService.updateCostItemList(request.body);
+            if (updateCostItemList[1] == false) {
+                return response.status(204).json({ msg: "Nenhum dado foi alterado" });
+            }
             return response.status(200).json(updateCostItemList);
         } catch (error) {
             return response.status(400).json({ error: error.message });

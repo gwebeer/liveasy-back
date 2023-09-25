@@ -29,6 +29,10 @@ export default class CalendarReminderController {
         try {
             const calendarReminderService = new CalendarReminderService();
             const updateCalendarReminder = await calendarReminderService.updateCalendarReminder(request.body);
+            
+            if (updateCalendarReminder[1] == false) {
+                return response.status(204).json({ msg: "Nenhum dado foi alterado" });
+            }
             return response.status(200).json(updateCalendarReminder);
         } catch (error) {
             return response.status(400).json({ error: error.message });

@@ -29,7 +29,10 @@ export default class SuggestionItem {
         try {
             const suggestionItemService = new SuggestionItemService();
             const updateSuggestionItem = await suggestionItemService.updateSuggestionItem(request.body);
-            return response.status(200).json(updateSuggestionItem);
+            if (updateSuggestionItem[1] == false) {
+                return response.status(204).json({msg: "Nenhum dado foi alterado"});
+            }
+            return response.status(200).json(updateSuggestionItem[0]);
         } catch (error) {
             return response.status(400).json({ error: error.message });
         }
