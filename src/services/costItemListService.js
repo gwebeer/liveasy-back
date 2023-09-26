@@ -14,7 +14,7 @@ export default class CostItemListService {
     } 
 
     async getCostItemList(data) {
-        if (data.id == "all") {
+        if (data.process == "all") {
             try {
                 const getCostItemLists = await CostItemListModel.find()
                 return getCostItemLists;
@@ -23,7 +23,7 @@ export default class CostItemListService {
             }
         } else {
             try {
-                const getCostItemList = await CostItemListModel.findOne({ _id: data.id });
+                const getCostItemList = await CostItemListModel.findOne({ process: data.process });
                 return getCostItemList;
             } catch (error) {
                 throw Error("Houve problema ao buscar o item de custo.");
