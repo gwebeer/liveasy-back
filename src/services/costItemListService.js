@@ -16,15 +16,15 @@ export default class CostItemListService {
     async getCostItemList(data) {
         if (data.process == "all") {
             try {
-                const getCostItemLists = await CostItemListModel.find()
+                const getCostItemLists = await CostItemListModel.find();
                 return getCostItemLists;
             } catch (error) {
                 throw Error("Houve problema ao buscar os itens de custo.");
             }
         } else {
             try {
-                const getCostItemList = await CostItemListModel.findOne({ process: data.process });
-                return getCostItemList;
+                const getCostItemLists = await CostItemListModel.find({ process: data.process });
+                return getCostItemLists;
             } catch (error) {
                 throw Error("Houve problema ao buscar o item de custo.");
             }
