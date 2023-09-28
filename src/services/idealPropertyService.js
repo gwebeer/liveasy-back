@@ -57,20 +57,11 @@ export default class IdealPropertyService {
     }
 
     async getIdealProperty(data) {
-        if (data.id == "all") {
-            try {
-                const getIdealProperties = await IdealPropertyModel.find();
-                return getIdealProperties;
-            } catch (error) {
-                throw Error("Houve um erro ao buscar as informações da propriedade ideal.");
-            }
-        } else {
-            try {
-                const getIdealProperty = await IdealPropertyModel.findOne({ _id: data.id });
-                return getIdealProperty;
-            } catch (error) {
-                throw Error("Houve um erro ao procurar as informações da propriedade ideal.");
-            }
+        try {
+            const getIdealProperty = await IdealPropertyModel.findOne({ user: data.user });
+            return getIdealProperty;
+        } catch (error) {
+            throw Error("Houve um erro ao procurar as informações da propriedade ideal.");
         }
     }
 
