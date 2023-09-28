@@ -3,61 +3,57 @@ import IdealPropertyModel from '../models/idealPropertyModel.js';
 export default class IdealPropertyService {
 
     async createIdealProperty(data) {      
-        try {
-            const idealPropertyExists = await IdealPropertyModel.find({
-                user: data.user
-            });
-            if (idealPropertyExists.length > 0) {
-                throw Error("A propriedade ideal já foi cadastrada para esse usuário.");
-            }
-            if (data.propertyType !== "apartament" && data.propertyType !== "house" && data.propertyType !== "loft") {
-                throw Error("O tipo da propriedade deve ser válido!")
-            }
-            if (data.bathrooms != "one-bathroom" &&
-                data.bathrooms != "two-bathrooms" &&
-                data.bathrooms != "more-bathrooms" ) {
-                throw Error("Os banheiros devem ser válidos!");
-            }
-            if (data.rooms != "one-room" &&
-                data.rooms != "two-rooms" &&
-                data.rooms != "more-rooms") {
-                throw Error("Os quartos devem ser válidos!")
-            }
-            if (data.parkingSpaces != "no-vehicle" &&
-                data.parkingSpaces != "one-vehicle" &&
-                data.parkingSpaces != "more-vehicles") {
-                throw Error("As vagas devem ser válidas!")
-            }
-    
-            if (data.bathrooms != "one-bathroom") {
-                data.bathrooms = 1
-            } else if (data.bathrooms != "two-bathrooms") {
-                data.bathrooms = 2
-            } else {
-                data.bathrooms = 3
-            }
-    
-            if (data.rooms != "one-room") {
-                data.rooms = 1
-            } else if (data.rooms != "two-room") {
-                data.rooms = 2
-            } else {
-                data.rooms = 3
-            }
-    
-            if (data.parkingSpaces != "no-vehicle") {
-                data.parkingSpaces = 0
-            } else if (data.parkingSpaces != "one-vehicle") {
-                data.parkingSpaces = 1
-            } else {
-                data.parkingSpaces = 2
-            }
-    
-            const idealProperty = await IdealPropertyModel.create(data);
-            return idealProperty;
-        } catch(error) {
-            throw Error("Houve um erro ao adicionar as informações da propriedade ideal.")
+        const idealPropertyExists = await IdealPropertyModel.find({
+            user: data.user
+        });
+        if (idealPropertyExists.length > 0) {
+            throw Error("A propriedade ideal já foi cadastrada para esse usuário.");
         }
+        if (data.propertyType !== "apartament" && data.propertyType !== "house" && data.propertyType !== "loft") {
+            throw Error("O tipo da propriedade deve ser válido!")
+        }
+        if (data.bathrooms != "one-bathroom" &&
+            data.bathrooms != "two-bathrooms" &&
+            data.bathrooms != "more-bathrooms" ) {
+            throw Error("Os banheiros devem ser válidos!");
+        }
+        if (data.rooms != "one-room" &&
+            data.rooms != "two-rooms" &&
+            data.rooms != "more-rooms") {
+            throw Error("Os quartos devem ser válidos!")
+        }
+        if (data.parkingSpaces != "no-vehicle" &&
+            data.parkingSpaces != "one-vehicle" &&
+            data.parkingSpaces != "more-vehicles") {
+            throw Error("As vagas devem ser válidas!")
+        }
+
+        if (data.bathrooms != "one-bathroom") {
+            data.bathrooms = 1
+        } else if (data.bathrooms != "two-bathrooms") {
+            data.bathrooms = 2
+        } else {
+            data.bathrooms = 3
+        }
+
+        if (data.rooms != "one-room") {
+            data.rooms = 1
+        } else if (data.rooms != "two-room") {
+            data.rooms = 2
+        } else {
+            data.rooms = 3
+        }
+
+        if (data.parkingSpaces != "no-vehicle") {
+            data.parkingSpaces = 0
+        } else if (data.parkingSpaces != "one-vehicle") {
+            data.parkingSpaces = 1
+        } else {
+            data.parkingSpaces = 2
+        }
+
+        const idealProperty = await IdealPropertyModel.create(data);
+        return idealProperty;
     }
 
     async getIdealProperty(data) {
