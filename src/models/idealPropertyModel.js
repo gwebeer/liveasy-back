@@ -9,7 +9,7 @@ const IdealPropertySchema = new mongoose.Schema({
     bathrooms: { type: Number, required: true },
     parkingSpaces: { type: Number, required: true },
     infraestructure: { type: Array, required: true },
-    furnished: { type: Boolean, required: true },
+    isFurnished: { type: Boolean, required: true },
     priceRange: { type: Number, required: false }
 }, { timestamps: {} });
 
