@@ -3,12 +3,31 @@ import IdealPropertyModel from '../models/idealPropertyModel.js';
 export default class IdealPropertyService {
 
     async createIdealProperty(data) {        
-        const idealPropertyExists = await IdealPropertyModel.find();
-        if (idealPropertyExists.length > 0) {
-            throw Error("A propriedade ideal já foi cadastrada.");
+        try {
+            const idealPropertyExists = await IdealPropertyModel.find();
+            if (idealPropertyExists.length > 0) {
+                throw Error("A propriedade ideal já foi cadastrada.");
+            }
+            if (data.bathrooms <= 0) {
+                throw Error("Deve existir pelo menos 1 banheiro!");
+            }
+            if (data.propertyType != "apartament" || 
+                data.propertyType != "house" || 
+                data.propertyType != "loft") {
+                throw Error("O tipo da propriedade deve ser válido!")
+            }
+            if (data.rooms <= 0) {
+                throw Error("Deve existir pelo menos 1 quarto!")
+            }
+            if (data.parkingSpaces < 0) {
+                throw Error("As vagas não podem ser negativas!")
+            }
+
+            const idealProperty = await IdealPropertyModel.create(data);
+            return idealProperty;
+        } catch (error) {
+            throw Error("Houve um erro ao adicionar uma propriedade ideal");
         }
-        const idealProperty = await IdealPropertyModel.create(data);
-        return idealProperty;
     }
 
     async getIdealProperty(data) {
