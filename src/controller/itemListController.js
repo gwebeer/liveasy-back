@@ -36,7 +36,7 @@ export default class ItemList {
                 return response.status(200).json(updateItemList[0]);
             }
             else {
-                return response.status(200).json(updateItemList[0]);
+                return response.status(404).json(updateItemList[0]);
             }
         } catch (error) {
             return response.status(400).json({ error: error.message });
