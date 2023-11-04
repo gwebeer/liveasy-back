@@ -29,7 +29,7 @@ export default class ItemListService {
         const updateItemList = await ItemListModel.findOneAndUpdate({ _id: data.id }, data);
 
         let infoCompare = {
-            convenient: updateItemList.convenient == data.convenient,
+            // convenient: updateItemList.convenient == data.convenient,
             title: updateItemList.title == data.title,
             category: updateItemList.category == data.category,
             priority: updateItemList.priority == data.priority,
