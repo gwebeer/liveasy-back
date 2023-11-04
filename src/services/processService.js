@@ -4,12 +4,6 @@ export default class ProcessService {
 
     async createProcess(data) {        
         const processExists = await ProcessModel.find();
-        // if (processExists.length > 0) {
-        //     throw Error("Esse processo já existe.");
-        // }
-        // criar uma função pra validar se a data de mudança é maior que
-        // o dia atual (buscar função de datetime)
-        // if (data.movingDate < data_atual) {}
 
         const createProcess = await ProcessModel.create(data);
         return createProcess;
