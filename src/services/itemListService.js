@@ -38,10 +38,10 @@ export default class ItemListService {
             valuePaid: updateItemList.valuePaid == updateItemList.valuePaid,
             boughtDate: updateItemList.boughtDate == updateItemList.boughtDate
         }
-        if (!Object.values(infoCompare).includes(false)) {
-            return [updateItemList, false];
+        if (Object.values(infoCompare).includes(false)) {
+            return [updateItemList, true];
         }
-        return [updateItemList, true];
+        return [updateItemList, false];
     }
 
     async deleteItemList(data) {
