@@ -29,10 +29,15 @@ export default class ItemList {
         try {
             const itemListService = new ItemListService();
             const updateItemList = await itemListService.updateItemList(request.body);
-            if (updateItemList[1] == false) {
+            if (updateItemList[1] === false) {
                 return response.status(204).json({ msg: "Nenhum dado foi alterado"});
             }
-            return response.status(200).json(updateItemList[0]);
+            else if (updateItemList[1] === true) {
+                return response.status(200).json(updateItemList[0]);
+            }
+            else {
+                return response.status(404).json(updateItemList[0]);
+            }
         } catch (error) {
             return response.status(400).json({ error: error.message });
         }
