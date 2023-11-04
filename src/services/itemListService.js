@@ -27,7 +27,7 @@ export default class ItemListService {
 
     async updateItemList(data) {
         const updateItemList = await ItemListModel.findOneAndUpdate({ _id: data.id }, data);
-
+        
         if (!updateItemList) {
             return [updateItemList, null];
         }
