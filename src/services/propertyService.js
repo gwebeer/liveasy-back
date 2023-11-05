@@ -3,14 +3,7 @@ import PropertyModel from '../models/propertyModel.js';
 export default class PropertyService {
 
     async createProperty(data) {    
-        const propertyExists = await PropertyModel.find({
-            name: data.name,
-            address: data.address,
-            zipCode: data.zipCode
-        });
-        if (propertyExists.length > 0) {
-            throw Error("Essa propriedade já existe.");
-        }
+        const propertyExists = await PropertyModel.find();
         const createProperty = await PropertyModel.create(data);
         return createProperty; 
     }
