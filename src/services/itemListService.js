@@ -52,4 +52,9 @@ export default class ItemListService {
         const deleteItemList = await ItemListModel.findOneAndDelete({ _id: data.id });
         return deleteItemList;
     }
+
+    async getItensNotBought(data) {
+        const itensNotBought = await ItemListModel.find({ process: data.process, bought: {"$in": false}});
+        return itensNotBought;
+    }
 }
