@@ -4,7 +4,7 @@ import CalendarReminderController from '../controller/calendarReminderController
 const routes = Router();
 
 routes.post('/user/calendar/reminder/add', (req, res) => new CalendarReminderController().createCalendarReminder(req, res));    
-routes.get('/user/calendar/reminder/:id', (req, res) => new CalendarReminderController().getCalendarReminder(req, res));
+routes.get('/user/calendar/reminder/:user', (req, res) => new CalendarReminderController().getCalendarReminder(req, res));
 routes.put('/user/calendar/reminder', (req, res) => new CalendarReminderController().updateCalendarReminder(req, res));
 routes.delete('/user/calendar/reminder/:id', (req, res) => new CalendarReminderController().deleteCalendarReminder(req, res));
 
