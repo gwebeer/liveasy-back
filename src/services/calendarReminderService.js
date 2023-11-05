@@ -22,20 +22,11 @@ export default class CalendarReminderService {
     }
 
     async getCalendarReminder(data) {
-        if (data.id == "all") {
-            try {
-                const getCalendarReminders = await CalendarReminderModel.find();
-                return getCalendarReminders;
-            } catch (error) {
-                throw Error('Houve problema ao buscar os lembretes do calendário.');
-            }
-        } else {
-            try {
-                const getCalendarReminder = await CalendarReminderModel.findOne({ _id: data.id });
-                return getCalendarReminder;
-            } catch (error) {
-                throw Error('Houve problema ao buscar o lembrete do calendário.');
-            }
+        try {
+            const getCalendarReminders = await CalendarReminderModel.find({ _id: data.id });
+            return getCalendarReminders;
+        } catch (error) {
+            throw Error('Houve problema ao buscar os lembretes do calendário.');
         }
     }
 
