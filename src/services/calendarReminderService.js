@@ -23,7 +23,7 @@ export default class CalendarReminderService {
 
     async getCalendarReminder(data) {
         try {
-            const getCalendarReminders = await CalendarReminderModel.find({ _id: data.id });
+            const getCalendarReminders = await CalendarReminderModel.find({ user: data.user });
             return getCalendarReminders;
         } catch (error) {
             throw Error('Houve problema ao buscar os lembretes do calendário.');
