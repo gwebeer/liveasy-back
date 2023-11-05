@@ -3,28 +3,22 @@ import CalendarReminderModel from "../models/calendarReminderModel.js";
 export default class CalendarReminderService {
 
     async createCalendarReminder(data) {
-        if (!data.hasOwnProperty("finalDate")) {
-            if (data.repeat == true && data.hasOwnProperty("repeatEvery") || 
-                data.repeat == false && !data.hasOwnProperty("repeatEvery")) {
+        if (data.hasOwnProperty("end")) {
+            const initialDate = Date.parse(data.start);
+            const finalDate = Date.parse(data.end);
+
+            if (finalDate >= initialDate) {
                 const createCalendarReminder = await CalendarReminderModel.create(data);
                 return createCalendarReminder;
+            } else {
+                throw Error("A data final deve ser maior que a data inicial.")
             }
-            if (data.repeat == true && !data.hasOwnProperty("repeatEvery")) {
-                throw Error("Não é possível criar um lembrete com repetição sem indicar suas repetições.");
-            }            
-            if (data.repeat == false && data.hasOwnProperty("repeatEvery")) {
-                throw Error("Não é possível criar um lembrete sem repetição indicando suas repetições.");
-            }
-            throw Error("Não foi possível criar o lembrete.");
         } 
-        const initialDate = Date.parse(data.initialDate);
-        const finalDate = Date.parse(data.finalDate);
-
-        if (finalDate > initialDate) {
-            const createCalendarReminder = await CalendarReminderModel.create(data);
-            return createCalendarReminder;
-        } 
-        throw Error("A data final deve ser maior que a data inicial.")
+        if (title.length === "") {
+            throw Error("Não é possível criar um lembrete sem nome.")
+        }
+        const createCalendarReminder = await CalendarReminderModel.create(data);
+        return createCalendarReminder;
     }
 
     async getCalendarReminder(data) {
