@@ -24,6 +24,19 @@ export default class ItemList {
             return response.status(400).json({ error: error.message });
         }
     }
+
+    async getAllItemList(request, response) {
+        try {
+            const itemListService = new ItemListService();
+            const getAllItemList = await itemListService.getAllItemList(request.params);
+            if (getAllItemList == null) {
+                return response.status(404).json({ "message": "Não foram encontrados itens personalizados.", "_return": getAllItemList });
+            }
+            return response.status(200).json(getAllItemList);
+        } catch (error) {
+            return response.status(400).json({ error: error.message });
+        }
+    }
     
     async updateItemList(request, response) {
         try {
