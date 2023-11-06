@@ -25,6 +25,15 @@ export default class ItemListService {
         }
     }
 
+    async getAllItemList(data) {
+        try {
+            const getAllItemLists = await ItemListModel.find();
+            return getAllItemLists;
+        } catch (error) {
+            throw Error("Houve problema ao buscar todos os itens personalizados.");
+        }
+    }
+
     async updateItemList(data) {
         const updateItemList = await ItemListModel.findOneAndUpdate({ _id: data.id }, data);
         
