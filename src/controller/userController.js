@@ -98,7 +98,7 @@ export default class UserController {
                 return response.status(200);
             }
         } catch (error) {
-            console.log('Erro ao pesquisar o e-mail:', error);
+            // console.log('Erro ao pesquisar o e-mail:', error);
             return response.status(400).json({ error: error.message });
         }
     }
