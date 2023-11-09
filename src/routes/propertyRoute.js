@@ -8,4 +8,5 @@ routes.get('/property/:id', (req, res) => new PropertyController().getProperty(r
 routes.put('/property', (req, res) => new PropertyController().updateProperty(req, res));     
 routes.delete('/property/:id', (req, res) => new PropertyController().deleteProperty(req, res));  
 
+routes.get('/property/score/:user', (req, res) => new PropertyController().getUserPropertiesScoreByAscending(req, res))
 export default routes;
