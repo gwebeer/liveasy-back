@@ -17,7 +17,7 @@ export default class Dashboard {
                 const getDashboard = await Dashboard.find()
                 return response.status(200).json(getDashboard);
             } catch (error) {
-                console.log("Erro ao obter todos os Dashboards", error)
+                // console.log("Erro ao obter todos os Dashboards", error)
                 return response.status(400).json({ error });
             }
         } else {
@@ -25,7 +25,7 @@ export default class Dashboard {
                 const getDashboard = await Dashboard.findOne({ _id: request.params.id })
                 return response.status(200).json(getDashboard);
             } catch (error) {
-                console.log("Erro ao obter os detalhes do Dashboard", error)
+                // console.log("Erro ao obter os detalhes do Dashboard", error)
                 return response.status(400).json({ error });
             }
         }
@@ -37,7 +37,7 @@ export default class Dashboard {
                 const updateDashboard = await Dashboard.findOneAndUpdate({ _id: request.params.value }, request.body);
                 return response.status(200).json(updateDashboard);
             } catch (error) {
-                console.log("Erro ao atualizar o Dashboard na coleção Dashboard", error);
+                // console.log("Erro ao atualizar o Dashboard na coleção Dashboard", error);
                 return response.status(400).json({ error });
             }
         }
@@ -47,7 +47,7 @@ export default class Dashboard {
                 const updateDashboard = await Dashboard.findOneAndUpdate({ user: request.params.value }, request.body)
                 return response.status(200).json(updateDashboard);
             } catch (error) {
-                console.log("Erro ao atualizar o Dashboard na coleção Dashboard", error)
+                // console.log("Erro ao atualizar o Dashboard na coleção Dashboard", error)
                 return response.status(400).json({ error });
             }
         }
@@ -56,7 +56,7 @@ export default class Dashboard {
             const updateDashboard = await Dashboard.findOneAndUpdate({ _id : request.params.id }, request.body);
             return response.status(200).json(updateDashboard);
         } catch (error) {
-            console.log("Erro ao atualizar o Dashboard na coleção Dashboard", error)
+            // console.log("Erro ao atualizar o Dashboard na coleção Dashboard", error)
             return response.status(400).json({ error });
         }
     }
@@ -66,7 +66,7 @@ export default class Dashboard {
             const deleteDashboard = await Dashboard.findOneAndDelete({ _id: request.params.id });
             return response.status(200).json(deleteDashboard);
         } catch (error) {
-            console.log("Erro ao deletar o Dashboard na coleção Dashboard", error);
+            // console.log("Erro ao deletar o Dashboard na coleção Dashboard", error);
             return response.status(400).json({ error });
         }
     }
