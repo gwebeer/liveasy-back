@@ -4,6 +4,7 @@ export default class ItemListService {
 
     async createItemList(data) {
         const itemListExists = await ItemListModel.find({
+            process: data.process,
             title: data.title,
             category: data.category,
             convenient: data.convenient
