@@ -19,7 +19,7 @@ export default class CalendarReminderController {
             if (getCalendarReminder == []) {
                 return response.status(404).json({ "message": "Não foi(ram) encontrado(s) lembrete(s) no calendário.", "_return": getCalendarReminder });
             }
-            console.log(getCalendarReminder);
+            // console.log(getCalendarReminder);
             return response.status(200).json(getCalendarReminder);
         } catch (error) {
             return response.status(400).json({ error: error.message });
