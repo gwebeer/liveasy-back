@@ -30,10 +30,11 @@ export default class Property {
         try {
             const propertyService = new PropertyService();
             const updateProperty = await propertyService.updateProperty(request.body);
-            if (updateProperty[1] == false) {
-                return response.status(204).json({ msg: "Nenhum dado foi alterado"});
-            }
-            return response.status(200).json(updateProperty[0]);
+            // if (updateProperty[1] == false) {
+            //     return response.status(204).json({ msg: "Nenhum dado foi alterado"});
+            // }
+            // return response.status(200).json(updateProperty[0]);
+            return response.status(200).json(updateProperty);
         } catch (error) {
             return response.status(400).json({ error: error.message });
         }
