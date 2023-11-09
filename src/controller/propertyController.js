@@ -30,11 +30,10 @@ export default class Property {
         try {
             const propertyService = new PropertyService();
             const updateProperty = await propertyService.updateProperty(request.body);
-            // if (updateProperty[1] == false) {
-            //     return response.status(204).json({ msg: "Nenhum dado foi alterado"});
-            // }
-            // return response.status(200).json(updateProperty[0]);
-            return response.status(200).json(updateProperty);
+            if (updateProperty[1] == false) {
+                return response.status(204).json({ msg: "Nenhum dado foi alterado"});
+            }
+            return response.status(200).json(updateProperty[0]);
         } catch (error) {
             return response.status(400).json({ error: error.message });
         }
@@ -50,6 +49,16 @@ export default class Property {
             return response.status(200).json(deleteProperty);
         } catch (error) {
             return response.status(400).json({ error: error.message });
+        }
+    }
+
+    async getUserPropertiesScoreByAscending(request, response) {
+        try {   
+            const propertyService = new PropertyService();
+            const userPropertiesScoreByAscending = await propertyService.getUserPropertiesScoreByAscending(request.params);
+            return response.status(200).json(userPropertiesScoreByAscending)
+        } catch (error) {
+            return response.status(400).json({ error: error.message})
         }
     }
 }
